@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html ng-app="core">
+<head>
+	<title>Trekkinn by Georazzi</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/index.css">
+<body>
+
+	<!-- Navigation -->
+			<nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+		<div class="container">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header page-scroll">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Menü Aç/Kapa</span> <i class="fa fa-bars"></i>
+				</button>
+				<a class="navbar-brand" href="#page-top">TABİATTA</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="hidden">
+						<a href="#page-top"></a>
+					</li>
+					<li class="page-scroll">
+						<a href="#tracks">Rotalar</a>
+					</li>
+					<li class="page-scroll">
+						<a href="#about">Hakkında</a>
+					</li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container-fluid -->
+	</nav>
+
+	<!-- Header -->
+	<header-directive></header-directive>
+
+	<!-- tracks grid section -->
+	<section id="tracks">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>rotalar</h2>
+					<hr class="star-primary">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="track-card" style=";">
+						<a href="/getaways/Istanbul?destination=Belgrade" data-id="Belgrade">
+							<div class="track-container">
+								<div class="track-title">
+									<div class="h2">
+										<strong>
+											Ihlara
+										</strong>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="track-card track-card2">
+						<a href="/getaways/Istanbul?destination=Belgrade" data-id="Belgrade">
+							<div class="track-container">
+								<div class="track-title">
+									<div class="h2">
+										<strong>
+											Bergamot
+										</strong>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="track-card track-card3">
+						<a href="/getaways/Istanbul?destination=Belgrade"data-id="Belgrade">
+							<div class="track-container">
+								<div class="track-title">
+									<div class="h2">
+										<strong>
+											Kızılcahamam
+										</strong>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- About Section -->
+	<section class="success" id="about">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2>Hakkında</h2>
+					<hr class="star-light">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-lg-offset-2">
+					<p>Lorem Ipsum pasajlarının birçok çeşitlemesi vardır. Ancak bunların büyük bir çoğunluğu mizah katılarak veya rastgele sözcükler eklenerek değiştirilmişlerdir. Eğer bir Lorem Ipsum pasajı kullanacaksanız, metin aralarına utandırıcı sözcükler gizlenmediğinden emin olmanız gerekir. İnternet'teki tüm Lorem Ipsum üreteçleri önceden belirlenmiş.	
+					</p>
+				</div>
+				<div class="col-lg-4">
+					<p>1500'lerden beri kullanılmakta olan standard Lorem Ipsum metinleri ilgilenenler için yeniden üretilmiştir. Çiçero tarafından yazılan 1.10.32 ve 1.10.33 bölümleri de 1914 H. Rackham çevirisinden alınan İngilizce sürümleri eşliğinde özgün biçiminden yeniden üretilmiştir.</p>
+				</div>
+				<div class="col-lg-8 col-lg-offset-2 text-center">
+					<a href="#" class="btn btn-lg btn-outline">
+						<i class="fa fa-download"></i> Download Theme
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Contact Section -->
+
+
+	<!-- Footer -->
+	<footer-directive></footer-directive>
+
+		<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+		<div class="scroll-top page-scroll hidden-sm hidden-xs hidden-lg hidden-md">
+			<a class="btn btn-primary" href="#page-top">
+				<i class="fa fa-chevron-up"></i>
+			</a>
+		</div>
+
+		<!-- tracks Modals -->
+		<div class="tracks-modal modal fade" id="tracksModal1" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-content">
+				<div class="close-modal" data-dismiss="modal">
+					<div class="lr">
+						<div class="rl">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<!-- <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script> -->
+
+
+		<script type="text/javascript" src="ext/freelancer.js"></script>
+		<script type="text/javascript" src="dist/js/components.js"></script>
+
+	</body>
+	</html>

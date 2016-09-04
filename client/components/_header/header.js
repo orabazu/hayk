@@ -10,9 +10,7 @@ function headerDirective() {
     var directive = {
         restrict: 'EA',
         templateUrl: '../../components/_header/header.html',
-        // scope: {
-        //     max: '='
-        // },
+        scope: {},
         controller: HeaderController,
         controllerAs: 'vm',
         bindToController: true
@@ -21,9 +19,11 @@ function headerDirective() {
     return directive;
 }
 
-function HeaderController() {
+function HeaderController($scope,$state) {
     var vm = this;
-    vm.min = 3;
-    console.log('CTRL: vm.min = %s', vm.min);
-    console.log('CTRL: vm.max = %s', vm.max);
+    vm.search = function(){
+        console.log('sdasd');
+        $state.go('layout', {term: vm.elma})
+    }   
+
 }

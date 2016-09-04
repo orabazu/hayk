@@ -23,12 +23,7 @@
         $('.navbar-toggle:visible').click();
     });
 
-    // Offset for Main Navigation
-    $('#mainNav').affix({
-        offset: {
-            top: 100
-        }
-    })
+
 
     // Floating label headings for the contact form
     $(function() {
@@ -42,3 +37,7 @@
     });
 
 })(jQuery); // End of use strict
+
+window.setAffix = function(){
+
+}

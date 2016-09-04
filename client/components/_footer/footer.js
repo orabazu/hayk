@@ -5,7 +5,7 @@
 angular
     .module('core')
     .directive('footerDirective', footerDirective);
-
+   
 function footerDirective() {
     var directive = {
         restrict: 'EA',

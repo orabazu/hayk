@@ -1,0 +1,117 @@
+.side-menu{
+	position: absolute;
+	background: coral;
+	height: calc(100% - 51px);
+	left: 0;
+	top:51px;
+	width: 60%;
+	padding-left: 0.5em;
+	padding-top: 0.3em;
+}
+
+.data-viz {
+	position: absolute;
+    width: 40%;
+    height: calc(100% - 51px);
+    background: darkorchid;
+    top: 51px;
+    left: 60%;
+}
+
+ .navbar-search-mobile {
+    color: white;
+    display: block;
+    width: 200px;
+    height: 32px;
+    float: initial;
+    padding: 7px 3px;
+    margin: auto;
+ }
+
+ .mobile-menu {
+ 	position: absolute;
+    left: 10px;
+    top: 7px;
+ }
+ footer {
+ 	color: white;
+ }
+ footer h3 {
+ 	margin-bottom: 30px;
+ }   
+ footer .footer-above {
+ 	padding-top: 50px;
+ 	background-color: #2C3E50;
+ }
+ footer .footer-col { 
+ 	margin-bottom: 50px;
+ }
+ footer .footer-below {
+ 	padding: 25px 0;
+ 	background-color: #233140;
+ }
+
+ header {
+ 	background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
+ 	text-align: center;
+ 	color: white;
+ 	height: 443px;
+ 	background-size: cover;
+ 	position: relative;
+ }
+ header .container {
+ 	padding-top: 100px;
+ 	padding-bottom: 50px;
+ }
+ header img {
+ 	display: block;
+ 	margin: 0 auto 20px;
+ }
+ header .intro-text .name {
+ 	display: block;
+ 	font-family: 'Josefin Sans', sans-serif;
+ 	font-weight: 700;
+ 	font-size: 2.5em;
+ }
+
+ header .intro-text .skills {
+ 	padding-top: 20px;
+ 	font-size: 1.25em;
+ 	font-weight: 300;
+ }
+
+ .skills-wrapper {
+ 	background: rgba();
+ }
+
+
+ @media (min-width: 768px) {
+ 	header {   
+ 		height: 700px;
+ 	}
+ 	header .container {
+ 		padding-top: 200px;
+ 		padding-bottom: 100px;
+ 	}
+ 	header .intro-text .name {
+ 		font-size: 4.75em;
+ 	}
+ 	header .intro-text .skills {
+ 		font-size: 1.75em;
+ 	}
+ }
+
+  .headline {
+ 	background-image: url(../../img/the-narrows.jpg);
+ 	background-size: cover;
+ 	background-position: center;
+ }
+
+  .intro-text-footer {
+    position: absolute;
+    bottom: 0;
+    margin: 0px;
+    width: 100%;
+    background: rgba(38, 44, 44, 0.7);
+    padding: 15px;
+ }

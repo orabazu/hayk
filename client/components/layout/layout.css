@@ -1,0 +1,35 @@
+.side-menu{
+	position: absolute;
+	background: coral;
+	height: calc(100% - 51px);
+	left: 0;
+	top:51px;
+	width: 60%;
+	padding-left: 0.5em;
+	padding-top: 0.3em;
+}
+
+.data-viz {
+	position: absolute;
+    width: 40%;
+    height: calc(100% - 51px);
+    background: darkorchid;
+    top: 51px;
+    left: 60%;
+}
+
+ .navbar-search-mobile {
+    color: white;
+    display: block;
+    width: 200px;
+    height: 32px;
+    float: initial;
+    padding: 7px 3px;
+    margin: auto;
+ }
+
+ .mobile-menu {
+ 	position: absolute;
+    left: 10px;
+    top: 7px;
+ }

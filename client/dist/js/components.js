@@ -1,36 +1,23 @@
-angular.module('core', [])
-    .config(function() { // provider-injector
 
-    })
-    .run(function() { // instance-injector
+angular.module('core', ['ui.router'])
+    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$locationProvider) { // provider-injector
+        // $locationProvider.html5Mode(true);
+        $urlRouterProvider.when('', '/');
+    	$stateProvider.state('defaultState', {
+    		url: '/',
+    		templateUrl: '../../components/_landing/landing.html'
+    	});
 
-    });
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('core')
-    .directive('navDirective', navDirective);
-
-function navDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/_nav/nav.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: NavController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function NavController() {
-    var vm = this;
-}
+    	var layoutState = {
+    		name: 'layout',
+    		url: '/a/{term}',
+    		templateUrl: 'components/layout/layout.html'
+    	}   ; 	
+    	$stateProvider.state(layoutState);
+    }])
+    .run(["$state", function($state) { // instance-injector
+    	console.log($state);
+    }]);
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -38,7 +25,7 @@ function NavController() {
 angular
     .module('core')
     .directive('footerDirective', footerDirective);
-
+   
 function footerDirective() {
     var directive = {
         restrict: 'EA',
@@ -69,9 +56,7 @@ function headerDirective() {
     var directive = {
         restrict: 'EA',
         templateUrl: '../../components/_header/header.html',
-        // scope: {
-        //     max: '='
-        // },
+        scope: {},
         controller: HeaderController,
         controllerAs: 'vm',
         bindToController: true
@@ -80,9 +65,11 @@ function headerDirective() {
     return directive;
 }
 
-function HeaderController() {
+function HeaderController($scope,$state) {
     var vm = this;
-    vm.min = 3;
-    console.log('CTRL: vm.min = %s', vm.min);
-    console.log('CTRL: vm.max = %s', vm.max);
+    vm.search = function(){
+        console.log('sdasd');
+        $state.go('layout', {term: vm.elma})
+    }   
+
 }

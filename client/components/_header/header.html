@@ -16,9 +16,9 @@
 			<div class="intro-text-footer">
 				<form class="">
 					<div class="input-group main-search">
-						<input type="text" class="form-control " placeholder="Örn: Saklıkent Kanyonu">
+						<input type="text" class="form-control " placeholder="Örn: Saklıkent Kanyonu" ng-model="vm.elma">
 						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">ARA</button>
+							<button class="btn btn-info" type="button" ng-click="vm.search()">ARA</button>
 						</span>
 					</div><!-- /input-group -->
 				</form>

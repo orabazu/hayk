@@ -3,7 +3,7 @@
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('core')
+    .module('app.header',[])
     .directive('headerDirective', headerDirective);
 
 function headerDirective() {

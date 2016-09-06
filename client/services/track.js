@@ -1,4 +1,6 @@
-function trackService() {
+function trackService($http) {
+    var endpoint = 'http:localhost:8080/'
+
 	var service = {
 		getTrack: getTrack,
 	};
@@ -8,13 +10,16 @@ function trackService() {
 
     function getTrack() {
     	return $http({
-    		method: 'POST',
+    		method: 'GET',
     		url: 'api/tracks',
+            headers: {
+               'content-type': 'application/json; charset=utf-8'
+            }
     	})
     };
+ 
 
-
-}
+} 
 angular
-.module('core')
+.module('app.trackService', [])
 .factory('trackService', trackService);

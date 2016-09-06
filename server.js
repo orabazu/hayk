@@ -11,10 +11,12 @@ app.use(bodyParser.json());
 var router = express.Router();
 // middleware is on
 router.use(function(req, res, next) {
+    console.log(req)
 	console.log('middleware is handling things');
     next(); // make sure we go to the next routes
 });
 
+var report;
 
 // route for paths
 router.route('/tracks')
@@ -98,9 +100,10 @@ router.route('/tracks')
 
     router.route('/tracks/:id')
     
-    // get all the users (accessed at GET http://localhost:8080/api/bears)
+    // get all the users (accessed at GET http://localhost:8080/api/ bears)
     .get(function(req, res) {
 
+        report = req;
     	var track = {
     		"type": "FeatureCollection",
     		"properties": {

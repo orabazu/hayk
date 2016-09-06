@@ -1,19 +1,26 @@
-angular.module('core', ['ui.router'])
+angular.module('app.core', [
+    'app.header',
+    'app.footer',
+    'app.layout',
+    'app.trackService',
+    'ui.router'
+    ])
     .config(function($stateProvider,$urlRouterProvider,$locationProvider) { // provider-injector
         // $locationProvider.html5Mode(true);
         $urlRouterProvider.when('', '/');
-    	$stateProvider.state('defaultState', {
-    		url: '/',
-    		templateUrl: '../../components/landing/landing.html'
-    	});
-
-    	var layoutState = {
-    		name: 'layout',
-    		url: '/a/{term}',
-    		templateUrl: 'components/layout/layout.html'
-    	}   ; 	
-    	$stateProvider.state(layoutState);
-    })
+        var defaultState = {
+            name: 'defaultState',
+            url: '/',
+            templateUrl: '../../components/landing/landing.html'
+        };
+    $stateProvider.state(defaultState);
+        var layoutState = {
+          name: 'layout',
+          url: '/a/{term}',
+          template: '<layout-directive></layout-directive>'
+        }; 	
+    $stateProvider.state(layoutState);
+  })
     .run(function($state) { // instance-injector
-    	console.log($state);
+    	// console.log($state);
     });

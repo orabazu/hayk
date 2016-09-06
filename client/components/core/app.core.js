@@ -4,7 +4,7 @@ angular.module('core', ['ui.router'])
         $urlRouterProvider.when('', '/');
     	$stateProvider.state('defaultState', {
     		url: '/',
-    		templateUrl: '../../components/_landing/landing.html'
+    		templateUrl: '../../components/landing/landing.html'
     	});
 
     	var layoutState = {

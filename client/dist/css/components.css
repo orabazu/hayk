@@ -1,3 +1,21 @@
+ footer {
+ 	color: white;
+ }
+ footer h3 {
+ 	margin-bottom: 30px;
+ }   
+ footer .footer-above {
+ 	padding-top: 50px;
+ 	background-color: #2C3E50;
+ }
+ footer .footer-col { 
+ 	margin-bottom: 50px;
+ }
+ footer .footer-below {
+ 	padding: 25px 0;
+ 	background-color: #233140;
+ }
+
 .side-menu{
 	position: absolute;
 	background: coral;
@@ -33,24 +51,6 @@
     left: 10px;
     top: 7px;
  }
- footer {
- 	color: white;
- }
- footer h3 {
- 	margin-bottom: 30px;
- }   
- footer .footer-above {
- 	padding-top: 50px;
- 	background-color: #2C3E50;
- }
- footer .footer-col { 
- 	margin-bottom: 50px;
- }
- footer .footer-below {
- 	padding: 25px 0;
- 	background-color: #233140;
- }
-
  header {
  	background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
  	text-align: center;

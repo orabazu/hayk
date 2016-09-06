@@ -1,11 +1,10 @@
-
 angular.module('core', ['ui.router'])
     .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", function($stateProvider,$urlRouterProvider,$locationProvider) { // provider-injector
         // $locationProvider.html5Mode(true);
         $urlRouterProvider.when('', '/');
     	$stateProvider.state('defaultState', {
     		url: '/',
-    		templateUrl: '../../components/_landing/landing.html'
+    		templateUrl: '../../components/landing/landing.html'
     	});
 
     	var layoutState = {
@@ -44,6 +43,7 @@ function footerDirective() {
 function FooterController() {
     var vm = this;
 }
+
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -73,3 +73,23 @@ function HeaderController($scope,$state) {
     }   
 
 }
+function trackService() {
+	var service = {
+		getTrack: getTrack,
+	};
+	return service;
+
+    ////////////
+
+    function getTrack() {
+    	return $http({
+    		method: 'POST',
+    		url: 'api/tracks',
+    	})
+    };
+
+
+}
+angular
+.module('core')
+.factory('trackService', trackService);

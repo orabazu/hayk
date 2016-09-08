@@ -59,7 +59,7 @@ gulp.task('minify-css', function() {
 
 
 gulp.task('watch', function () {
-      gulp.watch([componentsPath], ['minify-js']);
+      gulp.watch([jsPath], ['minify-js']);
       gulp.watch([componentsPathcss], ['minify-css']);
 });
 

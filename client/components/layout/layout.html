@@ -18,12 +18,36 @@
 			<i class="fa fa-bars"></i>
 		</a>
 	</nav>
+	<div class="container">
+		<div class="side-menu">
+			<h2>Rotalar</h2>
 
-	<div class="side-menu">
-		{{vm.tracks}}
-	</div>
+			<div class="col-md-6" ng-repeat="track in vm.tracks.data.features" >
+				<!-- CARD  -->
+				<card-directive 
+				title = track.properties.name
+				summary =  track.properties.summary >
+				</card-directive>
+			</div>
 
-	<div class="data-viz" id="map">
-		
+			<div class="btn-map-filter-table">
+				<div class="btn-map-filter-cell">
+					<div class="btn-group  btn-map-filter">
+						<button type="button" class="btn btn-primary btn-lg"><i class="fa fa-map"></i> Harita</button>
+						<button type="button" class="btn btn-primary btn-lg"><i class="fa fa-filter"></i> Filtre</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="data-viz" id="map">
+		<leaflet 
+			lf-center="vm.center" 
+			layers="vm.layers"
+			geojson="vm.tracks"
+			height="100%" 
+			width="100%"></leaflet>
+		</div>
+
 	</div>
-	

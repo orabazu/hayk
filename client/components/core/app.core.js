@@ -2,11 +2,14 @@ angular.module('app.core', [
     'app.header',
     'app.footer',
     'app.layout',
+    'app.card',
     'app.trackService',
-    'ui.router'
+    'ui.router',
+    'leaflet-directive'
     ])
-    .config(function($stateProvider,$urlRouterProvider,$locationProvider) { // provider-injector
+    .config(function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
         // $locationProvider.html5Mode(true);
+        $logProvider.debugEnabled(false);
         $urlRouterProvider.when('', '/');
         var defaultState = {
             name: 'defaultState',
@@ -17,10 +20,10 @@ angular.module('app.core', [
             var layoutState = {
               name: 'layout',
               url: '/a/{term}',
-              templateUrl: 'components/layout/layout.html'
+              template: '<layout-directive></layout-directive>'
             }; 	
         $stateProvider.state(layoutState);
       })
     .run(function($state) { // instance-injector
     	// console.log($state);
-    });
+    }); 

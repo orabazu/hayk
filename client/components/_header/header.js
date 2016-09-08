@@ -22,7 +22,6 @@ function headerDirective() {
 function HeaderController($scope,$state) {
     var vm = this;
     vm.search = function(){
-        console.log('sdasd');
         $state.go('layout', {term: vm.elma})
     }   
 

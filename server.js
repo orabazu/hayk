@@ -50,7 +50,8 @@ router.route('/tracks')
         			"name": "Olimpos ",
         			"distance": 6.7,
         			"summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
-        			"altitude": ""
+        			"altitude": 1251,
+                    "img_src": "src"
         		},
         		"geometry": {
         			"type": "Point",
@@ -64,9 +65,10 @@ router.route('/tracks')
         		"type": "Feature",
         		"properties": {
         			"name": "Demre ",
-        			"distance": 6.7,
+        			"distance": 7.1,
         			"summary": "  Myra (Demre) her zaman Likya'nın en önemli şehirlerinden birisi olarak bilinir. En erken sikkeler MÖ 3. yüzyıl tarihlenir. Fakat şehrin en azından MÖ 5. yüzyıl da ",
-        			"altitude": ""
+        			"altitude": 25,
+                    "img_src": "src"
         		},
         		"geometry": {
         			"type": "Point",
@@ -80,9 +82,10 @@ router.route('/tracks')
         		"type": "Feature",
         		"properties": {
         			"name": "Manavgat ",
-        			"distance": 6.7,
+        			"distance": 14.3,
         			"summary": "Manavgat, 2283 km²'lik yüzölçümüyle Antalya ilinin en büyük 2. ilçesidir. Manavgat Şelalesi, Türkiye'nin en düzenli akan akarsuyu Manavgat Irmağı kadirindedir ",
-        			"altitude": ""
+        			"altitude": 350,
+                    "img_src": "src"
         		},
         		"geometry": {
         			"type": "Point",

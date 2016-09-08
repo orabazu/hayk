@@ -13,14 +13,14 @@ angular.module('app.core', [
             url: '/',
             templateUrl: '../../components/landing/landing.html'
         };
-    $stateProvider.state(defaultState);
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<layout-directive></layout-directive>'
-        }; 	
-    $stateProvider.state(layoutState);
-  })
+        $stateProvider.state(defaultState);
+            var layoutState = {
+              name: 'layout',
+              url: '/a/{term}',
+              templateUrl: 'components/layout/layout.html'
+            }; 	
+        $stateProvider.state(layoutState);
+      })
     .run(function($state) { // instance-injector
     	// console.log($state);
     });

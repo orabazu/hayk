@@ -6,8 +6,6 @@ function trackService($http) {
 	};
 	return service;
 
-    ////////////
-
     function getTrack() {
     	return $http({
     		method: 'GET',

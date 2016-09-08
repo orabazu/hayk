@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 var router = express.Router();
 // middleware is on
 router.use(function(req, res, next) {
-    console.log(req)
+    // console.log(req)
 	console.log('middleware is handling things');
     next(); // make sure we go to the next routes
 });

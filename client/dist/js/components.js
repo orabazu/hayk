@@ -13,17 +13,45 @@ angular.module('app.core', [
             url: '/',
             templateUrl: '../../components/landing/landing.html'
         };
-    $stateProvider.state(defaultState);
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<layout-directive></layout-directive>'
-        }; 	
-    $stateProvider.state(layoutState);
-  }])
+        $stateProvider.state(defaultState);
+            var layoutState = {
+              name: 'layout',
+              url: '/a/{term}',
+              templateUrl: 'components/layout/layout.html'
+            }; 	
+        $stateProvider.state(layoutState);
+      }])
     .run(["$state", function($state) { // instance-injector
     	// console.log($state);
     }]);
+/**
+* @desc Main layout for application
+* @example <layout></layout>
+*/
+angular
+    .module('app.layout',[])
+    .directive('layoutDirective', layoutDirective)
+    
+    function layoutDirective() {
+        var directive = {
+            restrict: 'EA',
+            templateUrl: '../../components/layout/layout.html',
+            scope: {},
+            controller: LayoutController,
+            controllerAs: 'vm',
+            bindToController: true
+        };
+
+        return directive;  
+    } 
+
+    function LayoutController($scope,$state,trackService) {
+        var vm = this;
+        trackService.getTrack().then(function(respond){ 
+            console.log(respond.data); 
+            vm.tracks = respond.data;
+        });
+    }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -49,34 +77,6 @@ function footerDirective() {
 
 function FooterController() {
     var vm = this;
-}
-/**
-* @desc Main layout for application
-* @example <layout></layout>
-*/
-angular
-    .module('app.layout',[])
-    .directive('layoutDirective', layoutDirective);
-
-function layoutDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/layout/layout.html',
-        scope: {},
-        controller: LayoutController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;  
-} 
-
-function LayoutController($scope,$state,trackService) {
-    var vm = this;
-    trackService.getTrack().then(function(respond){ 
-        console.log(respond.data); 
-        vm.tracks = respond.data;
-    });
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -115,8 +115,6 @@ trackService.$inject = ["$http"];function trackService($http) {
 		getTrack: getTrack,
 	};
 	return service;
-
-    ////////////
 
     function getTrack() {
     	return $http({

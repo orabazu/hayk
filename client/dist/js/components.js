@@ -136,14 +136,30 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
         }
     }
 
-    $scope.changeIcon = function (marker) {
-        var swap = marker.icon;
-        marker.icon = marker.icon_swap;
-        marker.icon_swap = swap;
+    vm.changeIcon = function (marker) {
+        // var swap = marker.icon;
+        // marker.icon = marker.icon_swap;
+        // marker.icon_swap = swap;
         // if (marker.focus)
         //     marker.focus = false;
         // else
         //     marker.focus = true;
+
+        marker.icon = {
+            type: 'makiMarker',
+            icon: 'park',
+            color: '#512DA8',
+            size: "l"
+        }        
+    }
+
+    vm.removeIcon = function(marker) {
+        marker.icon = {
+            type: 'makiMarker',
+            icon: 'park',
+            color: '#004c00',
+            size: "l"
+        }
     }
 
     vm.zoomMarker = function (marker) {
@@ -159,13 +175,16 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
     for (var k in vm.mapEvents){
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function(event ,args){
-            vm.event = event;
-            vm.args = args
-            console.log(args.modelName)
-            $scope.changeIcon(vm.markers[args.modelName]);
-        });
+            console.log(event);
+            if (event.name == 'leafletDirectiveMarker.mouseover') {
+             vm.changeIcon(vm.markers[args.modelName]); 
+         } else if (event.name == 'leafletDirectiveMarker.mouseout') {
+             vm.removeIcon (vm.markers[args.modelName]); 
+         }
+
+     });
     }
-     console.log(vm.mapEvents);
+    console.log(vm.mapEvents);
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -247,12 +266,12 @@ markerParser.$inject = ["$q"];function markerParser($q) {
                     color: '#004c00',
                     size: "l"
                 },
-                icon_swap : {
-                    type: 'makiMarker',
-                    icon: 'park',
-                    color: '#512DA8',
-                    size: "l"
-                },
+                // icon_swap : {
+                //     type: 'makiMarker',
+                //     icon: 'park',
+                //     color: '#512DA8',
+                //     size: "l"
+                // },
                 properties: {
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,

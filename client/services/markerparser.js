@@ -23,12 +23,12 @@ function markerParser($q) {
                     color: '#004c00',
                     size: "l"
                 },
-                icon_swap : {
-                    type: 'makiMarker',
-                    icon: 'park',
-                    color: '#512DA8',
-                    size: "l"
-                },
+                // icon_swap : {
+                //     type: 'makiMarker',
+                //     icon: 'park',
+                //     color: '#512DA8',
+                //     size: "l"
+                // },
                 properties: {
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,

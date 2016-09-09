@@ -4,13 +4,14 @@ angular.module('app.core', [
     'app.layout',
     'app.card',
     'app.trackService',
+    'app.markerParser',
     'ui.router',
     'leaflet-directive'
     ])
     .config(function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
         // $locationProvider.html5Mode(true);
         $logProvider.debugEnabled(false);
-        $urlRouterProvider.when('', '/');
+        $urlRouterProvider.when('', '/#/');
         var defaultState = {
             name: 'defaultState',
             url: '/',

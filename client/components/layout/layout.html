@@ -1,10 +1,13 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top layout-nav">
-		<div class="container">
+		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class= "navbar-brand navbar-search-mobile visible-sm visible-xs" href="#">
 					<button type="button" class="btn btn-default btn-block">
 						<span class="fa fa-search" aria-hidden="true"></span> Ara
 					</button>
+				</a>
+				<a href="/" class="navbar-brand">
+					Tabiat.izi
 				</a>
 			</div>
 			<div id="navbar" class="visible-md visible-lg">
@@ -30,6 +33,7 @@
 				</card-directive>
 			</div>
 
+			<!-- ng-class="marker.focus ? 'active-place' : ''" ng-mouseenter="changeIcon(marker)" ng-mouseleave="changeIcon(marker)" ng-click="zoomMarker(marker)"> -->
 			<div class="btn-map-filter-table">
 				<div class="btn-map-filter-cell">
 					<div class="btn-group  btn-map-filter">
@@ -45,7 +49,7 @@
 		<leaflet 
 			lf-center="vm.center" 
 			layers="vm.layers"
-			geojson="vm.tracks"
+			markers="vm.markers"
 			height="100%" 
 			width="100%"></leaflet>
 		</div>

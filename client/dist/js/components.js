@@ -25,6 +25,62 @@ function cardDirective() {
 function CardController() {
     var vm = this;
 }
+angular.module('app.core', [
+    'app.header',
+    'app.footer',
+    'app.layout',
+    'app.login',
+    'app.register',
+    'app.card',
+    'app.profile',
+    'app.userService',
+    'app.trackService',
+    'app.markerParser',
+    'ui.router',
+    'leaflet-directive'
+    ])
+    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
+        $locationProvider.html5Mode(true);
+        $logProvider.debugEnabled(false);
+        // $urlRouterProvider.when('', '/#/');
+        var defaultState = {
+            name: 'defaultState',
+            url: '/',
+            templateUrl: '../../components/landing/landing.html'
+        };
+        $stateProvider.state(defaultState);
+
+        var layoutState = {
+          name: 'layout',
+          url: '/a/{term}',
+          template: '<layout-directive></layout-directive>'
+      }; 	
+      $stateProvider.state(layoutState);
+
+      var loginState = {
+          name: 'login',
+          url: '/giris',
+          template: '<login-directive></login-directive>'
+      };  
+      $stateProvider.state(loginState);
+
+      var registerState = {
+          name: 'register',
+          url: '/kayit',
+          template: '<register-directive></register-directive>'
+      };  
+      $stateProvider.state(registerState);
+
+      var profileState = {
+          name: 'profile',
+          url: '/profil',
+          template: '<profile-directive></profile-directive>'
+      };  
+      $stateProvider.state(profileState);
+  }])
+    .run(["$state", function($state) { // instance-injector
+    	// console.log($state);
+    }]); 
 /**
 * @desc Main layout for application
 * @example <layout-directive></layout-directive>
@@ -160,53 +216,6 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
     // console.log(vm.mapEvents);
 
 }
-angular.module('app.core', [
-    'app.header',
-    'app.footer',
-    'app.layout',
-    'app.login',
-    'app.register',
-    'app.card',
-    'app.trackService',
-    'app.markerParser',
-    'ui.router',
-    'leaflet-directive'
-    ])
-    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
-        $locationProvider.html5Mode(true);
-        $logProvider.debugEnabled(false);
-        // $urlRouterProvider.when('', '/#/');
-        var defaultState = {
-            name: 'defaultState',
-            url: '/',
-            templateUrl: '../../components/landing/landing.html'
-        };
-        $stateProvider.state(defaultState);
-
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<layout-directive></layout-directive>'
-      }; 	
-      $stateProvider.state(layoutState);
-
-      var loginState = {
-          name: 'login',
-          url: '/giris',
-          template: '<login-directive></login-directive>'
-      };  
-      $stateProvider.state(loginState);
-
-      var registerState = {
-          name: 'register',
-          url: '/kayit',
-          template: '<register-directive></register-directive>'
-      };  
-      $stateProvider.state(registerState);
-  }])
-    .run(["$state", function($state) { // instance-injector
-    	// console.log($state);
-    }]); 
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -317,32 +326,6 @@ function registerController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.footer', [])
-    .directive('footerDirective', footerDirective);
-   
-function footerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/_footer/footer.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.header',[])
     .directive('headerDirective', headerDirective);
 
@@ -365,6 +348,32 @@ function HeaderController($scope,$state) {
         $state.go('layout', {term: vm.elma})
     }   
 
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.footer', [])
+    .directive('footerDirective', footerDirective);
+   
+function footerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/_footer/footer.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
+    var vm = this;
 }
 /**
  * @desc Services that converts geojson features to markers for handling later

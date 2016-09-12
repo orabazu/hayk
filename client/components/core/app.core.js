@@ -5,6 +5,8 @@ angular.module('app.core', [
     'app.login',
     'app.register',
     'app.card',
+    'app.profile',
+    'app.userService',
     'app.trackService',
     'app.markerParser',
     'ui.router',
@@ -41,6 +43,13 @@ angular.module('app.core', [
           template: '<register-directive></register-directive>'
       };  
       $stateProvider.state(registerState);
+
+      var profileState = {
+          name: 'profile',
+          url: '/profil',
+          template: '<profile-directive></profile-directive>'
+      };  
+      $stateProvider.state(profileState);
   })
     .run(function($state) { // instance-injector
     	// console.log($state);

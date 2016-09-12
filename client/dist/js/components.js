@@ -25,53 +25,6 @@ function cardDirective() {
 function CardController() {
     var vm = this;
 }
-angular.module('app.core', [
-    'app.header',
-    'app.footer',
-    'app.layout',
-    'app.login',
-    'app.register',
-    'app.card',
-    'app.trackService',
-    'app.markerParser',
-    'ui.router',
-    'leaflet-directive'
-    ])
-    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
-        $locationProvider.html5Mode(true);
-        $logProvider.debugEnabled(false);
-        // $urlRouterProvider.when('', '/#/');
-        var defaultState = {
-            name: 'defaultState',
-            url: '/',
-            templateUrl: '../../components/landing/landing.html'
-        };
-        $stateProvider.state(defaultState);
-
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<layout-directive></layout-directive>'
-      }; 	
-      $stateProvider.state(layoutState);
-
-      var loginState = {
-          name: 'login',
-          url: '/giris',
-          template: '<login-directive></login-directive>'
-      };  
-      $stateProvider.state(loginState);
-
-      var registerState = {
-          name: 'register',
-          url: '/kayit',
-          template: '<register-directive></register-directive>'
-      };  
-      $stateProvider.state(registerState);
-  }])
-    .run(["$state", function($state) { // instance-injector
-    	// console.log($state);
-    }]); 
 /**
 * @desc Main layout for application
 * @example <layout-directive></layout-directive>
@@ -207,6 +160,53 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
     // console.log(vm.mapEvents);
 
 }
+angular.module('app.core', [
+    'app.header',
+    'app.footer',
+    'app.layout',
+    'app.login',
+    'app.register',
+    'app.card',
+    'app.trackService',
+    'app.markerParser',
+    'ui.router',
+    'leaflet-directive'
+    ])
+    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
+        $locationProvider.html5Mode(true);
+        $logProvider.debugEnabled(false);
+        // $urlRouterProvider.when('', '/#/');
+        var defaultState = {
+            name: 'defaultState',
+            url: '/',
+            templateUrl: '../../components/landing/landing.html'
+        };
+        $stateProvider.state(defaultState);
+
+        var layoutState = {
+          name: 'layout',
+          url: '/a/{term}',
+          template: '<layout-directive></layout-directive>'
+      }; 	
+      $stateProvider.state(layoutState);
+
+      var loginState = {
+          name: 'login',
+          url: '/giris',
+          template: '<login-directive></login-directive>'
+      };  
+      $stateProvider.state(loginState);
+
+      var registerState = {
+          name: 'register',
+          url: '/kayit',
+          template: '<register-directive></register-directive>'
+      };  
+      $stateProvider.state(registerState);
+  }])
+    .run(["$state", function($state) { // instance-injector
+    	// console.log($state);
+    }]); 
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -232,6 +232,59 @@ function loginDirective() {
 
 function FooterController() {
     var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+.module('app.profile', [])
+.directive('profileDirective', profileDirective);
+
+function profileDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/profile/profile.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: profileController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function profileController(userService) {
+    var vm = this;
+
+    vm.user = {};
+
+    activate();
+
+    function activate() {
+        return getUser().then(function() {
+            // console.log("getTrack activated");
+        })
+    }
+
+    function getUser () {
+      return userService.getUser()
+      .then(function(respond){ 
+        console.log(respond.data); 
+        if(respond.data.done){
+            vm.user = respond.data.user;
+            console.log(vm.user);
+        } else {
+
+        }
+
+        })
+      .catch(function(err) {
+        console.log(err);
+        });  
+    }
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -402,3 +455,20 @@ trackService.$inject = ["$http"];function trackService($http) {
 angular
 .module('app.trackService', [])
 .factory('trackService', trackService);
+
+userService.$inject = ["$http"];function userService($http) {
+	var service = {
+		getUser: getUser,
+	};
+	return service;
+
+    function getUser() {
+    	return $http({
+    		method: 'GET',
+    		url: 'api/profile'
+    	})
+    }; 
+} 
+angular
+.module('app.userService', [])
+.factory('userService', userService);

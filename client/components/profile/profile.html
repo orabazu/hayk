@@ -1,0 +1,73 @@
+    <nav class="navbar navbar-inverse navbar-fixed-top layout-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class= "navbar-brand navbar-search-mobile visible-sm visible-xs" href="#">
+                    <button type="button" class="btn btn-default btn-block">
+                        <span class="fa fa-search" aria-hidden="true"></span> Ara
+                    </button>
+                </a>
+                <a href="/" class="navbar-brand">
+                    Tabiat.izi
+                </a>
+            </div>
+            <div id="navbar" class="visible-md visible-lg">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#">Giriş Yap</a></li>
+                    <li><a href="#about">Hakkında</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+        <a class="btn btn-default mobile-menu visible-sm visible-xs">
+            <i class="fa fa-bars"></i>
+        </a>
+    </nav>
+<div class="container">
+
+    <div class="col-md-5 ">
+
+        <div class="card testimonial-card">
+
+            <!--Bacground color-->
+            <div class="card-up default-color-dark">
+            </div>
+
+            <!--Avatar-->
+            <div class="avatar"><img src="{{vm.user.photo}}"" class="img-circle img-responsive">
+            </div>
+
+            <div class="card-block">
+                <!--Name-->
+                <h4 class="card-title">{{vm.user.name}}</h4>
+                <hr>
+                <!--Quotation-->
+                <p><i class="fa fa-email"></i>{{vm.user.email}}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <style type="text/css">
+      .testimonial-card .card-up {
+          height: 120px;
+          overflow: hidden;
+            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
+      }
+
+
+      .avatar{
+        border-radius: 50%;
+        width: 200px;
+        margin: -65px auto 0;
+        border: 5px solid #fff;
+        background: #FFF;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .testimonial-card  .card-block {
+        padding: 1.25rem;
+
+        text-align: center;
+    }
+</style>
+</div>

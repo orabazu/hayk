@@ -36,7 +36,7 @@ passport.use(new FacebookStrategy({
   // clientSecret: process.env.FACEBOOK_APP_SECRET,
   clientSecret: '109525a2a67d5af26078885ae9a6b4dd',
   callbackURL: "http://localhost:8080/facebook/return",
-  profileFields: ['id', 'displayName', 'photos', 'email']
+  profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
 },
 generateOrFindUser)
 );
@@ -100,11 +100,8 @@ function isLoggedIn(req, res, next) {
     res.redirect('/');
 }
 
-app.get('/asd', function(req,res){
-    res.json("sad");
-})
-  //GET /auth/login/facebook
-  app.get('/login/facebook',
+//GET /auth/login/facebook
+app.get('/login/facebook',
     passport.authenticate('facebook', {scope: ["email"]}));
 
 //GET /auth/facebook/return
@@ -112,25 +109,21 @@ app.get('/facebook/return',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/sad');
+    res.redirect('/profil');
 });
 
-  //GET /auth/logout
-  app.get('/logout', function(req, res){
+//GET /auth/logout
+app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
 
-  app.get('*', function (req, res) {
+app.get('*', function (req, res) {
     res.sendFile( __dirname + '/client/index.html');
 });
 
 
-
-
-
-
-  app.listen(process.env.PORT || 8080, function () {
+app.listen(process.env.PORT || 8080, function () {
    console.log('trekkinn on port 8080');
 });
 

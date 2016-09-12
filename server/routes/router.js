@@ -131,15 +131,19 @@ router.route('/tracks/:id')
      res.json(track);
 });
 
-    router.route('/profile')
+router.route('/profile')
 //get user profile
 .get(function(req,res) {
     if(req.isAuthenticated()) {
         res.json({
-     user : req.user // get the user out of session and pass to template
-});
+         done: true,
+         user : req.user // get the user out of session and pass to template
+      });
    } else {
-        res.redirect("/login");
+        // res.redirect("/login");
+        res.json({
+         done: false,
+      });
    }
 
 })

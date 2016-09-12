@@ -1,3 +1,7 @@
+/**
+ * @desc Services that converts geojson features to markers for handling later
+ */
+
 function markerParser($q) {
 	var service = {
 		jsonToMarkerArray: jsonToMarkerArray,

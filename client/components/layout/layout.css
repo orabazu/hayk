@@ -90,3 +90,8 @@
         margin: 15px;
     }
 }
+
+.side-menu > h2 {
+    font-size: 4em;
+    margin-left: 15px;
+}

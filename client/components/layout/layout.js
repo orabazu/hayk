@@ -1,6 +1,6 @@
 /**
 * @desc Main layout for application
-* @example <layout></layout>
+* @example <layout-directive></layout-directive>
 */
 angular
 .module('app.layout',[])
@@ -19,7 +19,7 @@ function layoutDirective() {
     return directive;  
 } 
 
-function LayoutController($scope,$state,trackService,markerParser,leafletMapEvents) {
+function LayoutController($scope,$state,trackService,markerParser,leafletMapEvents,leafletData) {
     var vm = this;
     vm.tracks = {};
 
@@ -38,7 +38,10 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
         markerParser.jsonToMarkerArray(vm.tracks.data.features)
         .then(function(response) {
             vm.markers = markerParser.toObject(response);
-            console.log(vm.markers);
+            var bounds = L.geoJson(vm.tracks.data.features).getBounds();
+            leafletData.getMap().then(function (map) {
+                map.fitBounds(bounds);
+            });
         })
         .catch (function(err){
             console.log(response);
@@ -118,7 +121,7 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
     for (var k in vm.mapEvents){
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function(event ,args){
-            console.log(event);
+            // console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
              vm.changeIcon(vm.markers[args.modelName]); 
          } else if (event.name == 'leafletDirectiveMarker.mouseout') {
@@ -127,5 +130,6 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
 
      });
     }
-    console.log(vm.mapEvents);
+    // console.log(vm.mapEvents);
+
 }

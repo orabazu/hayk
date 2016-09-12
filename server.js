@@ -1,155 +1,136 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var morgan      = require('morgan');
+var mongoose    = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
+var _ = require('lodash');
+var MongoStore = require('connect-mongo')(session);
+var FacebookStrategy = require('passport-facebook').Strategy;
+var config = require('./server/config/config.js');
+var User   = require('./server/models/user.js'); 
 
+function generateOrFindUser(accessToken, refreshToken, profile, done){
+  if(profile.emails[0]) {
+    User.findOneAndUpdate(
+      { email: profile.emails[0] },
+      {
+        name: profile.displayName || profile.username,
+        email: profile.emails[0].value,
+        photo: profile.photos[0].value
+   },
+   {
+        upsert: true
+   },
+   done
+   );
+} else {
+    var noEmailError = new Error("Your email privacy settings prevent you from signing into Treking.");
+    done(noEmailError, null);
+}
+}
+passport.use(new FacebookStrategy({
+  // clientID: process.env.FACEBOOK_APP_ID,
+  clientID: '1044143785702675',
+  // clientSecret: process.env.FACEBOOK_APP_SECRET,
+  clientSecret: '109525a2a67d5af26078885ae9a6b4dd',
+  callbackURL: "http://localhost:8080/facebook/return",
+  profileFields: ['id', 'displayName', 'photos', 'email']
+},
+generateOrFindUser)
+);
+//passport ops
+passport.serializeUser(function(user, done){
+  done(null, user._id);
+});
+
+passport.deserializeUser(function(userId, done){
+  User.findById(userId, done);
+});
+
+// view engine setup
+app.set('view engine', 'ejs'); // set up ejs for templating
 app.use('/', express.static(__dirname + '/client'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev')); //log files
+
+mongoose.connect(config.database); // connect to database
+var db = mongoose.connection;
+
+// Session Configuration for Passport and MongoDB
+var sessionOptions = {
+  secret: "this is a super secret dadada",
+  resave: true,
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection: db
+})
+};
+
+app.use(session(sessionOptions));
+
+//Initialize Passport.js
+app.use(passport.initialize());
+
+//Restore session
+app.use(passport.session());
 
 
-// ROUTES
-var router = express.Router();
-// middleware is on
-router.use(function(req, res, next) {
-    // console.log(req)
-	console.log('middleware is handling things');
-    next(); // make sure we go to the next routes
+
+var router = require('./server/routes/router');
+app.use('/api', router)
+  // PROFILE SECTION =====================
+  // =====================================
+  // we will want this protected so you have to be logged in to visit
+  // we will use route middleware to verify this (the isLoggedIn function)
+  // app.get('/profile', isLoggedIn, function(req, res) {
+
+  // });
+
+// route middleware to make sure a user is logged in
+function isLoggedIn(req, res, next) {
+
+    // if user is authenticated in the session, carry on 
+    if (req.isAuthenticated())
+      return next();
+
+    // if they aren't redirect them to the home page
+    res.redirect('/');
+}
+
+app.get('/asd', function(req,res){
+    res.json("sad");
+})
+  //GET /auth/login/facebook
+  app.get('/login/facebook',
+    passport.authenticate('facebook', {scope: ["email"]}));
+
+//GET /auth/facebook/return
+app.get('/facebook/return', 
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/sad');
 });
 
-var report;
+  //GET /auth/logout
+  app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+});
 
-// route for paths
-router.route('/tracks')
+  app.get('*', function (req, res) {
+    res.sendFile( __dirname + '/client/index.html');
+});
 
-.post(function(req, res) {
-        // user.username = req.body.username;
-        // user.email = req.body.email; // set the users name (comes from the request)
 
-        // // save the user and check for errors
-        // user.save(function(err) {
-        //     if (err)
-        //         res.send(err);
 
-        //     res.json({ message: 'user created!' });
-        // });       
-    })
-    // get all the users (accessed at GET http://localhost:8080/api/bears)
-    .get(function(req, res) {
-        // User.find(function(err, users) {
-        //     if (err)
-        //         res.send(err);
 
-        //     res.json(users);
-        // });
-        var tracks = {
-        	"type": "FeatureCollection",
-        	"features": [
-        	{
-        		"type": "Feature",
-        		"properties": {
-        			"name": "Olimpos ",
-        			"distance": 6.7,
-        			"summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
-        			"altitude": 1251,
-                    "img_src": "src"
-        		},
-        		"geometry": {
-        			"type": "Point",
-        			"coordinates": [
-        			30.50731658935547,
-        			36.627100703563116
-        			]
-        		}
-        	},
-        	{
-        		"type": "Feature",
-        		"properties": {
-        			"name": "Demre ",
-        			"distance": 7.1,
-        			"summary": "  Myra (Demre) her zaman Likya'nın en önemli şehirlerinden birisi olarak bilinir. En erken sikkeler MÖ 3. yüzyıl tarihlenir. Fakat şehrin en azından MÖ 5. yüzyıl da ",
-        			"altitude": 25,
-                    "img_src": "src"
-        		},
-        		"geometry": {
-        			"type": "Point",
-        			"coordinates": [
-        			30.046920776367188,
-        			36.27258016862269
-        			]
-        		}
-        	},
-        	{
-        		"type": "Feature",
-        		"properties": {
-        			"name": "Manavgat ",
-        			"distance": 14.3,
-        			"summary": "Manavgat, 2283 km²'lik yüzölçümüyle Antalya ilinin en büyük 2. ilçesidir. Manavgat Şelalesi, Türkiye'nin en düzenli akan akarsuyu Manavgat Irmağı kadirindedir ",
-        			"altitude": 350,
-                    "img_src": "src"
-        		},
-        		"geometry": {
-        			"type": "Point",
-        			"coordinates": [
-        			31.429138183593754,
-        			36.778492404594154
-        			]
-        		}
-        	}
-        	]
-        } 
 
-        res.json(tracks);
-    });
 
-    router.route('/tracks/:id')
-    
-    // get all the users (accessed at GET http://localhost:8080/api/ bears)
-    .get(function(req, res) {
-
-        report = req;
-    	var track = {
-    		"type": "FeatureCollection",
-    		"properties": {
-    			"name": "Olimpos ",
-    			"distance": 6.7,
-    			"summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
-    			"altitude": ""
-    		},
-    		"features": [
-    		{
-    			"type": "Feature",
-    			"properties": {},
-    			"geometry": {
-    				"type": "LineString",
-    				"coordinates": [
-    				[
-    				31.397209167480465,
-    				36.76735464310375
-    				],
-    				[
-    				31.39566421508789,
-    				36.78564171960743
-    				],
-    				[
-    				31.423473358154297,
-    				36.80474911423463
-    				],
-    				[
-    				31.430339813232422,
-    				36.78041728578199
-    				]
-    				]
-    			}
-    		}
-    		]
-    	}; 
-
-    	res.json(track);
-    });
-
-    app.use('/api', router)
-
-    app.listen(process.env.PORT || 8080, function () {
-    	console.log('trekkinn on port 8080');
-    });
+  app.listen(process.env.PORT || 8080, function () {
+   console.log('trekkinn on port 8080');
+});
 

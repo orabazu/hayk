@@ -29,6 +29,8 @@ angular.module('app.core', [
     'app.header',
     'app.footer',
     'app.layout',
+    'app.login',
+    'app.register',
     'app.card',
     'app.trackService',
     'app.markerParser',
@@ -36,28 +38,43 @@ angular.module('app.core', [
     'leaflet-directive'
     ])
     .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
-        // $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode(true);
         $logProvider.debugEnabled(false);
-        $urlRouterProvider.when('', '/#/');
+        // $urlRouterProvider.when('', '/#/');
         var defaultState = {
             name: 'defaultState',
             url: '/',
             templateUrl: '../../components/landing/landing.html'
         };
         $stateProvider.state(defaultState);
-            var layoutState = {
-              name: 'layout',
-              url: '/a/{term}',
-              template: '<layout-directive></layout-directive>'
-            }; 	
-        $stateProvider.state(layoutState);
-      }])
+
+        var layoutState = {
+          name: 'layout',
+          url: '/a/{term}',
+          template: '<layout-directive></layout-directive>'
+      }; 	
+      $stateProvider.state(layoutState);
+
+      var loginState = {
+          name: 'login',
+          url: '/giris',
+          template: '<login-directive></login-directive>'
+      };  
+      $stateProvider.state(loginState);
+
+      var registerState = {
+          name: 'register',
+          url: '/kayit',
+          template: '<register-directive></register-directive>'
+      };  
+      $stateProvider.state(registerState);
+  }])
     .run(["$state", function($state) { // instance-injector
     	// console.log($state);
     }]); 
 /**
 * @desc Main layout for application
-* @example <layout></layout>
+* @example <layout-directive></layout-directive>
 */
 angular
 .module('app.layout',[])
@@ -76,7 +93,7 @@ function layoutDirective() {
     return directive;  
 } 
 
-function LayoutController($scope,$state,trackService,markerParser,leafletMapEvents) {
+function LayoutController($scope,$state,trackService,markerParser,leafletMapEvents,leafletData) {
     var vm = this;
     vm.tracks = {};
 
@@ -95,7 +112,10 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
         markerParser.jsonToMarkerArray(vm.tracks.data.features)
         .then(function(response) {
             vm.markers = markerParser.toObject(response);
-            console.log(vm.markers);
+            var bounds = L.geoJson(vm.tracks.data.features).getBounds();
+            leafletData.getMap().then(function (map) {
+                map.fitBounds(bounds);
+            });
         })
         .catch (function(err){
             console.log(response);
@@ -175,7 +195,7 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
     for (var k in vm.mapEvents){
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function(event ,args){
-            console.log(event);
+            // console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
              vm.changeIcon(vm.markers[args.modelName]); 
          } else if (event.name == 'leafletDirectiveMarker.mouseout') {
@@ -184,7 +204,60 @@ function LayoutController($scope,$state,trackService,markerParser,leafletMapEven
 
      });
     }
-    console.log(vm.mapEvents);
+    // console.log(vm.mapEvents);
+
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
+   
+function loginDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/login/login.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.register', [])
+    .directive('registerDirective', registerDirective);
+   
+function registerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/register/register.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: registerController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function registerController() {
+    var vm = this;
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -240,8 +313,12 @@ function HeaderController($scope,$state) {
     }   
 
 }
+/**
+ * @desc Services that converts geojson features to markers for handling later
+ */
 
-markerParser.$inject = ["$q"];function markerParser($q) {
+markerParser.$inject = ["$q"];
+function markerParser($q) {
 	var service = {
 		jsonToMarkerArray: jsonToMarkerArray,
         toObject: toObject

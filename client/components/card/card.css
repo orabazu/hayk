@@ -12,3 +12,7 @@
 .card-block {
     padding: 1.25rem;
 }  
+
+.card-block > h4 {
+	font-size: 2.5em;
+}

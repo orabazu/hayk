@@ -1,4 +1,4 @@
 module.exports = {
-    'secret': 'ilovescotchyscotch',
+    'secret': 'trekingasdsada',
     'database': 'mongodb://localhost/trekingdb'
 };

@@ -21,7 +21,7 @@ function profileDirective() {
     return directive;
 }
 
-function profileController(userService) {
+function profileController($rootScope, userService) {
     var vm = this;
 
     vm.user = {};
@@ -41,6 +41,8 @@ function profileController(userService) {
         if(respond.data.done){
             vm.user = respond.data.user;
             console.log(vm.user);
+            $rootScope.flagLogin = true;
+            console.log($rootScope.flagLogin);
         } else {
 
         }

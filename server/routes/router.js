@@ -134,7 +134,7 @@ router.route('/tracks/:id')
 router.route('/profile')
 //get user profile
 .get(function(req,res) {
-    if(req.isAuthenticated()) {
+    if(req.user) {
         res.json({
          done: true,
          user : req.user // get the user out of session and pass to template

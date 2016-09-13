@@ -19,7 +19,7 @@ function layoutDirective() {
     return directive;  
 } 
 
-function LayoutController($scope,$state,trackService,markerParser,leafletMapEvents,leafletData) {
+function LayoutController($scope,$rootScope,$state,trackService,markerParser,leafletMapEvents,leafletData) {
     var vm = this;
     vm.tracks = {};
 

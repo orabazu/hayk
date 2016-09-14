@@ -9,8 +9,6 @@ router.use(function (req, res, next) {
     next(); // make sure we go to the next routes
 });
 
-var report;
-
 // route for paths
 router.route('/tracks')
 
@@ -21,7 +19,7 @@ router.route('/tracks')
     .get(function (req, res) {
         // User.find(function(err, users) {
         //     if (err)
-        //         res.send(err);
+        //         res.send(err);  
 
         //     res.json(users);
         // });
@@ -126,7 +124,7 @@ router.route('/tracks/:id')
                     }
                 }
             ]
-        }; 
+        };
 
         res.json(track);
     });
@@ -141,6 +139,7 @@ router.route('/profile')
                 user: req.user // get the user out of session and pass to template
             });
         } else {
+            res.status = 400;
             res.json({
                 done: false,
             });

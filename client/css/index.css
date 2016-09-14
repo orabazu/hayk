@@ -545,3 +545,24 @@ background-image: url('../img/3.jpg');
 .track-title div {
 	color: white;
 }
+
+.layout-h {
+	height: calc(100% - 51px);
+}
+
+h4 {
+	font-size: 2.5em;
+}
+h3 {
+	font-size: 3em;
+}
+h2 {
+	font-size: 3.5em;
+}
+h1{
+	font-size: 4em;
+}
+
+.padding-left-15 {
+	padding-left: 15px;
+}

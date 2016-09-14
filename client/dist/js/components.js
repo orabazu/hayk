@@ -93,12 +93,12 @@ angular.module('app.core', [
       function getUser () {
         return userService.getUser()
         .then(function(respond){ 
-          console.log(respond.data); 
+          // console.log(respond.data); 
           if(respond.data.done){
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-            console.log($rootScope.user);
-            console.log($rootScope.flagLogin);
+            // console.log($rootScope.user);
+            // console.log($rootScope.flagLogin);
           } else {
 
           }
@@ -109,32 +109,6 @@ angular.module('app.core', [
         });  
       }
     }]); 
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
-   
-function navbarDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/navbar/navbar.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: navbarController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function navbarController() {
-    var vm = this;
-}
 /**
 * @desc Main layout for application
 * @example <layout-directive></layout-directive>
@@ -301,8 +275,34 @@ function FooterController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
-.module('app.profile', [])
-.directive('profileDirective', profileDirective);
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.profile', [])
+    .directive('profileDirective', profileDirective);
 
 function profileDirective() {
     var directive = {
@@ -311,6 +311,7 @@ function profileDirective() {
         // scope: {
         //     max: '='
         // },
+        transclude: true,
         controller: profileController,
         controllerAs: 'vm',
         bindToController: true
@@ -319,36 +320,29 @@ function profileDirective() {
     return directive;
 }
 
-function profileController($rootScope, userService) {
+function profileController($rootScope, userService,trackService,markerParser) {
     var vm = this;
-
-    vm.user = {};
-
+    vm.tracks = {};
     activate();
 
     function activate() {
-        return getUser().then(function() {
-            // console.log("getTrack activated");
+        return getTrack().then(function () {
+            
         })
     }
 
-    function getUser () {
-      return userService.getUser()
-      .then(function(respond){ 
-        console.log(respond.data); 
-        if(respond.data.done){
-            vm.user = respond.data.user;
-            console.log(vm.user);
-            $rootScope.flagLogin = true;
-            console.log($rootScope.flagLogin);
-        } else {
-
-        }
-
-        })
-      .catch(function(err) {
-        console.log(err);
-        });  
+    function getTrack() {
+        return trackService.getTrack().then(function (respond) {
+            //  console.log(respond.data); 
+            vm.tracks.data = respond.data;
+            markerParser.jsonToMarkerArray(vm.tracks.data.features)
+                .then(function (response) {
+                    vm.markers = markerParser.toObject(response);
+                })
+                .catch(function (err) {
+                    console.log(response);
+                });
+        });
     }
 }
 /**

@@ -66,12 +66,12 @@ angular.module('app.core', [
       function getUser () {
         return userService.getUser()
         .then(function(respond){ 
-          console.log(respond.data); 
+          // console.log(respond.data); 
           if(respond.data.done){
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-            console.log($rootScope.user);
-            console.log($rootScope.flagLogin);
+            // console.log($rootScope.user);
+            // console.log($rootScope.flagLogin);
           } else {
 
           }

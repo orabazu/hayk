@@ -3,8 +3,8 @@
 * @example <div acme-shared-spinner></div>
 */
 angular
-.module('app.profile', [])
-.directive('profileDirective', profileDirective);
+    .module('app.profile', [])
+    .directive('profileDirective', profileDirective);
 
 function profileDirective() {
     var directive = {
@@ -13,6 +13,7 @@ function profileDirective() {
         // scope: {
         //     max: '='
         // },
+        transclude: true,
         controller: profileController,
         controllerAs: 'vm',
         bindToController: true
@@ -21,35 +22,28 @@ function profileDirective() {
     return directive;
 }
 
-function profileController($rootScope, userService) {
+function profileController($rootScope, userService,trackService,markerParser) {
     var vm = this;
-
-    vm.user = {};
-
+    vm.tracks = {};
     activate();
 
     function activate() {
-        return getUser().then(function() {
-            // console.log("getTrack activated");
+        return getTrack().then(function () {
+            
         })
     }
 
-    function getUser () {
-      return userService.getUser()
-      .then(function(respond){ 
-        console.log(respond.data); 
-        if(respond.data.done){
-            vm.user = respond.data.user;
-            console.log(vm.user);
-            $rootScope.flagLogin = true;
-            console.log($rootScope.flagLogin);
-        } else {
-
-        }
-
-        })
-      .catch(function(err) {
-        console.log(err);
-        });  
+    function getTrack() {
+        return trackService.getTrack().then(function (respond) {
+            //  console.log(respond.data); 
+            vm.tracks.data = respond.data;
+            markerParser.jsonToMarkerArray(vm.tracks.data.features)
+                .then(function (response) {
+                    vm.markers = markerParser.toObject(response);
+                })
+                .catch(function (err) {
+                    console.log(response);
+                });
+        });
     }
 }

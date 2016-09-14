@@ -1,5 +1,4 @@
-
-<div class="container">
+<div class="container layout-padding">
 
     <div class="col-md-5 ">
 
@@ -10,44 +9,32 @@
             </div>
 
             <!--Avatar-->
-            <div class="avatar"><img src="{{vm.user.photo}}"" class="img-circle img-responsive">
+            <div class="avatar">
+                <img src="{{user.photo}}" " class="img-circle img-responsive ">
             </div>
 
-            <div class="card-block">
+            <div class="card-block ">
                 <!--Name-->
-                <h4 class="card-title">{{vm.user.name}}</h4>
+                <h4 class="card-title ">{{user.name}}</h4>
                 <hr>
                 <!--Quotation-->
-                <p><i class="fa fa-email"></i>{{vm.user.email}}</p>
-                <a class="btn btn-block btn-warning" href="/logout" target="_self"><i class="fa fa-ban"></i> Çıkış</a>
+                <p><i class="fa fa-email "></i>{{user.email}}</p>
+                <a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>
 
             </div>
-
         </div>
     </div>
 
-    <style type="text/css">
-      .testimonial-card .card-up {
-          height: 120px;
-          overflow: hidden;
-            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
-      }
-
-
-      .avatar{
-        border-radius: 50%;
-        width: 200px;
-        margin: -65px auto 0;
-        border: 5px solid #fff;
-        background: #FFF;
-        height: 200px;
-        overflow: hidden;
-    }
-
-    .testimonial-card  .card-block {
-        padding: 1.25rem;
-
-        text-align: center;
-    }
-</style>
+    <div class="col-md-7 ">
+        <h1 class="padding-left-15"> Rotalarım </h1>
+			<div class="col-md-12" ng-repeat="track in vm.markers " >
+				<!-- CARD  -->
+				<card-directive 
+				ng-mouseover="vm.changeIcon(track) "
+				ng-mouseleave="vm.removeIcon(track) " 
+				title = track.properties.name
+				summary =  track.properties.summary >
+				</card-directive>
+			</div>
+    </div>
 </div>

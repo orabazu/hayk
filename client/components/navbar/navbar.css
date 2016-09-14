@@ -1,0 +1,11 @@
+.menu-profile-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-left: 5px;
+    top: -3px;
+    vertical-align: -webkit-baseline-middle;
+    display: inline-block;
+    position: relative;
+}

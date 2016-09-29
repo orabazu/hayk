@@ -1,10 +1,10 @@
 /**
-* @desc Main layout for application
-* @example <layout-directive></layout-directive>
-*/
+ * @desc Main layout for application
+ * @example <layout-directive></layout-directive>
+ */
 angular
-.module('app.layout',[])
-.directive('layoutDirective', layoutDirective)
+    .module('app.layout', [])
+    .directive('layoutDirective', layoutDirective)
 
 function layoutDirective() {
     var directive = {
@@ -16,38 +16,40 @@ function layoutDirective() {
         bindToController: true
     };
 
-    return directive;  
-} 
+    return directive;
+}
 
-function LayoutController($scope,$rootScope,$state,trackService,markerParser,leafletMapEvents,leafletData) {
+function LayoutController($scope, $rootScope, $state, trackService, markerParser, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {};
 
     activate();
 
     function activate() {
-        return getTrack().then(function() {
+        return getTrack().then(function () {
             // console.log("getTrack activated");
         });
     }
 
-    function getTrack () {
-      return trackService.getTrack().then(function(respond){ 
-        // console.log(respond.data); 
-        vm.tracks.data = respond.data;
-        markerParser.jsonToMarkerArray(vm.tracks.data.features)
-        .then(function(response) {
-            vm.markers = markerParser.toObject(response);
-            var bounds = L.geoJson(vm.tracks.data.features).getBounds();
-            leafletData.getMap().then(function (map) {
-                map.fitBounds(bounds);
-            });
-        })
-        .catch (function(err){
-            console.log(response);
+    function getTrack() {
+        return trackService.getTrack().then(function (respond) {
+            console.log(respond);
+            vm.tracks.data = respond.data;
+            markerParser.jsonToMarkerArray(vm.tracks.data)
+                .then(function (response) {
+
+                    vm.markers = markerParser.toObject(response);
+                    console.log(vm.tracks.data );
+                    var bounds = L.geoJson(vm.tracks.data).getBounds();
+                    leafletData.getMap().then(function (map) {
+                        map.fitBounds(bounds);
+                    });
+                })
+                .catch(function (err) {
+                    console.log(response);
+                });
         });
-    });  
-  }
+    }
 
 
 
@@ -71,7 +73,7 @@ function LayoutController($scope,$rootScope,$state,trackService,markerParser,lea
                 name: 'Outdoor',
                 url: 'http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png',
                 type: 'xyz',
-            } 
+            }
         },
         overlays: {
             rotalar: {
@@ -96,10 +98,10 @@ function LayoutController($scope,$rootScope,$state,trackService,markerParser,lea
             icon: 'park',
             color: '#512DA8',
             size: "l"
-        }        
+        }
     }
 
-    vm.removeIcon = function(marker) {
+    vm.removeIcon = function (marker) {
         marker.icon = {
             type: 'makiMarker',
             icon: 'park',
@@ -109,7 +111,9 @@ function LayoutController($scope,$rootScope,$state,trackService,markerParser,lea
     }
 
     vm.zoomMarker = function (marker) {
-        var latLngs = [[marker.lat, marker.lng]];
+        var latLngs = [
+            [marker.lat, marker.lng]
+        ];
         var markerBounds = L.latLngBounds(latLngs);
         leafletData.getMap().then(function (map) {
             map.fitBounds(markerBounds);
@@ -118,17 +122,17 @@ function LayoutController($scope,$rootScope,$state,trackService,markerParser,lea
 
     vm.mapEvents = leafletMapEvents.getAvailableMapEvents();
 
-    for (var k in vm.mapEvents){
+    for (var k in vm.mapEvents) {
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
-        $scope.$on(eventName, function(event ,args){
+        $scope.$on(eventName, function (event, args) {
             // console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
-             vm.changeIcon(vm.markers[args.modelName]); 
-         } else if (event.name == 'leafletDirectiveMarker.mouseout') {
-             vm.removeIcon (vm.markers[args.modelName]); 
-         }
+                vm.changeIcon(vm.markers[args.modelName]);
+            } else if (event.name == 'leafletDirectiveMarker.mouseout') {
+                vm.removeIcon(vm.markers[args.modelName]);
+            }
 
-     });
+        });
     }
     // console.log(vm.mapEvents);
 

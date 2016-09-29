@@ -21,7 +21,7 @@ function generateOrFindUser(accessToken, refreshToken, profile, done) {
 			return done(null, user); // user found, return that user
 		} else {
 			// if there is no user found with that facebook id, create them
-			var newUser = new User();
+			var newUser = new User();  
 
 			// set all of the facebook information in our user model
 			newUser.userid = profile.id;                    

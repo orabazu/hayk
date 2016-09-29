@@ -1,0 +1,55 @@
+        // var tracks = {
+        //     "type": "FeatureCollection",
+        //     "features": [
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Olimpos ",
+        //                 "distance": 6.7,
+        //                 "summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
+        //                 "altitude": 1251,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     30.50731658935547,
+        //                     36.627100703563116
+        //                 ]
+        //             }
+        //         },
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Demre ",
+        //                 "distance": 7.1,
+        //                 "summary": "  Myra (Demre) her zaman Likya'nın en önemli şehirlerinden birisi olarak bilinir. En erken sikkeler MÖ 3. yüzyıl tarihlenir. Fakat şehrin en azından MÖ 5. yüzyıl da ",
+        //                 "altitude": 25,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     30.046920776367188,
+        //                     36.27258016862269
+        //                 ]
+        //             }
+        //         },
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Manavgat ",
+        //                 "distance": 14.3,
+        //                 "summary": "Manavgat, 2283 km²'lik yüzölçümüyle Antalya ilinin en büyük 2. ilçesidir. Manavgat Şelalesi, Türkiye'nin en düzenli akan akarsuyu Manavgat Irmağı kadirindedir ",
+        //                 "altitude": 350,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     31.429138183593754,
+        //                     36.778492404594154
+        //                 ]
+        //             }
+        //         }]
+        // }

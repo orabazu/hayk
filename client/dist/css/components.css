@@ -222,7 +222,7 @@
  }
 
  header {
- 	background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
+ 	/*background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));*/
  	text-align: center;
  	color: white;
  	height: 443px;

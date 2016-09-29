@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-// ROUTES
-var router = express.Router();
+var Track = require('./../models/track.js');
+
 // middleware is on
 router.use(function (req, res, next) {
     // console.log(req)
@@ -13,73 +13,86 @@ router.use(function (req, res, next) {
 router.route('/tracks')
 
     .post(function (req, res) {
+        var track = new Track();      // create a new instance of the Bear model
+        track.properties.name = req.body.name;
+        track.properties.distance = req.body.distance;
+        track.properties.altitude = req.body.altitude;
+        track.properties.summary = req.body.summary;
+        track.properties.img_src = req.body.img_src;
+        track.geometry.coordinates = req.body.coordinates;
+        // save the bear and check for errors
+        track.save(function (err) {
+            if (err)
+                res.send(err);
 
+            res.json({ message: 'Bear created!' });
+        });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
     .get(function (req, res) {
-        // User.find(function(err, users) {
-        //     if (err)
-        //         res.send(err);  
+        Track.find(function(err, tracks) {
+            if (err)
+                res.send(err);  
 
-        //     res.json(users);
-        // });
-        var tracks = {
-            "type": "FeatureCollection",
-            "features": [
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "name": "Olimpos ",
-                        "distance": 6.7,
-                        "summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
-                        "altitude": 1251,
-                        "img_src": "src"
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            30.50731658935547,
-                            36.627100703563116
-                        ]
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "name": "Demre ",
-                        "distance": 7.1,
-                        "summary": "  Myra (Demre) her zaman Likya'nın en önemli şehirlerinden birisi olarak bilinir. En erken sikkeler MÖ 3. yüzyıl tarihlenir. Fakat şehrin en azından MÖ 5. yüzyıl da ",
-                        "altitude": 25,
-                        "img_src": "src"
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            30.046920776367188,
-                            36.27258016862269
-                        ]
-                    }
-                },
-                {
-                    "type": "Feature",
-                    "properties": {
-                        "name": "Manavgat ",
-                        "distance": 14.3,
-                        "summary": "Manavgat, 2283 km²'lik yüzölçümüyle Antalya ilinin en büyük 2. ilçesidir. Manavgat Şelalesi, Türkiye'nin en düzenli akan akarsuyu Manavgat Irmağı kadirindedir ",
-                        "altitude": 350,
-                        "img_src": "src"
-                    },
-                    "geometry": {
-                        "type": "Point",
-                        "coordinates": [
-                            31.429138183593754,
-                            36.778492404594154
-                        ]
-                    }
-                }]
-        }
+            res.json(tracks);
+        });
 
-        res.json(tracks);
+        // var tracks = {
+        //     "type": "FeatureCollection",
+        //     "features": [
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Olimpos ",
+        //                 "distance": 6.7,
+        //                 "summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
+        //                 "altitude": 1251,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     30.50731658935547,
+        //                     36.627100703563116
+        //                 ]
+        //             }
+        //         },
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Demre ",
+        //                 "distance": 7.1,
+        //                 "summary": "  Myra (Demre) her zaman Likya'nın en önemli şehirlerinden birisi olarak bilinir. En erken sikkeler MÖ 3. yüzyıl tarihlenir. Fakat şehrin en azından MÖ 5. yüzyıl da ",
+        //                 "altitude": 25,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     30.046920776367188,
+        //                     36.27258016862269
+        //                 ]
+        //             }
+        //         },
+        //         {
+        //             "type": "Feature",
+        //             "properties": {
+        //                 "name": "Manavgat ",
+        //                 "distance": 14.3,
+        //                 "summary": "Manavgat, 2283 km²'lik yüzölçümüyle Antalya ilinin en büyük 2. ilçesidir. Manavgat Şelalesi, Türkiye'nin en düzenli akan akarsuyu Manavgat Irmağı kadirindedir ",
+        //                 "altitude": 350,
+        //                 "img_src": "src"
+        //             },
+        //             "geometry": {
+        //                 "type": "Point",
+        //                 "coordinates": [
+        //                     31.429138183593754,
+        //                     36.778492404594154
+        //                 ]
+        //             }
+        //         }]
+        // }
+        //  res.json(tracks);
     });
 
 

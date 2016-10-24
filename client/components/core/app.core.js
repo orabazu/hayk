@@ -10,7 +10,8 @@ angular.module('app.core', [
   'app.userService',
   'app.trackService',
   'app.markerParser',
-  'ui.router',
+  'app.mapConfigService',
+  'ui.router',   
   'leaflet-directive'
   ])
     .config(function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector

@@ -9,9 +9,10 @@ module.exports = mongoose.model('Track', new Schema({
         distance: { type: String, required: true },
         altitude: { type: String },
         summary: { type: String },
-        img_src: { type: String }
+        img_src: { type: String },
+        ownerId: {type: String}
     },
-    geometry: {
+    geometry: { 
         'type': {
             type: String,
             required: true,

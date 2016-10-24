@@ -19,13 +19,14 @@ router.route('/tracks')
         track.properties.altitude = req.body.altitude;
         track.properties.summary = req.body.summary;
         track.properties.img_src = req.body.img_src;
+        track.properties.ownerId = req.body.ownerId;
         track.geometry.coordinates = req.body.coordinates;
+
         // save the bear and check for errors
         track.save(function (err) {
             if (err)
                 res.send(err);
-
-            res.json({ message: 'Bear created!' });
+            res.json({ message: 'Track added!' });
         });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
@@ -146,19 +147,21 @@ router.route('/profile')
     //get user profile
     .get(function (req, res) {
         // if(req.isAuthenticated()) {
-        if (req.user) {
+        if (req.user)
+         {
             res.json({
                 done: true,
                 user: req.user // get the user out of session and pass to template
             });
-        } else {
+        } 
+        else 
+        {
             res.status = 400;
             res.json({
                 done: false,
             });
             res.redirect("/login");
         }
-
     })
 
 module.exports = router;

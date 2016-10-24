@@ -19,7 +19,7 @@ function layoutDirective() {
     return directive;
 }
 
-function LayoutController($scope, $rootScope, $state, trackService, markerParser, leafletMapEvents, leafletData) {
+function LayoutController($scope, $rootScope, $state, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {};
 
@@ -42,7 +42,7 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
                     console.log(vm.tracks.data );
                     var bounds = L.geoJson(vm.tracks.data).getBounds();
                     leafletData.getMap().then(function (map) {
-                        map.fitBounds(bounds);
+                        map.fitBounds(bounds); 
                     });
                 })
                 .catch(function (err) {
@@ -51,38 +51,8 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
         });
     }
 
-
-
-
-    //MAP STUFF
-    vm.center = {
-        lat: 39.9032918,
-        lng: 32.6223396,
-        zoom: 6
-    }
-    vm.layers = {
-        baselayers: {
-            Stamen_Terrain: {
-                name: 'Arazi',
-                url: 'http://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.png',
-                type: 'xyz',
-                attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-
-            },
-            Thunderforest_Outdoors: {
-                name: 'Outdoor',
-                url: 'http://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png',
-                type: 'xyz',
-            }
-        },
-        overlays: {
-            rotalar: {
-                type: 'group',
-                name: 'Rotalar',
-                visible: true
-            }
-        }
-    }
+    vm.layers = mapConfigService.getLayer();
+    vm.center = mapConfigService.getCenter();
 
     vm.changeIcon = function (marker) {
         // var swap = marker.icon;

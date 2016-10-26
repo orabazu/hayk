@@ -157,28 +157,6 @@
     display: inline-block;
     position: relative;
 }
-      .testimonial-card .card-up {
-          height: 120px;
-          overflow: hidden;
-            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
-      }
-      .avatar{
-        border-radius: 50%;
-        width: 200px;
-        margin: -65px auto 0;
-        border: 5px solid #fff;
-        background: #FFF;
-        height: 200px;
-        overflow: hidden;
-    }
-
-    .testimonial-card  .card-block {
-        padding: 1.25rem;
-        text-align: center;
-    } 
-    .layout-padding {
-        padding-top: 51px;
-    }
 .right-image-register {
 	background: url('../../img/the-plains.jpg');
 	height: 100%;
@@ -202,6 +180,29 @@
 	bottom: 0;
 	padding: 50px;
 } 
+      .testimonial-card .card-up {
+          height: 120px;
+          overflow: hidden;
+            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
+      }
+      .avatar{
+        border-radius: 50%;
+        width: 200px;
+        margin: -65px auto 0;
+        border: 5px solid #fff;
+        background: #FFF;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .testimonial-card  .card-block {
+        padding: 1.25rem;
+        text-align: center;
+    } 
+    .layout-padding {
+        padding-top: 51px;
+    }
+
  footer {
  	color: white;
  }

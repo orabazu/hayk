@@ -27,7 +27,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 
     function activate() {
         return getTrack().then(function () {
-            // console.log("getTrack activated");
         });
     }
 
@@ -35,19 +34,16 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
         return trackService.getTrack().then(function (respond) {
             console.log(respond);
             vm.tracks.data = respond.data;
-            markerParser.jsonToMarkerArray(vm.tracks.data)
-                .then(function (response) {
-
-                    vm.markers = markerParser.toObject(response);
-                    console.log(vm.tracks.data );
-                    var bounds = L.geoJson(vm.tracks.data).getBounds();
-                    leafletData.getMap().then(function (map) {
-                        map.fitBounds(bounds); 
-                    });
-                })
-                .catch(function (err) {
-                    console.log(response);
+            markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
+                vm.markers = markerParser.toObject(response);
+                console.log(vm.tracks.data);
+                var bounds = L.geoJson(vm.tracks.data).getBounds();
+                leafletData.getMap().then(function (map) {
+                    map.fitBounds(bounds);
                 });
+            }).catch(function (err) {
+                console.log(response);
+            });
         });
     }
 

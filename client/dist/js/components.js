@@ -12,19 +12,19 @@ function cardDirective() {
         templateUrl: '../../components/card/card.html',
         scope: {
             title: '<',
-            summary: '<'
+            summary: '<',
+            owner:'<'
         },
         controller: CardController,
         controllerAs: 'vm',
         bindToController: true
     };
-
     return directive;
 }
 
 function CardController() {
-    var vm = this;
-}
+    var vm = this; 
+} 
 angular.module('app.core', [
   'app.header',
   'app.footer',
@@ -38,6 +38,7 @@ angular.module('app.core', [
   'app.trackService',
   'app.markerParser',
   'app.mapConfigService',
+  'app.rotaekle',
   'ui.router',   
   'leaflet-directive'
   ])
@@ -79,9 +80,18 @@ angular.module('app.core', [
           template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
         };  
         $stateProvider.state(profileState);
+
+        var addTrackState = { 
+          name: 'addtrack',
+          url: '/rotaekle',
+          templateUrl: '../../components/rotaekle/rotaekle.html',
+          controller: 'rotaEkleController'
+        };  
+        $stateProvider.state(addTrackState);
       }])
-    .run(["$rootScope", "userService", function($rootScope, userService) { // instance-injector
-    	// console.log($state);
+    .run(["$rootScope", "userService", function($rootScope, userService) { 
+      // instance-injector  
+    	// console.log($state);  
 
       activate();
 
@@ -98,7 +108,7 @@ angular.module('app.core', [
           if(respond.data.done){
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-            // console.log($rootScope.user);
+              console.log($rootScope.user);
             // console.log($rootScope.flagLogin);
           } else {
 
@@ -139,7 +149,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 
     function activate() {
         return getTrack().then(function () {
-            // console.log("getTrack activated");
         });
     }
 
@@ -147,19 +156,16 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
         return trackService.getTrack().then(function (respond) {
             console.log(respond);
             vm.tracks.data = respond.data;
-            markerParser.jsonToMarkerArray(vm.tracks.data)
-                .then(function (response) {
-
-                    vm.markers = markerParser.toObject(response);
-                    console.log(vm.tracks.data );
-                    var bounds = L.geoJson(vm.tracks.data).getBounds();
-                    leafletData.getMap().then(function (map) {
-                        map.fitBounds(bounds); 
-                    });
-                })
-                .catch(function (err) {
-                    console.log(response);
+            markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
+                vm.markers = markerParser.toObject(response);
+                console.log(vm.tracks.data);
+                var bounds = L.geoJson(vm.tracks.data).getBounds();
+                leafletData.getMap().then(function (map) {
+                    map.fitBounds(bounds);
                 });
+            }).catch(function (err) {
+                console.log(response);
+            });
         });
     }
 
@@ -346,6 +352,19 @@ function registerDirective() {
 function registerController() {
     var vm = this;
 }
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+rotaEkleController.$inject = ["$scope"];
+angular
+    .module('app.rotaekle', [])
+    .controller('rotaEkleController', rotaEkleController);
+
+function rotaEkleController($scope) { 
+  $scope.rota = 1;
+}
+
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>

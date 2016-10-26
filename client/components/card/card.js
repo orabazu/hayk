@@ -12,16 +12,16 @@ function cardDirective() {
         templateUrl: '../../components/card/card.html',
         scope: {
             title: '<',
-            summary: '<'
+            summary: '<',
+            owner:'<'
         },
         controller: CardController,
         controllerAs: 'vm',
         bindToController: true
     };
-
     return directive;
 }
 
 function CardController() {
-    var vm = this;
-}
+    var vm = this; 
+} 

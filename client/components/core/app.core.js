@@ -11,6 +11,7 @@ angular.module('app.core', [
   'app.trackService',
   'app.markerParser',
   'app.mapConfigService',
+  'app.rotaekle',
   'ui.router',   
   'leaflet-directive'
   ])
@@ -52,9 +53,18 @@ angular.module('app.core', [
           template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
         };  
         $stateProvider.state(profileState);
+
+        var addTrackState = { 
+          name: 'addtrack',
+          url: '/rotaekle',
+          templateUrl: '../../components/rotaekle/rotaekle.html',
+          controller: 'rotaEkleController'
+        };  
+        $stateProvider.state(addTrackState);
       })
-    .run(function($rootScope, userService) { // instance-injector
-    	// console.log($state);
+    .run(function($rootScope, userService) { 
+      // instance-injector  
+    	// console.log($state);  
 
       activate();
 
@@ -71,7 +81,7 @@ angular.module('app.core', [
           if(respond.data.done){
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-            // console.log($rootScope.user);
+              console.log($rootScope.user);
             // console.log($rootScope.flagLogin);
           } else {
 

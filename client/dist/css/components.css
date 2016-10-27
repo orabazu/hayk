@@ -58,22 +58,6 @@
     }
 }
 
-.navbar-search-mobile {
-    color: white;
-    display: block;
-    width: 200px;
-    height: 32px;
-    float: initial;
-    padding: 7px 3px;
-    margin: auto;
-}
-
-.mobile-menu {
-  position: absolute;
-  left: 10px;
-  top: 7px;
-}
-
 .btn-map-filter-table {
  position: fixed;
  bottom: 0;
@@ -114,6 +98,75 @@
     margin-left: 15px;
 }
 
+.menu-profile-photo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-left: 5px;
+    top: -3px;
+    vertical-align: -webkit-baseline-middle;
+    display: inline-block;
+    position: relative;
+}
+
+.navbar-search-mobile {
+    color: white;
+    display: block;
+    width: 200px;
+    float: initial;
+    padding: 7px 3px;
+    margin: auto !important;
+}
+
+.mobile-menu {
+  position: absolute;
+  right: 10px;
+  top: 7px;
+}
+.mobile-menu-pull-left {
+  position: absolute;
+  left: 10px;
+  top: 7px;
+}
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
 .right-image {
 	background: url('../../img/the-hills.jpg');
 	height: 100%;
@@ -146,17 +199,28 @@
 	display: table-cell;
 	vertical-align: middle;
 }
-.menu-profile-photo {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    border: 3px solid white;
-    margin-left: 5px;
-    top: -3px;
-    vertical-align: -webkit-baseline-middle;
-    display: inline-block;
-    position: relative;
-}
+      .testimonial-card .card-up {
+          height: 120px;
+          overflow: hidden;
+            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
+      }
+      .avatar{
+        border-radius: 50%;
+        width: 200px;
+        margin: -65px auto 0;
+        border: 5px solid #fff;
+        background: #FFF;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .testimonial-card  .card-block {
+        padding: 1.25rem;
+        text-align: center;
+    } 
+    .layout-padding {
+        padding-top: 51px;
+    }
 .right-image-register {
 	background: url('../../img/the-plains.jpg');
 	height: 100%;
@@ -180,28 +244,6 @@
 	bottom: 0;
 	padding: 50px;
 } 
-      .testimonial-card .card-up {
-          height: 120px;
-          overflow: hidden;
-            background: linear-gradient(to right, rgba(4, 245, 34, 0.2), rgba(255, 143, 3, 0.4));
-      }
-      .avatar{
-        border-radius: 50%;
-        width: 200px;
-        margin: -65px auto 0;
-        border: 5px solid #fff;
-        background: #FFF;
-        height: 200px;
-        overflow: hidden;
-    }
-
-    .testimonial-card  .card-block {
-        padding: 1.25rem;
-        text-align: center;
-    } 
-    .layout-padding {
-        padding-top: 51px;
-    }
 
  footer {
  	color: white;

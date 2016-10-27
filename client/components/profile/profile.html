@@ -1,16 +1,13 @@
 <div class="container layout-padding">
-
-    <div class="col-md-5 ">
-
-        <div class="card testimonial-card">
-
-            <!--Bacground color-->
-            <div class="card-up default-color-dark">
-            </div>
-
-            <!--Avatar-->
-            <div class="avatar">
-                <img src="{{user.photo}}" " class="img-circle img-responsive ">
+    <div class="row">
+        <div class="col-md-12 ">
+            <div class="card testimonial-card">
+                <!--Bacground color-->
+                <div class="card-up default-color-dark">
+                </div>
+                <!--Avatar-->
+                <div class="avatar">
+                    <img src="{{user.photo}}" " class="img-circle img-responsive ">
             </div>
 
             <div class="card-block ">
@@ -19,16 +16,16 @@
                 <hr>
                 <!--Quotation-->
                 <p><i class="fa fa-email "></i>{{user.email}}</p>
-                <a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>
+                <!--<a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>-->
 
             </div>
         </div>
     </div>
-
-    <div class="col-md-7 ">
-        <h1 class="padding-left-15"> Rotalarım </h1>
-			<div class="col-md-12" ng-repeat="track in vm.markers " >
-				<!-- CARD  -->
+</div>
+<div class="row ">
+    <div class="col-md-12 ">
+        <h1 class="padding-left-15 "> Rotalarım </h1>
+			<div class="col-md-12 " ng-repeat="track in vm.markers" >
 				<card-directive 
 				ng-mouseover="vm.changeIcon(track) "
 				ng-mouseleave="vm.removeIcon(track) " 
@@ -37,4 +34,8 @@
 				</card-directive>
 			</div>
     </div>
+</div>
+
+
+
 </div>

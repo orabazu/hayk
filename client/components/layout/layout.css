@@ -40,22 +40,6 @@
     }
 }
 
-.navbar-search-mobile {
-    color: white;
-    display: block;
-    width: 200px;
-    height: 32px;
-    float: initial;
-    padding: 7px 3px;
-    margin: auto;
-}
-
-.mobile-menu {
-  position: absolute;
-  left: 10px;
-  top: 7px;
-}
-
 .btn-map-filter-table {
  position: fixed;
  bottom: 0;

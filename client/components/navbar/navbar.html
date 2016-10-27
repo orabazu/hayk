@@ -4,7 +4,7 @@
             <a class="navbar-brand navbar-search-mobile visible-sm visible-xs" href="#">
                 <button type="button" class="btn btn-default btn-block">
                         <span class="fa fa-search" aria-hidden="true"></span> Ara
-                    </button>
+                </button>
             </a>
             <a href="/" class="navbar-brand visible-md visible-lg">
                     Tabiat İzi
@@ -13,14 +13,27 @@
         <div id="navbar" class="visible-md visible-lg">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!flagLogin" class="active"><a ui-sref="login">Giriş Yap</a></li>
-                <li ng-if="flagLogin" class="active"><a ui-sref="profile" style="padding-bottom: 5px;"> {{user.name}}
-                    <img  class="menu-profile-photo" src="{{user.photo}}"><img></a>
+                <li ng-if="flagLogin" class="active dropdown">
+                    <a ui-sref="profile" style="padding-bottom: 5px;" class="dropbtn">
+                       {{user.name}}
+                        <img class="menu-profile-photo" src="{{user.photo}}"><img>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="#">Profil</a>
+                        <a href="#">Rotalarım</a>
+                        <a href="#">Ayarlar</a>
+                        <a href="/logout " target="_self ">Oturumu Kapat</a>
+                    </div>
                 </li>
-            </ul>
+                <li>
+                </li>
         </div>
         <!--/.nav-collapse -->
     </div>
-    <a class="btn btn-default mobile-menu visible-sm visible-xs">
-        <i class="fa fa-bars"></i>
+    <a class="btn mobile-menu visible-sm visible-xs" ui-sref="profile">
+        <img class="menu-profile-photo" src="{{user.photo}}"><img>
+    </a>
+    <a class="btn btn-default mobile-menu-pull-left visible-sm visible-xs" href="/">
+        <i class="fa fa-home"></i>
     </a>
 </nav>

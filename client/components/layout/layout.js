@@ -24,7 +24,7 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     vm.tracks = {};
 
     activate();
-
+ 
     function activate() {
         return getTrack().then(function () {
         });

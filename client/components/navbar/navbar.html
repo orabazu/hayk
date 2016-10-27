@@ -13,6 +13,11 @@
         <div id="navbar" class="visible-md visible-lg">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!flagLogin" class="active"><a ui-sref="login">Giriş Yap</a></li>
+                <li ng-if="flagLogin">
+                    <a ui-sref="addtrack" style="padding-bottom: 5px;">
+                        <i class="fa fa-plus"></i> Rota Ekle
+                    </a>
+                </li>
                 <li ng-if="flagLogin" class="active dropdown">
                     <a ui-sref="profile" style="padding-bottom: 5px;" class="dropbtn">
                        {{user.name}}
@@ -24,8 +29,6 @@
                         <a href="#">Ayarlar</a>
                         <a href="/logout " target="_self ">Oturumu Kapat</a>
                     </div>
-                </li>
-                <li>
                 </li>
         </div>
         <!--/.nav-collapse -->

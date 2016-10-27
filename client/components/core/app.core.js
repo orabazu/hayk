@@ -58,7 +58,8 @@ angular.module('app.core', [
           name: 'addtrack',
           url: '/rotaekle',
           templateUrl: '../../components/rotaekle/rotaekle.html',
-          controller: 'rotaEkleController'
+          controller: 'rotaEkleController', 
+          controllerAs: 'rotaEkleController'
         };  
         $stateProvider.state(addTrackState);
       })

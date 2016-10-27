@@ -85,7 +85,8 @@ angular.module('app.core', [
           name: 'addtrack',
           url: '/rotaekle',
           templateUrl: '../../components/rotaekle/rotaekle.html',
-          controller: 'rotaEkleController'
+          controller: 'rotaEkleController', 
+          controllerAs: 'rotaEkleController'
         };  
         $stateProvider.state(addTrackState);
       }])
@@ -146,7 +147,7 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     vm.tracks = {};
 
     activate();
-
+ 
     function activate() {
         return getTrack().then(function () {
         });
@@ -230,32 +231,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
-   
-function navbarDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/navbar/navbar.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: navbarController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function navbarController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.login', [])
     .directive('loginDirective', loginDirective);
    
@@ -275,6 +250,32 @@ function loginDirective() {
 }
 
 function FooterController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
     var vm = this;
 }
 /**
@@ -353,18 +354,63 @@ function registerController() {
     var vm = this;
 }
 /**
+ * @desc spinner directive that can be used anywhere across apps at a company named Acme
+ * @example <div acme-shared-spinner></div>
+ */
+rotaEkleController.$inject = ["$scope", "mapConfigService"];
+angular
+  .module('app.rotaekle', [])
+  .controller('rotaEkleController', rotaEkleController);
+
+function rotaEkleController($scope, mapConfigService) {
+  var vm = this;
+  vm.layers = mapConfigService.getLayer();
+  vm.center = mapConfigService.getCenter();
+
+  $scope.$on("leafletDirectiveMap.click", function (event, args) {
+    var leafEvent = args.leafletEvent;
+    console.log(leafEvent);
+    var mainMarker = {
+      lat: leafEvent.latlng.lat,
+      lng: leafEvent.latlng.lng,
+      focus: true,
+      message: "Başka bir noktaya tıklayarak kaydır.",
+      draggable: true
+    };
+    angular.extend($scope, {
+      markers: {
+        mainMarker: angular.copy(mainMarker)
+      }
+    });
+
+  });
+}
+/**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
 */
-rotaEkleController.$inject = ["$scope"];
 angular
-    .module('app.rotaekle', [])
-    .controller('rotaEkleController', rotaEkleController);
+    .module('app.footer', [])
+    .directive('footerDirective', footerDirective);
+   
+function footerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/_footer/footer.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
 
-function rotaEkleController($scope) { 
-  $scope.rota = 1;
+    return directive;
 }
 
+function FooterController() {
+    var vm = this;
+}
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -392,32 +438,6 @@ function HeaderController($scope,$state) {
         $state.go('layout', {term: vm.elma})
     }   
 
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.footer', [])
-    .directive('footerDirective', footerDirective);
-   
-function footerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/_footer/footer.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
 }
 /**
  * @desc Services that converts geojson features to markers for handling later

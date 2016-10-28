@@ -1,0 +1,23 @@
+
+<div class="container layout-padding">
+	<div class="col-md-12 ">
+		<h3 class="text-center"> Konum </h3>
+		<form>
+			<legend>Rotanızın başlangıç konumunu harita üzerinden seçin</legend>
+			<div style="height: 200px;">
+				<leaflet lf-center="rotaEkleController.center" layers="rotaEkleController.layers" markers="markers" height="100%" width="100%"></leaflet>
+			</div>
+			<div style="padding-top: 15px;">
+				<div class="form-group">
+					<label for="adres">Adres</label>
+					<input type="text" class="form-control" id="adres" ng-model="rotaEkleController.location" disabled></input>
+				</div>
+				<p class="text-right">
+					<button ui-sref="addtrack.meta" class="btn btn-default"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
+				</p>
+			</div>
+			<input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"
+			/>
+		</form>
+	</div>
+</div>

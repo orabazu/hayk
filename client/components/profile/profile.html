@@ -7,35 +7,27 @@
                 </div>
                 <!--Avatar-->
                 <div class="avatar">
-                    <img src="{{user.photo}}" " class="img-circle img-responsive ">
-            </div>
-
-            <div class="card-block ">
-                <!--Name-->
-                <h4 class="card-title ">{{user.name}}</h4>
-                <hr>
-                <!--Quotation-->
-                <p><i class="fa fa-email "></i>{{user.email}}</p>
-                <!--<a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>-->
-
+                    <img src="{{user.photo}}" class="img-circle img-responsive ">
+                </div>
+                <div class="card-block">
+                    <!--Name-->
+                    <h4 class="card-title ">{{user.name}}</h4>
+                    <hr>
+                    <!--Quotation-->
+                    <p><i class="fa fa-email "></i>{{user.email}}</p>
+                    <!--<a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>-->
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row ">
-    <div class="col-md-12 ">
-        <h1 class="padding-left-15 "> Rotalarım </h1>
-			<div class="col-md-12 " ng-repeat="track in vm.markers" >
-				<card-directive 
-				ng-mouseover="vm.changeIcon(track) "
-				ng-mouseleave="vm.removeIcon(track) " 
-				title = track.properties.name
-				summary =  track.properties.summary >
-				</card-directive>
-			</div>
+    <div class="row ">
+        <div class="col-md-12 ">
+            <h1 class="padding-left-15 "> Rotalarım </h1>
+            <!--<div class="col-md-12 " ng-repeat="track in vm.markers">
+                <card-directive ng-mouseover="vm.changeIcon(track) " ng-mouseleave="vm.removeIcon(track) " title=t rack.properties.name summary=t
+                    rack.properties.summary>
+                </card-directive>
+            </div>-->
+        </div>
     </div>
-</div>
-
-
-
 </div>

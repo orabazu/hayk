@@ -35,9 +35,8 @@ function profileController($rootScope, userService,trackService,markerParser) {
 
     function getTrack() {
         return trackService.getTrack().then(function (respond) {
-            //  console.log(respond.data); 
             vm.tracks.data = respond.data;
-            markerParser.jsonToMarkerArray(vm.tracks.data.features)
+            markerParser.jsonToMarkerArray(vm.tracks.data)
                 .then(function (response) {
                     vm.markers = markerParser.toObject(response);
                 })

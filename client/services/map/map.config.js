@@ -45,5 +45,5 @@ function mapConfigService() {
 }
 
 angular
-    .module('app.mapConfigService', [])
+    .module('app.map', [])
     .factory('mapConfigService', mapConfigService);

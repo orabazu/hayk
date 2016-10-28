@@ -1,0 +1,23 @@
+<div class="container layout-padding">
+	<div class="col-md-12 ">
+		<h3 class="text-center">Son adım</h3>
+		<form class="form-horizontal">
+			<fieldset>
+				<!-- Form Name -->
+				<legend>Form Name</legend>
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="trackName">Rota Adı</label>
+					<div class="col-md-5">
+						<input ng-model="rotaEkleController.name" id="trackName" name="trackName" type="text" placeholder="Örn: Beypazarı - Nallıhan" class="form-control input-md"
+										required>
+						<span class="help-block">help</span>
+					</div>
+				</div>
+				<p class="text-center">
+					<button ng-click="rotaEkleController.addTrack()" class="btn btn-primary btn-block"> Kaydet <i class="fa fa-check"></i></button>
+				</p>
+			</fieldset>
+		</form>
+	</div>
+</div>

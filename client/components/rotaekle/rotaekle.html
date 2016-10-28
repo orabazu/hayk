@@ -1,24 +1,2 @@
-<div class="container layout-padding">
-	<navbar-directive></navbar-directive>
-	<div class="col-md-12 ">
-		<h3 class="text-center">İstediğiniz noktayı arayarak rotanızın başlangıç konumunu belirleyin. </h3>
-		<form>
-		<div class="form-group">
-			<label for="aramaInput">Arama </label>
-			<input type="text" class="form-control" id="aramaInput" placeholder="Adres">
-		</div>
-		<div style="height: 200px;">
-			<leaflet lf-center="rotaEkleController.center" layers="rotaEkleController.layers" markers="markers" height="100%" width="100%"></leaflet>
-		</div>
-		<div style="padding-top: 15px;">
-			<div class="form-group">
-				<label for="adres">Adres</label>
-				<textarea class="form-control " rows="5" id="adres" disabled></textarea>
-			</div>
-			<p class="text-right">
-				<button type="submit" class="btn btn-default"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
-			</p>
-		</div>
-		</form>
-	</div>
-</div>
+<navbar-directive></navbar-directive>
+<div ui-view></div>

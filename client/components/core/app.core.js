@@ -1,96 +1,117 @@
 angular.module('app.core', [
-  'app.header',
-  'app.footer',
-  'app.layout',
-  'app.navbar',
-  'app.login',
-  'app.register',
-  'app.card',
-  'app.profile',
-  'app.userService',
-  'app.trackService',
-  'app.markerParser',
-  'app.mapConfigService',
-  'app.rotaekle',
-  'ui.router',   
-  'leaflet-directive'
+    'app.header',
+    'app.footer',
+    'app.layout',
+    'app.navbar',
+    'app.login',
+    'app.register',
+    'app.card',
+    'app.profile',
+    'app.userService',
+    'app.trackService',
+    'app.markerParser',
+    'app.map',
+    'app.rotaekle',
+    'oc.lazyLoad',
+    'ui.router',
+    'leaflet-directive',
+    'ngAutocomplete'
+
+
   ])
-    .config(function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
-      $locationProvider.html5Mode(true);
-      $logProvider.debugEnabled(false);
-        // $urlRouterProvider.when('', '/#/');
-        var defaultState = {
-          name: 'defaultState',
-          url: '/',
-          templateUrl: '../../components/landing/landing.html'
-        };
-        $stateProvider.state(defaultState);
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider, $ocLazyLoadProvider) { // provider-injector
 
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
-        }; 	
-        $stateProvider.state(layoutState);
+    $ocLazyLoadProvider.config({
+      debug: true
+    });
+    $locationProvider.html5Mode(true);
+    $logProvider.debugEnabled(false);
+    // $urlRouterProvider.when('', '/#/');
+    var defaultState = {
+      name: 'defaultState',
+      url: '/',
+      templateUrl: '../../components/landing/landing.html'
+    };
+    $stateProvider.state(defaultState);
 
-        var loginState = {
-          name: 'login',
-          url: '/giris',
-          template: '<login-directive></login-directive>'
-        };  
-        $stateProvider.state(loginState);
+    var layoutState = {
+      name: 'layout',
+      url: '/a/{term}',
+      template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
+    };
+    $stateProvider.state(layoutState);
 
-        var registerState = {
-          name: 'register',
-          url: '/kayit',
-          template: '<register-directive></register-directive>'
-        };  
-        $stateProvider.state(registerState);
+    var loginState = {
+      name: 'login',
+      url: '/giris',
+      template: '<login-directive></login-directive>'
+    };
+    $stateProvider.state(loginState);
 
-        var profileState = {
-          name: 'profile',
-          url: '/profil',
-          template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
-        };  
-        $stateProvider.state(profileState);
+    var registerState = {
+      name: 'register',
+      url: '/kayit',
+      template: '<register-directive></register-directive>'
+    };
+    $stateProvider.state(registerState);
 
-        var addTrackState = { 
-          name: 'addtrack',
-          url: '/rotaekle',
-          templateUrl: '../../components/rotaekle/rotaekle.html',
-          controller: 'rotaEkleController', 
-          controllerAs: 'rotaEkleController'
-        };  
-        $stateProvider.state(addTrackState);
-      })
-    .run(function($rootScope, userService) { 
-      // instance-injector  
-    	// console.log($state);  
+    var profileState = {
+      name: 'profile',
+      url: '/profil',
+      template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
+    };
+    $stateProvider.state(profileState);
 
-      activate();
+    var addTrackState = {
+      name: 'addtrack',
+      url: '/rotaekle',
+      templateUrl: '../../components/rotaekle/rotaekle.html',
+      controller: 'rotaEkleController',
+      controllerAs: 'rotaEkleController'
+    };
+    $stateProvider.state(addTrackState);
 
-      function activate() {
-        return getUser().then(function() {
-            // console.log("getTrack activated");
-          })
-      }
+    var addTrackLocationState = {
+      name: 'addtrack.location',
+      url: '/konum',
+      templateUrl: '../../components/rotaekle.location/rotaekle.location.html'      
+    };
+    $stateProvider.state(addTrackLocationState);
 
-      function getUser () {
-        return userService.getUser()
-        .then(function(respond){ 
-          // console.log(respond.data); 
-          if(respond.data.done){
+    var addTrackMetaState = {
+      name: 'addtrack.meta',
+      url: '/bilgi',    
+      templateUrl: '../../components/rotaekle.meta/rotaekle.meta.html'              
+    }
+    $stateProvider.state(addTrackMetaState);
+
+    var addTrackFinishState = {
+      name: 'addtrack.finish',
+      url: '/kaydet',    
+      templateUrl: '../../components/rotaekle.finish/rotaekle.finish.html'              
+    }
+    $stateProvider.state(addTrackFinishState);
+  })
+  .run(function ($rootScope, userService) {
+    activate();
+
+    function activate() {
+      return getUser().then(function () {})
+    }
+
+    function getUser() {
+      return userService.getUser()
+        .then(function (respond) {
+          if (respond.data.done) {
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-              console.log($rootScope.user);
-            // console.log($rootScope.flagLogin);
           } else {
 
           }
 
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
-        });  
-      }
-    }); 
+        });
+    }
+  });

@@ -26,101 +26,122 @@ function CardController() {
     var vm = this; 
 } 
 angular.module('app.core', [
-  'app.header',
-  'app.footer',
-  'app.layout',
-  'app.navbar',
-  'app.login',
-  'app.register',
-  'app.card',
-  'app.profile',
-  'app.userService',
-  'app.trackService',
-  'app.markerParser',
-  'app.mapConfigService',
-  'app.rotaekle',
-  'ui.router',   
-  'leaflet-directive'
+    'app.header',
+    'app.footer',
+    'app.layout',
+    'app.navbar',
+    'app.login',
+    'app.register',
+    'app.card',
+    'app.profile',
+    'app.userService',
+    'app.trackService',
+    'app.markerParser',
+    'app.map',
+    'app.rotaekle',
+    'oc.lazyLoad',
+    'ui.router',
+    'leaflet-directive',
+    'ngAutocomplete'
+
+
   ])
-    .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", function($stateProvider,$urlRouterProvider,$locationProvider,$logProvider) { // provider-injector
-      $locationProvider.html5Mode(true);
-      $logProvider.debugEnabled(false);
-        // $urlRouterProvider.when('', '/#/');
-        var defaultState = {
-          name: 'defaultState',
-          url: '/',
-          templateUrl: '../../components/landing/landing.html'
-        };
-        $stateProvider.state(defaultState);
+  .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", "$ocLazyLoadProvider", function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider, $ocLazyLoadProvider) { // provider-injector
 
-        var layoutState = {
-          name: 'layout',
-          url: '/a/{term}',
-          template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
-        }; 	
-        $stateProvider.state(layoutState);
+    $ocLazyLoadProvider.config({
+      debug: true
+    });
+    $locationProvider.html5Mode(true);
+    $logProvider.debugEnabled(false);
+    // $urlRouterProvider.when('', '/#/');
+    var defaultState = {
+      name: 'defaultState',
+      url: '/',
+      templateUrl: '../../components/landing/landing.html'
+    };
+    $stateProvider.state(defaultState);
 
-        var loginState = {
-          name: 'login',
-          url: '/giris',
-          template: '<login-directive></login-directive>'
-        };  
-        $stateProvider.state(loginState);
+    var layoutState = {
+      name: 'layout',
+      url: '/a/{term}',
+      template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
+    };
+    $stateProvider.state(layoutState);
 
-        var registerState = {
-          name: 'register',
-          url: '/kayit',
-          template: '<register-directive></register-directive>'
-        };  
-        $stateProvider.state(registerState);
+    var loginState = {
+      name: 'login',
+      url: '/giris',
+      template: '<login-directive></login-directive>'
+    };
+    $stateProvider.state(loginState);
 
-        var profileState = {
-          name: 'profile',
-          url: '/profil',
-          template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
-        };  
-        $stateProvider.state(profileState);
+    var registerState = {
+      name: 'register',
+      url: '/kayit',
+      template: '<register-directive></register-directive>'
+    };
+    $stateProvider.state(registerState);
 
-        var addTrackState = { 
-          name: 'addtrack',
-          url: '/rotaekle',
-          templateUrl: '../../components/rotaekle/rotaekle.html',
-          controller: 'rotaEkleController', 
-          controllerAs: 'rotaEkleController'
-        };  
-        $stateProvider.state(addTrackState);
-      }])
-    .run(["$rootScope", "userService", function($rootScope, userService) { 
-      // instance-injector  
-    	// console.log($state);  
+    var profileState = {
+      name: 'profile',
+      url: '/profil',
+      template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
+    };
+    $stateProvider.state(profileState);
 
-      activate();
+    var addTrackState = {
+      name: 'addtrack',
+      url: '/rotaekle',
+      templateUrl: '../../components/rotaekle/rotaekle.html',
+      controller: 'rotaEkleController',
+      controllerAs: 'rotaEkleController'
+    };
+    $stateProvider.state(addTrackState);
 
-      function activate() {
-        return getUser().then(function() {
-            // console.log("getTrack activated");
-          })
-      }
+    var addTrackLocationState = {
+      name: 'addtrack.location',
+      url: '/konum',
+      templateUrl: '../../components/rotaekle.location/rotaekle.location.html'      
+    };
+    $stateProvider.state(addTrackLocationState);
 
-      function getUser () {
-        return userService.getUser()
-        .then(function(respond){ 
-          // console.log(respond.data); 
-          if(respond.data.done){
+    var addTrackMetaState = {
+      name: 'addtrack.meta',
+      url: '/bilgi',    
+      templateUrl: '../../components/rotaekle.meta/rotaekle.meta.html'              
+    }
+    $stateProvider.state(addTrackMetaState);
+
+    var addTrackFinishState = {
+      name: 'addtrack.finish',
+      url: '/kaydet',    
+      templateUrl: '../../components/rotaekle.finish/rotaekle.finish.html'              
+    }
+    $stateProvider.state(addTrackFinishState);
+  }])
+  .run(["$rootScope", "userService", function ($rootScope, userService) {
+    activate();
+
+    function activate() {
+      return getUser().then(function () {})
+    }
+
+    function getUser() {
+      return userService.getUser()
+        .then(function (respond) {
+          if (respond.data.done) {
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-              console.log($rootScope.user);
-            // console.log($rootScope.flagLogin);
           } else {
 
           }
 
         })
-        .catch(function(err) {
+        .catch(function (err) {
           console.log(err);
-        });  
-      }
-    }]); 
+        });
+    }
+  }]);
 /**
  * @desc Main layout for application
  * @example <layout-directive></layout-directive>
@@ -315,9 +336,8 @@ function profileController($rootScope, userService,trackService,markerParser) {
 
     function getTrack() {
         return trackService.getTrack().then(function (respond) {
-            //  console.log(respond.data); 
             vm.tracks.data = respond.data;
-            markerParser.jsonToMarkerArray(vm.tracks.data.features)
+            markerParser.jsonToMarkerArray(vm.tracks.data)
                 .then(function (response) {
                     vm.markers = markerParser.toObject(response);
                 })
@@ -353,38 +373,58 @@ function registerDirective() {
 function registerController() {
     var vm = this;
 }
-/**
- * @desc spinner directive that can be used anywhere across apps at a company named Acme
- * @example <div acme-shared-spinner></div>
- */
-rotaEkleController.$inject = ["$scope", "mapConfigService"];
-angular
-  .module('app.rotaekle', [])
-  .controller('rotaEkleController', rotaEkleController);
 
-function rotaEkleController($scope, mapConfigService) {
+rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode"];function rotaEkleController($scope, mapConfigService, reverseGeocode) {
+  // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
   var vm = this;
   vm.layers = mapConfigService.getLayer();
   vm.center = mapConfigService.getCenter();
+  vm.location;
+
+  //Track parameters
+  vm.ownerId;
+  vm.img_src = "src";
+  vm.summary;
+  vm.altitude;
+  vm.distance;
+  vm.name = '';
+  vm.coordinates = [40.43440488077008, 32.65686035156249];
+
+  vm.addTrack = function() {
+    console.log(vm);
+  }
+
+  angular.extend($scope, {
+    markers: {
+      mainMarker: {
+        lat: vm.coordinates[0],
+        lng: vm.coordinates[1],
+        focus: true,
+        message: "Başka bir noktaya tıklayarak kaydır.",
+        draggable: true
+      }
+    }
+  });
 
   $scope.$on("leafletDirectiveMap.click", function (event, args) {
     var leafEvent = args.leafletEvent;
     console.log(leafEvent);
-    var mainMarker = {
-      lat: leafEvent.latlng.lat,
-      lng: leafEvent.latlng.lng,
-      focus: true,
-      message: "Başka bir noktaya tıklayarak kaydır.",
-      draggable: true
-    };
-    angular.extend($scope, {
-      markers: {
-        mainMarker: angular.copy(mainMarker)
-      }
+    reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
+      console.log(geocodeSuccess)
+      vm.location = geocodeSuccess;
+    }, 
+    function (err) {
+      console.log(err)
     });
-
+    $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
+    $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
   });
 }
+
+angular
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete'])
+  .controller('rotaEkleController', rotaEkleController)
+
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -545,6 +585,103 @@ userService.$inject = ["$http"];function userService($http) {
 angular
 .module('app.userService', [])
 .factory('userService', userService);
+'use strict';
+
+/**
+ * A directive for adding google places autocomplete to a text box
+ * google places autocomplete info: https://developers.google.com/maps/documentation/javascript/places
+ *
+ * Simple Usage:
+ *
+ * <input type="text" ng-autocomplete="result"/>
+ *
+ * creates the autocomplete text box and gives you access to the result
+ *
+ *   + `ng-autocomplete="result"`: specifies the directive, $scope.result will hold the textbox result
+ *
+ *
+ * Advanced Usage:
+ *
+ * <input type="text" ng-autocomplete="result" details="details" options="options"/>
+ *
+ *   + `ng-autocomplete="result"`: specifies the directive, $scope.result will hold the textbox autocomplete result
+ *
+ *   + `details="details"`: $scope.details will hold the autocomplete's more detailed result; latlng. address components, etc.
+ *
+ *   + `options="options"`: options provided by the user that filter the autocomplete results
+ *
+ *      + options = {
+ *           types: type,        string, values can be 'geocode', 'establishment', '(regions)', or '(cities)'
+ *           bounds: bounds,     google maps LatLngBounds Object
+ *           country: country    string, ISO 3166-1 Alpha-2 compatible country code. examples; 'ca', 'us', 'gb'
+ *         }
+ *
+ *
+ */
+
+angular.module( "ngAutocomplete", [])
+  .directive('ngAutocomplete', ["$parse", function($parse) {
+    return {
+
+      scope: {
+        details: '=',
+        ngAutocomplete: '=',
+        options: '='
+      },
+
+      link: function(scope, element, attrs, model) {
+
+        //options for autocomplete
+        var opts
+
+        //convert options provided to opts
+        var initOpts = function() {
+          opts = {}
+          if (scope.options) {
+            if (scope.options.types) {
+              opts.types = []
+              opts.types.push(scope.options.types)
+            }
+            if (scope.options.bounds) {
+              opts.bounds = scope.options.bounds
+            }
+            if (scope.options.country) {
+              opts.componentRestrictions = {
+                country: scope.options.country
+              }
+            }
+          }
+        }
+        initOpts()
+
+        //create new autocomplete
+        //reinitializes on every change of the options provided
+        var newAutocomplete = function() {
+          scope.gPlace = new google.maps.places.Autocomplete(element[0], opts);
+          google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+            scope.$apply(function() {
+//              if (scope.details) {
+                scope.details = scope.gPlace.getPlace();
+//              }
+              scope.ngAutocomplete = element.val();
+            });
+          })
+        }
+        newAutocomplete()
+
+        //watch options provided to directive
+        scope.watchOptions = function () {
+          return scope.options
+        };
+        scope.$watch(scope.watchOptions, function () {
+          initOpts()
+          newAutocomplete()
+          element[0].value = '';
+          scope.ngAutocomplete = element.val();
+        }, true);
+      }
+    };
+  }]);
 function mapConfigService() {
 
     var service = {
@@ -592,5 +729,52 @@ function mapConfigService() {
 }
 
 angular
-    .module('app.mapConfigService', [])
+    .module('app.map', [])
     .factory('mapConfigService', mapConfigService);
+
+geocode.$inject = ["$q"];function geocode($q) {
+  return { 
+    geocodeAddress: function(address) {
+      var geocoder = new google.maps.Geocoder();
+      var deferred = $q.defer();
+      geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          return deferred.resolve(results[0].geometry.location);
+          // window.findLocation(results[0].geometry.location);
+        }
+        return deferred.reject();
+      });
+      return deferred.promise;
+    }
+  };
+}
+
+angular
+ .module('app.map')
+ .factory('geocode', geocode);
+
+reverseGeocode.$inject = ["$q", "$http"];function reverseGeocode($q, $http) {
+    var obj = {};
+    obj.geocodeLatlng = function geocodePosition(lat, lng) {
+        var geocoder = new google.maps.Geocoder();
+        var deferred = $q.defer();
+        var latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({
+            latLng: latlng
+        }, function(responses) {
+            if (responses && responses.length > 0) {
+                return deferred.resolve(responses[0].formatted_address);
+            } else {
+                return deferred.resolve(null);
+            }
+        }, function (err) {
+            return deferred.resolve(null);
+        });
+        return deferred.promise;
+    }
+    return obj;
+}
+
+angular
+ .module('app.map')
+ .factory('reverseGeocode', reverseGeocode);

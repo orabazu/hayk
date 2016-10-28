@@ -1,28 +1,30 @@
-	<!-- Header -->
-	<div class="headline">
-		<header>
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="intro-text">
-							<h1 class="name">TABİATIN İZİNDE </h1>
-							<hr class="star-light">
-							<!-- <hr class="star-primary"> -->
-							<br>
-							<span class="skills">Türkiye'deki 100+ doğa yürüyüşü yolunu keşfet</span>	
-						</div>
+<!-- Header -->
+<div class="headline">
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="intro-text">
+						<h1 class="name">TABİATIN İZİNDE </h1>
+						<hr class="star-light">
+						<!-- <hr class="star-primary"> -->
+						<br>
+						<span class="skills">Türkiye'deki 100+ doğa yürüyüşü yolunu keşfet</span>
 					</div>
 				</div>
 			</div>
-			<div class="intro-text-footer">
-				<form class="">
-					<div class="input-group main-search">
-						<input type="text" class="form-control " placeholder="Örn: Saklıkent Kanyonu" ng-model="vm.elma">
-						<span class="input-group-btn">
+		</div>
+		<div class="intro-text-footer">
+			<form class="">
+				<div class="input-group main-search">
+					<!--<input type="text" class="form-control " placeholder="Örn: Saklıkent Kanyonu" ng-model="vm.elma">-->
+					<input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>
+					<span class="input-group-btn">
 							<button class="btn btn-info" type="button" ng-click="vm.search()">ARA</button>
-						</span>
-					</div><!-- /input-group -->
-				</form>
-			</div>
-		</header>
-	</div>
+					</span>
+				</div>
+				<!-- /input-group -->
+			</form>
+		</div>
+	</header>
+</div>

@@ -374,7 +374,7 @@ function registerController() {
     var vm = this;
 }
 
-rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode"];function rotaEkleController($scope, mapConfigService, reverseGeocode) {
+rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "trackService", "$state"];function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService,$state) {
   // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
   var vm = this;
   vm.layers = mapConfigService.getLayer();
@@ -388,11 +388,17 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode"];fu
   vm.altitude;
   vm.distance;
   vm.name = '';
-  vm.coordinates = [40.43440488077008, 32.65686035156249];
+  vm.coordinates = [];
 
   vm.addTrack = function() {
     console.log(vm);
-  }
+    trackService.addTrack(vm).then(function(addTrackResponse){
+        console.log(addTrackResponse);
+        $state.go('layout');
+    }, function(addTrackError){
+        console.log(addTrackError);
+    })
+  }  
 
   angular.extend($scope, {
     markers: {
@@ -418,11 +424,12 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode"];fu
     });
     $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
     $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
+    vm.coordinates = [leafEvent.latlng.lng,leafEvent.latlng.lat];
   });
 }
 
 angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete'])
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete','app.trackService'])
   .controller('rotaEkleController', rotaEkleController)
 
 /**
@@ -546,28 +553,48 @@ angular
 .factory('markerParser', markerParser);
 
 trackService.$inject = ["$http"];function trackService($http) {
-    var endpoint = 'http:localhost:8080/'
+	var endpoint = 'http:localhost:8080/'
 
 	var service = {
 		getTrack: getTrack,
+		addTrack: addTrack
 	};
 	return service;
 
-    function getTrack() {
-    	return $http({
-    		method: 'GET',
-    		url: 'api/tracks',
-            headers: {
-               'content-type': 'application/json; charset=utf-8'
-            }
-    	})
-    };
-   
-  
-} 
+	function getTrack() {
+		return $http({
+			method: 'GET',
+			url: 'api/tracks',
+			headers: {
+				'content-type': 'application/json; charset=utf-8'
+			}
+		})
+	};
+
+	function addTrack(track) {
+		return $http({
+			method: 'POST',
+			url: 'api/tracks',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			}, 
+			data: $.param({
+				"name": track.name,
+				"distance": track.distance,
+				"altitude": track.altitude,
+					"summary": track.summary,
+					"img_src": "src",
+					"coordinates": track.coordinates,
+					"ownerId": "57d93e47a8a684a86b000001"
+			})
+		})
+	}
+
+
+}
 angular
-.module('app.trackService', [])
-.factory('trackService', trackService);
+	.module('app.trackService', [])
+	.factory('trackService', trackService);
 
 userService.$inject = ["$http"];function userService($http) {
 	var service = {

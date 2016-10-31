@@ -1,4 +1,4 @@
-function rotaEkleController($scope, mapConfigService, reverseGeocode) {
+function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService,$state) {
   // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
   var vm = this;
   vm.layers = mapConfigService.getLayer();
@@ -12,11 +12,17 @@ function rotaEkleController($scope, mapConfigService, reverseGeocode) {
   vm.altitude;
   vm.distance;
   vm.name = '';
-  vm.coordinates = [40.43440488077008, 32.65686035156249];
+  vm.coordinates = [];
 
   vm.addTrack = function() {
     console.log(vm);
-  }
+    trackService.addTrack(vm).then(function(addTrackResponse){
+        console.log(addTrackResponse);
+        $state.go('layout');
+    }, function(addTrackError){
+        console.log(addTrackError);
+    })
+  }  
 
   angular.extend($scope, {
     markers: {
@@ -42,9 +48,10 @@ function rotaEkleController($scope, mapConfigService, reverseGeocode) {
     });
     $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
     $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
+    vm.coordinates = [leafEvent.latlng.lng,leafEvent.latlng.lat];
   });
 }
 
 angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete'])
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete','app.trackService'])
   .controller('rotaEkleController', rotaEkleController)

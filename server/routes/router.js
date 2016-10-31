@@ -4,7 +4,7 @@ var Track = require('./../models/track.js');
 
 // middleware is on
 router.use(function (req, res, next) {
-    // console.log(req)
+    // console.log(req) 
     console.log('middleware is handling things');
     next(); // make sure we go to the next routes
 });
@@ -13,7 +13,7 @@ router.use(function (req, res, next) {
 router.route('/tracks')
 
     .post(function (req, res) {
-        var track = new Track();      // create a new instance of the Bear model
+        var track = new Track();      // create a new instance of the Track model
         track.properties.name = req.body.name;
         track.properties.distance = req.body.distance;
         track.properties.altitude = req.body.altitude;
@@ -22,7 +22,7 @@ router.route('/tracks')
         track.properties.ownerId = req.body.ownerId;
         track.geometry.coordinates = req.body.coordinates;
 
-        // save the bear and check for errors
+        // save the track and check for errors
         track.save(function (err) {
             if (err)
                 res.send(err);

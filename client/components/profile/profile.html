@@ -1,6 +1,6 @@
 <div class="container layout-padding">
     <div class="row">
-        <div class="col-md-12 ">
+        <div class="col-md-4 ">
             <div class="card testimonial-card">
                 <!--Bacground color-->
                 <div class="card-up default-color-dark">
@@ -19,15 +19,13 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row ">
-        <div class="col-md-12 ">
+        <div class="col-md-8 ">
             <h1 class="padding-left-15 "> Rotalarım </h1>
-            <!--<div class="col-md-12 " ng-repeat="track in vm.markers">
-                <card-directive ng-mouseover="vm.changeIcon(track) " ng-mouseleave="vm.removeIcon(track) " title=t rack.properties.name summary=t
-                    rack.properties.summary>
+            <div class="col-md-6 " ng-repeat="track in vm.markers">
+                <card-directive ng-mouseover="vm.changeIcon(track) " ng-mouseleave="vm.removeIcon(track) " title="track.properties.name"" summary="track.properties.summary">
                 </card-directive>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>
+<footer-directive></footer-directive>

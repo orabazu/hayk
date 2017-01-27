@@ -1,4 +1,4 @@
-angular.module('app.core', [
+angular.module('app', [
     'app.header',
     'app.footer',
     'app.layout',
@@ -16,8 +16,6 @@ angular.module('app.core', [
     'ui.router',
     'leaflet-directive',
     'ngAutocomplete'
-
-
   ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider, $ocLazyLoadProvider) { // provider-injector
 

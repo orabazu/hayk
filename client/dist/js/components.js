@@ -25,7 +25,7 @@ function cardDirective() {
 function CardController() {
     var vm = this; 
 } 
-angular.module('app.core', [
+angular.module('app', [
     'app.header',
     'app.footer',
     'app.layout',
@@ -43,8 +43,6 @@ angular.module('app.core', [
     'ui.router',
     'leaflet-directive',
     'ngAutocomplete'
-
-
   ])
   .config(["$stateProvider", "$urlRouterProvider", "$locationProvider", "$logProvider", "$ocLazyLoadProvider", function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider, $ocLazyLoadProvider) { // provider-injector
 
@@ -432,6 +430,7 @@ angular
   .module('app.rotaekle', ['app.map', 'ngAutocomplete','app.trackService'])
   .controller('rotaEkleController', rotaEkleController)
 
+
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>
@@ -444,20 +443,11 @@ function footerDirective() {
     var directive = {
         restrict: 'EA',
         templateUrl: '../../components/_footer/footer.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
     };
-
+  
     return directive;
 }
 
-function FooterController() {
-    var vm = this;
-}
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
 * @example <div acme-shared-spinner></div>

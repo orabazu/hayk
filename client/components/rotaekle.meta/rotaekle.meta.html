@@ -1,39 +1,45 @@
 <div class="container layout-padding">
-	<div class="col-md-12 ">
+	<div class="col-md-offset-3 col-md-6 ">
 		<h3 class="text-center">Rota Bilgileri</h3>
-		<form class="form-horizontal">
-			<fieldset>
-				<!-- Form Name -->
+		<div class="panel">
+			<div class="panel-heading">
 				<legend>Rotaya ait diğer bilgiler</legend>
-				<!-- Textarea -->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="ozet">Özet</label>
-					<div class="col-md-8">
-						<textarea class="form-control" id="ozet" name="ozet" ng-model="rotaEkleController.summary">Rota hakkında genel bilgiler</textarea>
-					</div>
-				</div>
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="textinput">Rakım (m)</label>
-					<div class="col-md-8">
-						<input id="textinput" name="textinput" type="text" placeholder="Örn: 1365" class="form-control input-md" ng-model="rotaEkleController.altitude">
-						<!--<span class="help-block">help</span>-->
-					</div>
-				</div>
-
-				<!-- Text input-->
-				<div class="form-group">
-					<label class="col-md-4 control-label" for="textinput">Uzunluk (km)</label>
-					<div class="col-md-8">
-						<input id="textinput" name="textinput" type="text" placeholder="Örn: 13" class="form-control input-md"  ng-model="rotaEkleController.distance">
-						<!--<span class="help-block">help</span>-->
-					</div>
-				</div>
-
-			</fieldset>
-			<p class="text-right">
-				<button ui-sref="addtrack.finish" class="btn btn-default"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
-			</p>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal">
+					<fieldset ng-form="rota.meta">
+						<!-- Form Name -->
+						<!-- Textarea -->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="ozet">Özet</label>
+							<div class="col-md-9">
+								<textarea class="form-control" id="ozet" name="ozet" ng-model="rotaEkleController.summary">Rota hakkında genel bilgiler</textarea>
+							</div>
+						</div>
+						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="textinput">Rakım (m)</label>
+							<div class="col-md-9">
+								<input id="textinput" name="textinput" type="text" placeholder="Örn: 1365" class="form-control input-md" ng-model="rotaEkleController.altitude">
+								<!--<span class="help-block">help</span>-->
+							</div>
+						</div>
+						<!-- Text input-->
+						<div class="form-group">
+							<label class="col-md-3 control-label" for="textinput">Uzunluk (km)</label>
+							<div class="col-md-9">
+								<input id="textinput" name="textinput" type="text" placeholder="Örn: 13" class="form-control input-md" ng-model="rotaEkleController.distance" required>
+								<span ng-show="!rota.meta.$valid" class="help-block">Zorunlu alan</span>
+							</div>
+						</div>
+						<p class="">
+						<a ui-sref="addtrack.location" class="pull-left"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>							
+						<a ng-class="rota.meta.$valid ? '': 'disabled'  " ui-sref="addtrack.finish" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+					</p>
+					</fieldset>
+					
+			</div>
+		</div>
 		</form>
 	</div>
 </div>

@@ -11,6 +11,7 @@
  body {
  	font-family: 'Josefin Sans', sans-serif;
  	overflow-x: hidden;
+	background: #fafafa;
  }
  p {
  	font-size: 20px;
@@ -549,6 +550,10 @@ background-image: url('../img/3.jpg');
 	height: calc(100% - 51px);
 }
 
+h5{
+	font-size: 2.2em;
+}
+
 h4 {
 	font-size: 2.5em;
 }
@@ -564,4 +569,31 @@ h1{
 
 .padding-left-15 {
 	padding-left: 15px;
+}
+
+legend {
+	text-align: center;
+} 
+
+.panel{
+	background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    border: 1px solid rgba(0,0,0,.09);
+}
+
+.panel-body {
+	/*min-height: 310px;*/
+}
+
+.panel-body p a {
+	margin-top: 10px;
+}
+
+.panel-body  button {
+	font-size: 20px;
+}
+
+a.disabled {
+	text-decoration: line-through;
+	color: gray;
 }

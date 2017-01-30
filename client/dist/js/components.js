@@ -121,19 +121,23 @@ angular.module('app', [
     activate();
 
     function activate() {
-      return getUser().then(function () {})
+      return getUser().then(function () {
+
+      })
     }
 
     function getUser() {
       return userService.getUser()
         .then(function (respond) {
-          if (respond.data.done) {
+          if (respond.data.OperationResult) 
+          {
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-          } else {
+          } 
+          else
+          {
 
           }
-
         })
         .catch(function (err) {
           console.log(err);
@@ -302,6 +306,32 @@ function navbarController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
+    .module('app.register', [])
+    .directive('registerDirective', registerDirective);
+   
+function registerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/register/register.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: registerController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function registerController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
     .module('app.profile', [])
     .directive('profileDirective', profileDirective);
 
@@ -344,32 +374,6 @@ function profileController($rootScope, userService,trackService,markerParser) {
                 });
         });
     }
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.register', [])
-    .directive('registerDirective', registerDirective);
-   
-function registerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/register/register.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: registerController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function registerController() {
-    var vm = this;
 }
 
 rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "trackService", "$state"];function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService,$state) {

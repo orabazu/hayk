@@ -94,19 +94,23 @@ angular.module('app', [
     activate();
 
     function activate() {
-      return getUser().then(function () {})
+      return getUser().then(function () {
+
+      })
     }
 
     function getUser() {
       return userService.getUser()
         .then(function (respond) {
-          if (respond.data.done) {
+          if (respond.data.OperationResult) 
+          {
             $rootScope.user = respond.data.user;
             $rootScope.flagLogin = true;
-          } else {
+          } 
+          else
+          {
 
           }
-
         })
         .catch(function (err) {
           console.log(err);

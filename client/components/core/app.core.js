@@ -83,6 +83,13 @@ angular.module('app', [
     }
     $stateProvider.state(addTrackMetaState);
 
+    var addTrackImageState = {
+      name: 'addtrack.image',
+      url: '/resimler',     
+      templateUrl: '../../components/rotaekle.image/rotaekle.image.html'              
+    }
+    $stateProvider.state(addTrackImageState);
+
     var addTrackFinishState = {
       name: 'addtrack.finish',
       url: '/kaydet',    

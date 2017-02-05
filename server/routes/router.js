@@ -1,10 +1,22 @@
 var express = require('express');
+var multer = require('multer');
 var router = express.Router();
 var Track = require('./../models/track.js');
-
+var storage = multer.diskStorage({ //multers disk storage settings
+    destination: function (req, file, cb) {
+        cb(null, './server/uploads')
+    },
+    filename: function (req, file, cb) {
+        var datetimestamp = Date.now();
+        cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length - 1])
+    }
+});
+var upload = multer({
+    storage: storage
+})
 // middleware is on
 router.use(function (req, res, next) {
-    // console.log(req) 
+    // console.log(req)
     next(); // make sure we go to the next routes
 });
 
@@ -97,7 +109,7 @@ router.route('/tracks/:id')
 
         res.json(track);
     });
-
+// --------------------------------------------------------------
 router.route('/profile')
     //get user profile
     .get(function (req, res) {
@@ -115,5 +127,28 @@ router.route('/profile')
             res.redirect("/login");
         }
     })
+
+
+
+router.route('/photos')
+    .post(function (req, res) {
+        upload.single('file')(req, res, function (err) {
+            console.log(req.file);
+            if (err) {
+                res.json({
+                    OperationResult: false,
+                    Error: err
+                });
+                return;
+            }
+            res.json({
+                OperationResult: true,
+                Error: null
+            });
+        })
+    })
+
+
+
 
 module.exports = router;

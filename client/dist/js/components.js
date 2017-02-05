@@ -110,6 +110,13 @@ angular.module('app', [
     }
     $stateProvider.state(addTrackMetaState);
 
+    var addTrackImageState = {
+      name: 'addtrack.image',
+      url: '/resimler',     
+      templateUrl: '../../components/rotaekle.image/rotaekle.image.html'              
+    }
+    $stateProvider.state(addTrackImageState);
+
     var addTrackFinishState = {
       name: 'addtrack.finish',
       url: '/kaydet',    
@@ -254,32 +261,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.login', [])
-    .directive('loginDirective', loginDirective);
-   
-function loginDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/login/login.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.navbar', [])
     .directive('navbarDirective', navbarDirective);
    
@@ -306,17 +287,17 @@ function navbarController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.register', [])
-    .directive('registerDirective', registerDirective);
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
    
-function registerDirective() {
+function loginDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/register/register.html',
+        templateUrl: '../../components/login/login.html',
         // scope: {
         //     max: '='
         // },
-        controller: registerController,
+        controller: FooterController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -324,7 +305,7 @@ function registerDirective() {
     return directive;
 }
 
-function registerController() {
+function FooterController() {
     var vm = this;
 }
 /**
@@ -375,8 +356,34 @@ function profileController($rootScope, userService,trackService,markerParser) {
         });
     }
 }
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.register', [])
+    .directive('registerDirective', registerDirective);
+   
+function registerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/register/register.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: registerController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
 
-rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "trackService", "$state"];function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService,$state) {
+    return directive;
+}
+
+function registerController() {
+    var vm = this;
+}
+
+rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "trackService", "$state", "Upload"];function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService, $state, Upload) {
   // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
   var vm = this;
   vm.layers = mapConfigService.getLayer();
@@ -392,16 +399,37 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "t
   vm.name = '';
   vm.coordinates = [];
 
-  vm.addTrack = function() {
+  vm.addTrack = function () {
     console.log(vm);
-    trackService.addTrack(vm).then(function(addTrackResponse){
-        console.log(addTrackResponse);
-        $state.go('layout');
-    }, function(addTrackError){
-        console.log(addTrackError);
+    trackService.addTrack(vm).then(function (addTrackResponse) {
+      console.log(addTrackResponse);
+      $state.go('layout');
+    }, function (addTrackError) {
+      console.log(addTrackError);
     })
-  }  
+  }
 
+  vm.uploadPic = function (file) {
+    console.log(file);
+    file.upload = Upload.upload({
+      url: 'api/photos/',
+      data: {
+        file: file
+      },
+    }).then(function (resp) { //upload function returns a promise
+      if (resp.data.OperationResult === true) { //validate success
+        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
+      } else {
+        console.log('an error occured');
+      }
+    }, function (resp) { //catch error
+      console.log('Error status: ' + resp.status);
+    }, function (evt) {
+      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+      vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
+    });;
+  }
   angular.extend($scope, {
     markers: {
       mainMarker: {
@@ -418,20 +446,20 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "t
     var leafEvent = args.leafletEvent;
     console.log(leafEvent);
     reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
-      console.log(geocodeSuccess)
-      vm.location = geocodeSuccess;
-    }, 
-    function (err) {
-      console.log(err)
-    });
+        console.log(geocodeSuccess)
+        vm.location = geocodeSuccess;
+      },
+      function (err) {
+        console.log(err)
+      });
     $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
     $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
-    vm.coordinates = [leafEvent.latlng.lng,leafEvent.latlng.lat];
+    vm.coordinates = [leafEvent.latlng.lng, leafEvent.latlng.lat];
   });
 }
 
 angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete','app.trackService'])
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload'])
   .controller('rotaEkleController', rotaEkleController)
 
 

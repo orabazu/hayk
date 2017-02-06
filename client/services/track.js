@@ -29,7 +29,7 @@ function trackService($http) {
 				"distance": track.distance,
 				"altitude": track.altitude,
 					"summary": track.summary,
-					"img_src": "src",
+					"img_src": track.img_src,
 					"coordinates": track.coordinates,
 					"ownerId": "57d93e47a8a684a86b000001"
 			})

@@ -13,7 +13,8 @@ function cardDirective() {
         scope: {
             title: '<',
             summary: '<',
-            owner:'<'
+            owner:'<',
+            imgSrc:'<',
         },
         controller: CardController,
         controllerAs: 'vm',
@@ -24,6 +25,8 @@ function cardDirective() {
 
 function CardController() {
     var vm = this; 
+    console.log(vm.imgSrc);
+
 } 
 angular.module('app', [
     'app.header',
@@ -174,22 +177,21 @@ function layoutDirective() {
 
 function LayoutController($scope, $rootScope, $state, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
-    vm.tracks = {};
+    vm.tracks = {}; 
 
     activate();
- 
+
     function activate() {
-        return getTrack().then(function () {
-        });
+        return getTrack().then(function () {});
     }
 
     function getTrack() {
         return trackService.getTrack().then(function (respond) {
-            console.log(respond);
             vm.tracks.data = respond.data;
+            console.log(vm.tracks.data);
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
-                console.log(vm.tracks.data);
+                console.log(vm.markers);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();
                 leafletData.getMap().then(function (map) {
                     map.fitBounds(bounds);
@@ -244,7 +246,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     for (var k in vm.mapEvents) {
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function (event, args) {
-            // console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
                 vm.changeIcon(vm.markers[args.modelName]);
             } else if (event.name == 'leafletDirectiveMarker.mouseout') {
@@ -253,34 +254,7 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 
         });
     }
-    // console.log(vm.mapEvents);
 
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
-   
-function navbarDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/navbar/navbar.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: navbarController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function navbarController() {
-    var vm = this;
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -306,6 +280,32 @@ function loginDirective() {
 }
 
 function FooterController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
     var vm = this;
 }
 /**
@@ -399,37 +399,42 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "t
   vm.name = '';
   vm.coordinates = [];
 
+  $scope.loginLoading = true;
+
   vm.addTrack = function () {
-    console.log(vm);
     trackService.addTrack(vm).then(function (addTrackResponse) {
-      console.log(addTrackResponse);
       $state.go('layout');
     }, function (addTrackError) {
       console.log(addTrackError);
     })
   }
-
   vm.uploadPic = function (file) {
-    console.log(file);
+    if(file)
+    {
+vm.uploading = true;
     file.upload = Upload.upload({
       url: 'api/photos/',
       data: {
         file: file
       },
-    }).then(function (resp) { //upload function returns a promise
-      if (resp.data.OperationResult === true) { //validate success
-        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-      } else {
-        console.log('an error occured');
-      }
-    }, function (resp) { //catch error
-      console.log('Error status: ' + resp.status);
-    }, function (evt) {
-      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-      vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-    });;
+    }).then(function (resp) {
+        if (resp.data.OperationResult === true) {
+          vm.img_src = resp.data.Data.path
+          $state.go('addtrack.finish');
+        } else {
+          console.log('an error occured');
+        }
+      },
+      function (resp) { //catch error
+        console.log('Error status: ' + resp.status);
+      })['finally'](
+      function () {
+        vm.uploading = false;
+      }); 
+    }
+    
   }
+
   angular.extend($scope, {
     markers: {
       mainMarker: {
@@ -444,9 +449,7 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "t
 
   $scope.$on("leafletDirectiveMap.click", function (event, args) {
     var leafEvent = args.leafletEvent;
-    console.log(leafEvent);
     reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
-        console.log(geocodeSuccess)
         vm.location = geocodeSuccess;
       },
       function (err) {
@@ -459,7 +462,7 @@ rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "t
 }
 
 angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload'])
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
   .controller('rotaEkleController', rotaEkleController)
 
 
@@ -525,7 +528,7 @@ function markerParser($q) {
 	function jsonToMarkerArray(val) {
         var defered = $q.defer(); // defered object result of async operation
         var output = [];
-        for (var i = 0; i < val.length; i++) {
+        for (var i = 0; i < val.length; i++) { 
             var mark = {
                 layer: "rotalar",
                 lat: val[i].geometry.coordinates[1],
@@ -548,7 +551,9 @@ function markerParser($q) {
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,
-                    "summary" : val[i].properties.summary
+                    "summary" : val[i].properties.summary,
+                    "owner": val[i].properties.ownerId,
+                    "img_src":val[i].properties.img_src,
                 }
             }
             output.push(mark);
@@ -605,7 +610,7 @@ trackService.$inject = ["$http"];function trackService($http) {
 				"distance": track.distance,
 				"altitude": track.altitude,
 					"summary": track.summary,
-					"img_src": "src",
+					"img_src": track.img_src,
 					"coordinates": track.coordinates,
 					"ownerId": "57d93e47a8a684a86b000001"
 			})

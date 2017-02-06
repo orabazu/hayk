@@ -247,6 +247,19 @@
 .progress-bar-top {
     margin-top: 51px;
 }
+.thumb {
+    max-width: 100%;
+}
+
+.ladda-button
+{
+    background-color: transparent !important;
+    color: #1abc9c !important;
+    border: none !important;
+    padding: initial !important;
+    padding-left: 48px !important;
+    font-size: 20px !important;
+}
 
 
 

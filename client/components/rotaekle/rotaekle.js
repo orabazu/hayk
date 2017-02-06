@@ -14,37 +14,42 @@ function rotaEkleController($scope, mapConfigService, reverseGeocode, trackServi
   vm.name = '';
   vm.coordinates = [];
 
+  $scope.loginLoading = true;
+
   vm.addTrack = function () {
-    console.log(vm);
     trackService.addTrack(vm).then(function (addTrackResponse) {
-      console.log(addTrackResponse);
       $state.go('layout');
     }, function (addTrackError) {
       console.log(addTrackError);
     })
   }
-
   vm.uploadPic = function (file) {
-    console.log(file);
+    if(file)
+    {
+vm.uploading = true;
     file.upload = Upload.upload({
       url: 'api/photos/',
       data: {
         file: file
       },
-    }).then(function (resp) { //upload function returns a promise
-      if (resp.data.OperationResult === true) { //validate success
-        console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ');
-      } else {
-        console.log('an error occured');
-      }
-    }, function (resp) { //catch error
-      console.log('Error status: ' + resp.status);
-    }, function (evt) {
-      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-      vm.progress = 'progress: ' + progressPercentage + '% '; // capture upload progress
-    });;
+    }).then(function (resp) {
+        if (resp.data.OperationResult === true) {
+          vm.img_src = resp.data.Data.path
+          $state.go('addtrack.finish');
+        } else {
+          console.log('an error occured');
+        }
+      },
+      function (resp) { //catch error
+        console.log('Error status: ' + resp.status);
+      })['finally'](
+      function () {
+        vm.uploading = false;
+      }); 
+    }
+    
   }
+
   angular.extend($scope, {
     markers: {
       mainMarker: {
@@ -59,9 +64,7 @@ function rotaEkleController($scope, mapConfigService, reverseGeocode, trackServi
 
   $scope.$on("leafletDirectiveMap.click", function (event, args) {
     var leafEvent = args.leafletEvent;
-    console.log(leafEvent);
     reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
-        console.log(geocodeSuccess)
         vm.location = geocodeSuccess;
       },
       function (err) {
@@ -74,5 +77,5 @@ function rotaEkleController($scope, mapConfigService, reverseGeocode, trackServi
 }
 
 angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload'])
+  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
   .controller('rotaEkleController', rotaEkleController)

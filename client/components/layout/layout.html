@@ -2,14 +2,15 @@
 		<div class="side-menu">
 			<h2>Rotalar</h2>
 
-			<div class="col-md-6" ng-repeat="track in vm.markers" >
+			<div class="col-md-6" ng-repeat="marker in vm.markers" >
 				<!-- CARD  -->
 				<card-directive 
-				ng-mouseover="vm.changeIcon(track)"
-				ng-mouseleave="vm.removeIcon(track)" 
-				title = track.properties.name
-				summary =  track.properties.summary 
-				owner = track.properties.ownerId
+				ng-mouseover="vm.changeIcon(marker)"
+				ng-mouseleave="vm.removeIcon(marker)" 
+				title = marker.properties.name
+				summary =  marker.properties.summary 
+				owner = marker.properties.owner
+				img-src = marker.properties.img_src
 				>
 				</card-directive>
 			</div>

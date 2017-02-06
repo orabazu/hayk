@@ -2,6 +2,7 @@ var express = require('express');
 var multer = require('multer');
 var router = express.Router();
 var Track = require('./../models/track.js');
+var fs = require('fs');
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
         cb(null, './server/uploads')
@@ -31,6 +32,7 @@ router.route('/tracks')
         track.properties.summary = req.body.summary;
         track.properties.img_src = req.body.img_src;
         track.properties.ownerId = req.body.ownerId;
+        track.properties.img = fs.readFileSync(req.body.img_src);
         track.geometry.coordinates = req.body.coordinates;
 
         // save the track and check for errors
@@ -45,8 +47,6 @@ router.route('/tracks')
                     OperationResult: true,
                 });
             }
-
-
         });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
@@ -143,7 +143,8 @@ router.route('/photos')
             }
             res.json({
                 OperationResult: true,
-                Error: null
+                Error: null,
+                Data: req.file,
             });
         })
     })

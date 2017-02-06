@@ -14,7 +14,7 @@ function markerParser($q) {
 	function jsonToMarkerArray(val) {
         var defered = $q.defer(); // defered object result of async operation
         var output = [];
-        for (var i = 0; i < val.length; i++) {
+        for (var i = 0; i < val.length; i++) { 
             var mark = {
                 layer: "rotalar",
                 lat: val[i].geometry.coordinates[1],
@@ -37,7 +37,9 @@ function markerParser($q) {
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,
-                    "summary" : val[i].properties.summary
+                    "summary" : val[i].properties.summary,
+                    "owner": val[i].properties.ownerId,
+                    "img_src":val[i].properties.img_src,
                 }
             }
             output.push(mark);

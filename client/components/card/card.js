@@ -13,7 +13,8 @@ function cardDirective() {
         scope: {
             title: '<',
             summary: '<',
-            owner:'<'
+            owner:'<',
+            imgSrc:'<',
         },
         controller: CardController,
         controllerAs: 'vm',
@@ -24,4 +25,6 @@ function cardDirective() {
 
 function CardController() {
     var vm = this; 
+    console.log(vm.imgSrc);
+
 } 

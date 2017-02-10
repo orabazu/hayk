@@ -112,6 +112,29 @@
 	display: table-cell;
 	vertical-align: middle;
 }
+.right-image-register {
+	background: url('../../img/the-plains.jpg');
+	height: 100%;
+	width: 100%;
+	display: block;
+	background-size: cover;
+	background-position: center;
+}  
+
+.glue-right {  
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.glue-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	padding: 50px;
+} 
 .menu-profile-photo {
     width: 30px;
     height: 30px;
@@ -181,6 +204,25 @@
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
+.progress-bar-top {
+    margin-top: 51px;
+}
+.thumb {
+    max-width: 100%;
+}
+
+.ladda-button
+{
+    background-color: transparent !important;
+    color: #1abc9c !important;
+    border: none !important;
+    padding: initial !important;
+    padding-left: 48px !important;
+    font-size: 20px !important;
+}
+
+
+
       .testimonial-card .card-up {
           height: 120px;
           overflow: hidden;
@@ -203,48 +245,6 @@
     .layout-padding {
         padding-top: 51px;
     }
-.right-image-register {
-	background: url('../../img/the-plains.jpg');
-	height: 100%;
-	width: 100%;
-	display: block;
-	background-size: cover;
-	background-position: center;
-}  
-
-.glue-right {  
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.glue-left {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	padding: 50px;
-} 
-.progress-bar-top {
-    margin-top: 51px;
-}
-.thumb {
-    max-width: 100%;
-}
-
-.ladda-button
-{
-    background-color: transparent !important;
-    color: #1abc9c !important;
-    border: none !important;
-    padding: initial !important;
-    padding-left: 48px !important;
-    font-size: 20px !important;
-}
-
-
-
  footer {
  	color: white;
  }

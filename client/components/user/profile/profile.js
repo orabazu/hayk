@@ -9,7 +9,7 @@ angular
 function profileDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/profile/profile.html',
+        templateUrl: '../../components/user/profile/profile.html',
         // scope: {
         //     max: '='
         // },

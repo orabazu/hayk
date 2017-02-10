@@ -25,9 +25,11 @@ function cardDirective() {
 
 function CardController() {
     var vm = this; 
+    vm.imgSrc = vm.imgSrc.split('client')[1];
     console.log(vm.imgSrc);
 
 } 
+
 angular.module('app', [
     'app.header',
     'app.footer',
@@ -155,6 +157,32 @@ angular.module('app', [
     }
   }]);
 /**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
+   
+function loginDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/login/login.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
+    var vm = this;
+}
+/**
  * @desc Main layout for application
  * @example <layout-directive></layout-directive>
  */
@@ -255,32 +283,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
         });
     }
 
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.login', [])
-    .directive('loginDirective', loginDirective);
-   
-function loginDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/login/login.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme

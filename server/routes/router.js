@@ -5,7 +5,7 @@ var Track = require('./../models/track.js');
 var fs = require('fs');
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
-        cb(null, './server/uploads')
+        cb(null, './client/dist/uploads')
     },
     filename: function (req, file, cb) {
         var datetimestamp = Date.now();

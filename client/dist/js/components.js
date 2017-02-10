@@ -486,34 +486,6 @@ function footerDirective() {
 }
 
 /**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.header',[])
-    .directive('headerDirective', headerDirective);
-
-function headerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/_header/header.html',
-        scope: {},
-        controller: HeaderController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function HeaderController($scope,$state) {
-    var vm = this;
-    vm.search = function(){
-        $state.go('layout', {term: vm.elma})
-    }   
-
-}
-/**
  * @desc Services that converts geojson features to markers for handling later
  */
 
@@ -834,3 +806,31 @@ reverseGeocode.$inject = ["$q", "$http"];function reverseGeocode($q, $http) {
 angular
  .module('app.map')
  .factory('reverseGeocode', reverseGeocode);
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.header',[])
+    .directive('headerDirective', headerDirective);
+
+function headerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/content/header/header.html',
+        scope: {},
+        controller: HeaderController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function HeaderController($scope,$state) {
+    var vm = this;
+    vm.search = function(){
+        $state.go('layout', {term: vm.elma})
+    }   
+
+}

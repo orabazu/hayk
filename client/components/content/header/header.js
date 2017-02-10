@@ -9,7 +9,7 @@ angular
 function headerDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/_header/header.html',
+        templateUrl: '../../components/content/header/header.html',
         scope: {},
         controller: HeaderController,
         controllerAs: 'vm',

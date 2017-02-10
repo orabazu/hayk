@@ -36,11 +36,12 @@ var watch = require('gulp-watch');
 // });
 
 var componentsPath = 'client/components/*/*.js';
+var contentJS = 'client/components/content/*/*.js'
 var servicePath = 'client/services/*.js';
 var servicePath2 = 'client/services/*/*.js';
 var componentsPathcss = 'client/components/*/*.css';
 
-var jsPath = [componentsPath,servicePath,servicePath2,'!client/components/*-spec.js','!client/services/*-spec.js'];
+var jsPath = [componentsPath,servicePath,servicePath2,contentJS,'!client/components/*-spec.js','!client/services/*-spec.js'];
 // task
 gulp.task('minify-js', function () {
   return  gulp.src(jsPath) // path to your files
@@ -52,7 +53,7 @@ gulp.task('minify-js', function () {
 
 
 gulp.task('minify-css', function() {
-	return gulp.src(componentsPathcss)
+	return gulp.src([componentsPathcss, 'client/components/*/*/*.css'])
   .pipe(concat('components.css'))  
 	// .pipe(cleanCSS({compatibility: 'ie8'}))
 	.pipe(gulp.dest('client/dist/css'))
@@ -66,3 +67,4 @@ gulp.task('watch', function () {
 
 
 gulp.task('default', ['minify-js', 'minify-css','watch']);
+

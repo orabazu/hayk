@@ -28,7 +28,7 @@ angular.module('app', [
     var defaultState = {
       name: 'defaultState',
       url: '/',
-      templateUrl: '../../components/landing/landing.html'
+      templateUrl: '../../components/content/landing/landing.html'
     };
     $stateProvider.state(defaultState);
 

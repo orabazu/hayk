@@ -10,7 +10,7 @@ angular
 function footerDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/_footer/footer.html',
+        templateUrl: '../../components/content/footer/footer.html',
     };
   
     return directive;

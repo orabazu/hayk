@@ -9,7 +9,7 @@ angular
 function cardDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/card/card.html',
+        templateUrl: '../../components/common/card/card.html',
         scope: {
             title: '<',
             summary: '<',

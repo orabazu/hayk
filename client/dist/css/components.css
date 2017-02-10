@@ -1,84 +1,44 @@
-.side-menu{
+.right-image-register {
+	background: url('../../img/the-plains.jpg');
+	height: 100%;
+	width: 100%;
+	display: block;
+	background-size: cover;
+	background-position: center;
+}  
+
+.glue-right {  
 	position: absolute;
-	background: whitesmoke;
-	height: calc(100% - 51px);
+	top: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.glue-left {
+	position: absolute;
+	top: 0;
 	left: 0;
-	top:50px;
-	width: 60%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+	bottom: 0;
+	padding: 50px;
+} 
+.progress-bar-top {
+    margin-top: 51px;
+}
+.thumb {
+    max-width: 100%;
 }
 
-@media screen and (max-width: 768px) {
-    .side-menu{
-        position: absolute;
-        background: whitesmoke;
-        height: calc(100% - 51px);
-        left: 0;
-        top:50px;
-        width: 100%;
-    }
+.ladda-button
+{
+    background-color: transparent !important;
+    color: #1abc9c !important;
+    border: none !important;
+    padding: initial !important;
+    padding-left: 48px !important;
+    font-size: 20px !important;
 }
 
-.data-viz {
-	position: absolute;
-    width: 40%;
-    height: calc(100% - 51px);
-    background: darkorchid;
-    top: 50px;
-    left: 60%;
-}
 
-@media screen and (max-width: 768px) {
-    .data-viz {
-        position: absolute;
-        width: 0%;
-        height: calc(100% - 51px);
-        background: darkorchid;
-        top: 50px;
-        left: 60%;
-    }
-}
-
-.btn-map-filter-table {
- position: fixed;
- bottom: 0;
- display: table;
- table-layout: fixed;
- width: 100%; 
-}
-@media screen and (min-width: 768px) {
-    .btn-map-filter-table {
-        display: none;
-    }
-}
-
-.btn-map-filter-cell {
-    display: table-cell;
-    width: 100%;
-    vertical-align: middle;
-    text-align: center;
-    padding: 20px;
-}
-
-.btn-map-filter {
-    box-shadow: 0px 3px 6px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
-}
-
-.panel {
-    border-radius: 0px;
-}
-
-@media screen and (min-width: 768px) {
-    .panel {
-        margin: 15px;
-    }
-}
-
-.side-menu > h2 {
-    font-size: 4em;
-    margin-left: 15px;
-}
 
 .menu-profile-photo {
     width: 30px;
@@ -149,48 +109,6 @@
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
 }
-.right-image-register {
-	background: url('../../img/the-plains.jpg');
-	height: 100%;
-	width: 100%;
-	display: block;
-	background-size: cover;
-	background-position: center;
-}  
-
-.glue-right {  
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-}
-
-.glue-left {
-	position: absolute;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	padding: 50px;
-} 
-.progress-bar-top {
-    margin-top: 51px;
-}
-.thumb {
-    max-width: 100%;
-}
-
-.ladda-button
-{
-    background-color: transparent !important;
-    color: #1abc9c !important;
-    border: none !important;
-    padding: initial !important;
-    padding-left: 48px !important;
-    font-size: 20px !important;
-}
-
-
-
 .right-image {
 	background: url('../../img/the-hills.jpg');
 	height: 100%;
@@ -365,4 +283,86 @@
     left: 0;
     right: 0;
     overflow: hidden;
+}
+
+.side-menu{
+	position: absolute;
+	background: whitesmoke;
+	height: calc(100% - 51px);
+	left: 0;
+	top:50px;
+	width: 60%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+@media screen and (max-width: 768px) {
+    .side-menu{
+        position: absolute;
+        background: whitesmoke;
+        height: calc(100% - 51px);
+        left: 0;
+        top:50px;
+        width: 100%;
+    }
+}
+
+.data-viz {
+	position: absolute;
+    width: 40%;
+    height: calc(100% - 51px);
+    background: darkorchid;
+    top: 50px;
+    left: 60%;
+}
+
+@media screen and (max-width: 768px) {
+    .data-viz {
+        position: absolute;
+        width: 0%;
+        height: calc(100% - 51px);
+        background: darkorchid;
+        top: 50px;
+        left: 60%;
+    }
+}
+
+.btn-map-filter-table {
+ position: fixed;
+ bottom: 0;
+ display: table;
+ table-layout: fixed;
+ width: 100%; 
+}
+@media screen and (min-width: 768px) {
+    .btn-map-filter-table {
+        display: none;
+    }
+}
+
+.btn-map-filter-cell {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+    text-align: center;
+    padding: 20px;
+}
+
+.btn-map-filter {
+    box-shadow: 0px 3px 6px 0 rgba(0,0,0,.16),0 2px 10px 0 rgba(0,0,0,.12);
+}
+
+.panel {
+    border-radius: 0px;
+}
+
+@media screen and (min-width: 768px) {
+    .panel {
+        margin: 15px;
+    }
+}
+
+.side-menu > h2 {
+    font-size: 4em;
+    margin-left: 15px;
 }

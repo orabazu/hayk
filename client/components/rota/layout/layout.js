@@ -9,7 +9,7 @@ angular
 function layoutDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/layout/layout.html',
+        templateUrl: '../../components/rota/layout/layout.html',
         scope: {},
         controller: LayoutController,
         controllerAs: 'vm',

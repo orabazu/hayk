@@ -9,7 +9,7 @@ angular
 function navbarDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/navbar/navbar.html',
+        templateUrl: '../../components/user/navbar/navbar.html',
         // scope: {
         //     max: '='
         // },

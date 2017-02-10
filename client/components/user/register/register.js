@@ -9,7 +9,7 @@ angular
 function registerDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/register/register.html',
+        templateUrl: '../../components/user/register/register.html',
         // scope: {
         //     max: '='
         // },

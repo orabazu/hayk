@@ -63,7 +63,7 @@ angular.module('app', [
     var addTrackState = {
       name: 'addtrack',
       url: '/rotaekle',
-      templateUrl: '../../components/rotaekle/rotaekle.html',
+      templateUrl: '../../components/rota/rotaekle/rotaekle.html',
       controller: 'rotaEkleController',
       controllerAs: 'rotaEkleController'
     };
@@ -72,28 +72,28 @@ angular.module('app', [
     var addTrackLocationState = {
       name: 'addtrack.location',
       url: '/konum',
-      templateUrl: '../../components/rotaekle.location/rotaekle.location.html'      
+      templateUrl: '../../components/rota/rotaekle.location/rotaekle.location.html'      
     };
     $stateProvider.state(addTrackLocationState);
 
     var addTrackMetaState = {
-      name: 'addtrack.meta',
+      name: 'addtrack.meta', 
       url: '/bilgi',    
-      templateUrl: '../../components/rotaekle.meta/rotaekle.meta.html'              
+      templateUrl: '../../components/rota/rotaekle.meta/rotaekle.meta.html'              
     }
     $stateProvider.state(addTrackMetaState);
 
     var addTrackImageState = {
       name: 'addtrack.image',
       url: '/resimler',     
-      templateUrl: '../../components/rotaekle.image/rotaekle.image.html'              
+      templateUrl: '../../components/rota/rotaekle.image/rotaekle.image.html'              
     }
     $stateProvider.state(addTrackImageState);
 
     var addTrackFinishState = {
       name: 'addtrack.finish',
       url: '/kaydet',    
-      templateUrl: '../../components/rotaekle.finish/rotaekle.finish.html'              
+      templateUrl: '../../components/rota/rotaekle.finish/rotaekle.finish.html'              
     }
     $stateProvider.state(addTrackFinishState);
   })

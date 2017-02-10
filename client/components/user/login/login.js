@@ -9,7 +9,7 @@ angular
 function loginDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/login/login.html',
+        templateUrl: '../../components/user/login/login.html',
         // scope: {
         //     max: '='
         // },

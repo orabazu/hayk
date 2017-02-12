@@ -24,6 +24,10 @@ module.exports = mongoose.model('User', new Schema({
     type: String,
     required: true,
     trim: true
-  }
+  },
+  tracks : [{ 
+    type: Schema.Types.ObjectId, 
+    ref: 'Track' 
+  }]
   //asdsad
 }));

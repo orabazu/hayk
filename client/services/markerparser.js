@@ -38,7 +38,7 @@ function markerParser($q) {
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,
                     "summary" : val[i].properties.summary,
-                    "owner": val[i].properties.ownerId,
+                    "owner": val[i].properties.ownedBy,
                     "img_src":val[i].properties.img_src,
                 }
             }

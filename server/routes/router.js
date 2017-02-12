@@ -31,8 +31,8 @@ router.route('/tracks')
         track.properties.altitude = req.body.altitude;
         track.properties.summary = req.body.summary;
         track.properties.img_src = req.body.img_src;
-        track.properties.ownerId = req.body.ownerId;
-        track.properties.img = fs.readFileSync(req.body.img_src);
+        track.properties.ownedBy = req.body.ownedBy;
+        // track.properties.img = fs.readFileSync(req.body.img_src);
         track.geometry.coordinates = req.body.coordinates;
 
         // save the track and check for errors
@@ -45,13 +45,16 @@ router.route('/tracks')
             } else {
                 res.json({
                     OperationResult: true,
-                });
+                }); 
             }
         });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
     .get(function (req, res) {
-        Track.find(function (err, tracks) {
+        debugger;        
+        Track.find()
+        .populate('properties.ownedBy') 
+        .exec(function (err, tracks) {
             if (err) {
                 res.status(400).send({
                     OperationResult: false,
@@ -60,9 +63,8 @@ router.route('/tracks')
             } else {
                 res.json(tracks);
             }
-
         });
-
+ 
     });
 
 

@@ -182,7 +182,7 @@ function markerParser($q) {
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,
                     "summary" : val[i].properties.summary,
-                    "owner": val[i].properties.ownerId,
+                    "owner": val[i].properties.ownedBy,
                     "img_src":val[i].properties.img_src,
                 }
             }
@@ -234,15 +234,15 @@ trackService.$inject = ["$http"];function trackService($http) {
 			url: 'api/tracks',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
-			}, 
+			},
 			data: $.param({
 				"name": track.name,
 				"distance": track.distance,
 				"altitude": track.altitude,
-					"summary": track.summary,
-					"img_src": track.img_src,
-					"coordinates": track.coordinates,
-					"ownerId": "57d93e47a8a684a86b000001"
+				"summary": track.summary,
+				"img_src": track.img_src,
+				"coordinates": track.coordinates,
+				"ownedBy": track.ownedBy,
 			})
 		})
 	}
@@ -467,32 +467,6 @@ angular
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.login', [])
-    .directive('loginDirective', loginDirective);
-   
-function loginDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/login/login.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.navbar', [])
     .directive('navbarDirective', navbarDirective);
    
@@ -512,6 +486,32 @@ function navbarDirective() {
 }
 
 function navbarController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
+   
+function loginDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/login/login.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
     var vm = this;
 }
 /**
@@ -590,23 +590,6 @@ function registerController() {
 }
 (function () {
     'use strict';
-angular
-    .module('app.footer', [])
-    .directive('footerDirective', footerDirective);
-   
-function footerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/content/footer/footer.html',
-    };
-  
-    return directive;
-}
-})(); 
- 
-
-(function () {
-    'use strict';
 angular 
     .module('app.header',[])
     .directive('headerDirective', headerDirective);
@@ -632,6 +615,23 @@ function HeaderController($scope,$state) {
 }
 })(); 
  
+(function () {
+    'use strict';
+angular
+    .module('app.footer', [])
+    .directive('footerDirective', footerDirective);
+   
+function footerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/content/footer/footer.html',
+    };
+  
+    return directive;
+}
+})(); 
+ 
+
 /**
 * @desc card component 
 * @example <card></card>
@@ -766,85 +766,92 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     }
 
 }
+(function () {
+  'use strict';
 
-rotaEkleController.$inject = ["$scope", "mapConfigService", "reverseGeocode", "trackService", "$state", "Upload"];function rotaEkleController($scope, mapConfigService, reverseGeocode, trackService, $state, Upload) {
-  // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
-  var vm = this;
-  vm.layers = mapConfigService.getLayer();
-  vm.center = mapConfigService.getCenter();
-  vm.location;
+  angular
+    .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
+    .controller('rotaEkleController', rotaEkleController)
 
-  //Track parameters
-  vm.ownerId;
-  vm.img_src = "src";
-  vm.summary;
-  vm.altitude;
-  vm.distance;
-  vm.name = '';
-  vm.coordinates = [];
 
-  $scope.loginLoading = true;
+  rotaEkleController.$inject = ['$scope', '$rootScope', 'mapConfigService', 'reverseGeocode', 'trackService', '$state', 'Upload'];
+  function rotaEkleController($scope, $rootScope, mapConfigService, reverseGeocode, trackService, $state, Upload) {
+    // $ocLazyLoad.load('../../services/map/map.autocomplete.js');  
+    var vm = this;
+    vm.layers = mapConfigService.getLayer();
+    vm.center = mapConfigService.getCenter();
+    vm.location;
 
-  vm.addTrack = function () {
-    trackService.addTrack(vm).then(function (addTrackResponse) {
-      $state.go('layout');
-    }, function (addTrackError) {
-      console.log(addTrackError);
-    })
-  }
-  vm.uploadPic = function (file) {
-    if(file)
-    {
-vm.uploading = true;
-    file.upload = Upload.upload({
-      url: 'api/photos/',
-      data: {
-        file: file
-      },
-    }).then(function (resp) {
-        if (resp.data.OperationResult === true) {
-          vm.img_src = resp.data.Data.path
-          $state.go('addtrack.finish');
-        } else {
-          console.log('an error occured');
-        }
-      },
-      function (resp) { //catch error
-        console.log('Error status: ' + resp.status);
-      })['finally'](
-      function () {
-        vm.uploading = false;
-      }); 
+    //Track parameters
+    vm.ownedBy = $rootScope.user._id;
+    vm.img_src = "src";
+    vm.summary;
+    vm.altitude;
+    vm.distance;
+    vm.name = '';
+    vm.coordinates = [];
+
+
+    $scope.loginLoading = true;
+
+    console.log($rootScope.user);
+    vm.addTrack = function () {
+      trackService.addTrack(vm).then(function (addTrackResponse) {
+        $state.go('layout');
+      }, function (addTrackError) {
+        console.log(addTrackError);
+      })
     }
-    
-  }
-
-  angular.extend($scope, {
-    markers: {
-      mainMarker: {
-        lat: vm.coordinates[0],
-        lng: vm.coordinates[1],
-        focus: true,
-        message: "Başka bir noktaya tıklayarak kaydır.",
-        draggable: true
+    vm.uploadPic = function (file) {
+      if (file) {
+        vm.uploading = true;
+        file.upload = Upload.upload({
+          url: 'api/photos/',
+          data: {
+            file: file
+          },
+        }).then(function (resp) {
+            if (resp.data.OperationResult === true) {
+              vm.img_src = resp.data.Data.path
+              $state.go('addtrack.finish');
+            } else {
+              console.log('an error occured');
+            }
+          },
+          function (resp) { //catch error
+            console.log('Error status: ' + resp.status);
+          })['finally'](
+          function () {
+            vm.uploading = false;
+          });
       }
+
     }
-  });
 
-  $scope.$on("leafletDirectiveMap.click", function (event, args) {
-    var leafEvent = args.leafletEvent;
-    reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
-        vm.location = geocodeSuccess;
-      },
-      function (err) {
-        console.log(err)
-      });
-    $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
-    $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
-    vm.coordinates = [leafEvent.latlng.lng, leafEvent.latlng.lat];
-  });
-}
+    angular.extend($scope, {
+      markers: {
+        mainMarker: {
+          lat: vm.coordinates[0],
+          lng: vm.coordinates[1],
+          focus: true,
+          message: "Başka bir noktaya tıklayarak kaydır.",
+          draggable: true
+        }
+      }
+    });
 
-angular
-  .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
-  .controller('rotaEkleController', rotaEkleController)
+    $scope.$on("leafletDirectiveMap.click", function (event, args) {
+      var leafEvent = args.leafletEvent;
+      reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
+          vm.location = geocodeSuccess;
+        },
+        function (err) {
+          console.log(err)
+        });
+      $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
+      $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
+      vm.coordinates = [leafEvent.latlng.lng, leafEvent.latlng.lat];
+    });
+  }
+
+})();

@@ -5,13 +5,13 @@ var Schema = mongoose.Schema;
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('Track', new Schema({
     properties: {
+        ownedBy:  { type: String, ref: 'User' },        
         name: { type: String, required: true },
         distance: { type: String, required: true },
         altitude: { type: String },
         summary: { type: String },
         img_src: { type: String },
-        ownerId: {type: String},
-        img: {type:Buffer},
+        img: {type:Buffer}, 
     },
     geometry: { 
         'type': {

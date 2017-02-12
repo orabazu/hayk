@@ -23,15 +23,15 @@ function trackService($http) {
 			url: 'api/tracks',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
-			}, 
+			},
 			data: $.param({
 				"name": track.name,
 				"distance": track.distance,
 				"altitude": track.altitude,
-					"summary": track.summary,
-					"img_src": track.img_src,
-					"coordinates": track.coordinates,
-					"ownerId": "57d93e47a8a684a86b000001"
+				"summary": track.summary,
+				"img_src": track.img_src,
+				"coordinates": track.coordinates,
+				"ownedBy": track.ownedBy,
 			})
 		})
 	}

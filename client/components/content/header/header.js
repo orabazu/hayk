@@ -1,8 +1,6 @@
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
+(function () {
+    'use strict';
+angular 
     .module('app.header',[])
     .directive('headerDirective', headerDirective);
 
@@ -24,5 +22,6 @@ function HeaderController($scope,$state) {
     vm.search = function(){
         $state.go('layout', {term: vm.elma})
     }   
-
 }
+})(); 
+ 

@@ -1,16 +1,18 @@
+(function () {
+    'use strict';
+
 angular.module('app', [
-    'app.header',
-    'app.footer',
     'app.layout',
     'app.navbar',
     'app.login',
     'app.register',
-    'app.card',
+    'app.card', 
     'app.profile',
     'app.userService',
     'app.trackService',
     'app.markerParser',
     'app.map',
+    'app.content',    
     'app.rotaekle',
     'oc.lazyLoad',
     'ui.router',
@@ -25,12 +27,7 @@ angular.module('app', [
     $locationProvider.html5Mode(true);
     $logProvider.debugEnabled(false);
     // $urlRouterProvider.when('', '/#/');
-    var defaultState = {
-      name: 'defaultState',
-      url: '/',
-      templateUrl: '../../components/content/landing/landing.html'
-    };
-    $stateProvider.state(defaultState);
+
 
     var layoutState = {
       name: 'layout',
@@ -124,6 +121,26 @@ angular.module('app', [
         });
     }
   }]);
+
+  })(); 
+
+
+(function () {
+    'use strict';
+    angular
+    .module('app.content', ['app.header', 'app.footer','ui.router'])
+    .config(["$stateProvider", function ($stateProvider) { // provider-injector
+
+        // $urlRouterProvider.when('', '/#/');
+        var defaultState = {
+            name: 'defaultState', 
+            url: '/',
+            templateUrl: '../../components/content/landing/landing.html'
+        };
+        $stateProvider.state(defaultState);
+    }])
+  
+})();
 /**
  * @desc Services that converts geojson features to markers for handling later
  */
@@ -571,11 +588,8 @@ function registerDirective() {
 function registerController() {
     var vm = this;
 }
-
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
+(function () {
+    'use strict';
 angular
     .module('app.footer', [])
     .directive('footerDirective', footerDirective);
@@ -588,12 +602,12 @@ function footerDirective() {
   
     return directive;
 }
+})(); 
+ 
 
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
+(function () {
+    'use strict';
+angular 
     .module('app.header',[])
     .directive('headerDirective', headerDirective);
 
@@ -615,9 +629,9 @@ function HeaderController($scope,$state) {
     vm.search = function(){
         $state.go('layout', {term: vm.elma})
     }   
-
 }
-
+})(); 
+ 
 /**
 * @desc card component 
 * @example <card></card>

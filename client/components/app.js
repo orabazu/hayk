@@ -1,16 +1,18 @@
+(function () {
+    'use strict';
+
 angular.module('app', [
-    'app.header',
-    'app.footer',
     'app.layout',
     'app.navbar',
     'app.login',
     'app.register',
-    'app.card',
+    'app.card', 
     'app.profile',
     'app.userService',
     'app.trackService',
     'app.markerParser',
     'app.map',
+    'app.content',    
     'app.rotaekle',
     'oc.lazyLoad',
     'ui.router',
@@ -25,12 +27,7 @@ angular.module('app', [
     $locationProvider.html5Mode(true);
     $logProvider.debugEnabled(false);
     // $urlRouterProvider.when('', '/#/');
-    var defaultState = {
-      name: 'defaultState',
-      url: '/',
-      templateUrl: '../../components/content/landing/landing.html'
-    };
-    $stateProvider.state(defaultState);
+
 
     var layoutState = {
       name: 'layout',
@@ -124,3 +121,5 @@ angular.module('app', [
         });
     }
   });
+
+  })(); 

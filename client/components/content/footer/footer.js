@@ -1,8 +1,5 @@
-
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
+(function () {
+    'use strict';
 angular
     .module('app.footer', [])
     .directive('footerDirective', footerDirective);
@@ -15,3 +12,5 @@ function footerDirective() {
   
     return directive;
 }
+})(); 
+ 

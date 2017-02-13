@@ -2,7 +2,6 @@
     'use strict';
 
 angular.module('app', [
-    'app.layout',
     'app.navbar',
     'app.login',
     'app.register',
@@ -13,7 +12,7 @@ angular.module('app', [
     'app.markerParser',
     'app.map',
     'app.content',    
-    'app.rotaekle',
+    'app.rota',
     'oc.lazyLoad',
     'ui.router',
     'leaflet-directive',
@@ -29,12 +28,7 @@ angular.module('app', [
     // $urlRouterProvider.when('', '/#/');
 
 
-    var layoutState = {
-      name: 'layout',
-      url: '/a/{term}',
-      template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
-    };
-    $stateProvider.state(layoutState);
+    
 
     var loginState = {
       name: 'login',
@@ -56,43 +50,6 @@ angular.module('app', [
       template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
     };
     $stateProvider.state(profileState);
-
-    var addTrackState = {
-      name: 'addtrack',
-      url: '/rotaekle',
-      templateUrl: '../../components/rota/rotaekle/rotaekle.html',
-      controller: 'rotaEkleController',
-      controllerAs: 'rotaEkleController'
-    };
-    $stateProvider.state(addTrackState);
-
-    var addTrackLocationState = {
-      name: 'addtrack.location',
-      url: '/konum',
-      templateUrl: '../../components/rota/rotaekle.location/rotaekle.location.html'      
-    };
-    $stateProvider.state(addTrackLocationState);
-
-    var addTrackMetaState = {
-      name: 'addtrack.meta', 
-      url: '/bilgi',    
-      templateUrl: '../../components/rota/rotaekle.meta/rotaekle.meta.html'              
-    }
-    $stateProvider.state(addTrackMetaState);
-
-    var addTrackImageState = {
-      name: 'addtrack.image',
-      url: '/resimler',     
-      templateUrl: '../../components/rota/rotaekle.image/rotaekle.image.html'              
-    }
-    $stateProvider.state(addTrackImageState);
-
-    var addTrackFinishState = {
-      name: 'addtrack.finish',
-      url: '/kaydet',    
-      templateUrl: '../../components/rota/rotaekle.finish/rotaekle.finish.html'              
-    }
-    $stateProvider.state(addTrackFinishState);
   }])
   .run(["$rootScope", "userService", function ($rootScope, userService) {
     activate();
@@ -117,7 +74,7 @@ angular.module('app', [
           }
         })
         .catch(function (err) {
-          console.log(err);
+
         });
     }
   }]);
@@ -140,6 +97,58 @@ angular.module('app', [
         $stateProvider.state(defaultState);
     }])
   
+})();
+(function () {
+    'use strict';
+    angular
+        .module('app.rota', ['app.layout', 'app.layoutDetail', 'app.rotaekle', 'ui.router'])
+        .config(["$stateProvider", function ($stateProvider) { // provider-injector
+
+            var layoutState = {
+                name: 'layout',
+                url: '/a/{term}',
+                template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
+            };
+            $stateProvider.state(layoutState);
+ 
+            var addTrackState = {
+                name: 'addtrack',
+                url: '/rotaekle',
+                templateUrl: '../../components/rota/rotaekle/rotaekle.html',
+                controller: 'rotaEkleController',
+                controllerAs: 'rotaEkleController'
+            };
+            $stateProvider.state(addTrackState);
+
+            var addTrackLocationState = {
+                name: 'addtrack.location',
+                url: '/konum',
+                templateUrl: '../../components/rota/rotaekle.location/rotaekle.location.html'
+            };
+            $stateProvider.state(addTrackLocationState);
+
+            var addTrackMetaState = {
+                name: 'addtrack.meta',
+                url: '/bilgi',
+                templateUrl: '../../components/rota/rotaekle.meta/rotaekle.meta.html'
+            }
+            $stateProvider.state(addTrackMetaState);
+
+            var addTrackImageState = {
+                name: 'addtrack.image',
+                url: '/resimler',
+                templateUrl: '../../components/rota/rotaekle.image/rotaekle.image.html'
+            }
+            $stateProvider.state(addTrackImageState);
+
+            var addTrackFinishState = {
+                name: 'addtrack.finish',
+                url: '/kaydet',
+                templateUrl: '../../components/rota/rotaekle.finish/rotaekle.finish.html'
+            }
+            $stateProvider.state(addTrackFinishState);
+        }])
+
 })();
 /**
  * @desc Services that converts geojson features to markers for handling later
@@ -467,32 +476,6 @@ angular
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
-   
-function navbarDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/navbar/navbar.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: navbarController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function navbarController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.login', [])
     .directive('loginDirective', loginDirective);
    
@@ -512,6 +495,32 @@ function loginDirective() {
 }
 
 function FooterController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
     var vm = this;
 }
 /**
@@ -557,7 +566,7 @@ function profileController($rootScope, userService,trackService,markerParser) {
                     vm.markers = markerParser.toObject(response);
                 })
                 .catch(function (err) {
-                    console.log(response);
+
                 });
         });
     }
@@ -590,6 +599,23 @@ function registerController() {
 }
 (function () {
     'use strict';
+angular
+    .module('app.footer', [])
+    .directive('footerDirective', footerDirective);
+   
+function footerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/content/footer/footer.html',
+    };
+  
+    return directive;
+}
+})(); 
+ 
+
+(function () {
+    'use strict';
 angular 
     .module('app.header',[])
     .directive('headerDirective', headerDirective);
@@ -615,23 +641,6 @@ function HeaderController($scope,$state) {
 }
 })(); 
  
-(function () {
-    'use strict';
-angular
-    .module('app.footer', [])
-    .directive('footerDirective', footerDirective);
-   
-function footerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/content/footer/footer.html',
-    };
-  
-    return directive;
-}
-})(); 
- 
-
 /**
 * @desc card component 
 * @example <card></card>
@@ -660,8 +669,6 @@ function cardDirective() {
 function CardController() {
     var vm = this; 
     vm.imgSrc = vm.imgSrc.split('client')[1];
-    console.log(vm.imgSrc);
-
 } 
 
 /**
@@ -685,6 +692,7 @@ function layoutDirective() {
     return directive;
 }
 
+LayoutController.$inject = ['$scope', '$rootScope', '$state', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents','leafletData'];
 function LayoutController($scope, $rootScope, $state, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {}; 
@@ -698,16 +706,13 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     function getTrack() {
         return trackService.getTrack().then(function (respond) {
             vm.tracks.data = respond.data;
-            console.log(vm.tracks.data);
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
-                console.log(vm.markers);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();
                 leafletData.getMap().then(function (map) {
                     map.fitBounds(bounds);
                 });
             }).catch(function (err) {
-                console.log(response);
             });
         });
     }
@@ -766,6 +771,40 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     }
 
 }
+
+angular
+    .module('app.layoutDetail', [])
+    .directive('layoutDetailDirective', layoutDetailDirective)
+
+function layoutDetailDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
+        scope: {},    
+        controller: LayoutDetailController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function LayoutDetailController($scope, $state, trackService, mapConfigService) {
+    var vm = this;
+    vm.tracks = {}; 
+
+    activate();
+ 
+    function activate() {
+        
+    }
+
+
+    vm.layers = mapConfigService.getLayer();
+    vm.center = mapConfigService.getCenter();
+
+
+} 
 (function () {
   'use strict';
 
@@ -794,12 +833,11 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 
     $scope.loginLoading = true;
 
-    console.log($rootScope.user);
     vm.addTrack = function () {
       trackService.addTrack(vm).then(function (addTrackResponse) {
         $state.go('layout');
       }, function (addTrackError) {
-        console.log(addTrackError);
+
       })
     }
     vm.uploadPic = function (file) {
@@ -815,11 +853,11 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
               vm.img_src = resp.data.Data.path
               $state.go('addtrack.finish');
             } else {
-              console.log('an error occured');
+
             }
           },
           function (resp) { //catch error
-            console.log('Error status: ' + resp.status);
+
           })['finally'](
           function () {
             vm.uploading = false;
@@ -846,7 +884,7 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
           vm.location = geocodeSuccess;
         },
         function (err) {
-          console.log(err)
+
         });
       $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
       $scope.markers.mainMarker.lng = leafEvent.latlng.lng;

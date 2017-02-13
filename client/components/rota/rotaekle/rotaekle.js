@@ -26,12 +26,11 @@
 
     $scope.loginLoading = true;
 
-    console.log($rootScope.user);
     vm.addTrack = function () {
       trackService.addTrack(vm).then(function (addTrackResponse) {
         $state.go('layout');
       }, function (addTrackError) {
-        console.log(addTrackError);
+
       })
     }
     vm.uploadPic = function (file) {
@@ -47,11 +46,11 @@
               vm.img_src = resp.data.Data.path
               $state.go('addtrack.finish');
             } else {
-              console.log('an error occured');
+
             }
           },
           function (resp) { //catch error
-            console.log('Error status: ' + resp.status);
+
           })['finally'](
           function () {
             vm.uploading = false;
@@ -78,7 +77,7 @@
           vm.location = geocodeSuccess;
         },
         function (err) {
-          console.log(err)
+
         });
       $scope.markers.mainMarker.lat = leafEvent.latlng.lat;
       $scope.markers.mainMarker.lng = leafEvent.latlng.lng;

@@ -17,7 +17,6 @@ var upload = multer({
 })
 // middleware is on
 router.use(function (req, res, next) {
-    // console.log(req)
     next(); // make sure we go to the next routes
 });
 
@@ -50,8 +49,7 @@ router.route('/tracks')
         });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
-    .get(function (req, res) {
-        debugger;        
+    .get(function (req, res) {      
         Track.find()
         .populate('properties.ownedBy') 
         .exec(function (err, tracks) {
@@ -135,7 +133,7 @@ router.route('/profile')
 router.route('/photos')
     .post(function (req, res) {
         upload.single('file')(req, res, function (err) {
-            console.log(req.file);
+            // console.log(req.file);
             if (err) {
                 res.json({
                     OperationResult: false,

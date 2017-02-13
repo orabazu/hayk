@@ -114,7 +114,7 @@ function isLoggedIn(req, res, next) {
 //GET /auth/login/facebook
 app.get('/login/facebook', passport.authenticate('facebook', {
 	scope: ["email"]
-}));
+})); 
 
 //GET /auth/facebook/return
 app.get('/facebook/return',
@@ -138,5 +138,5 @@ app.get('*', function (req, res) {
 
 
 app.listen(process.env.PORT || 8080, function () {
-	console.log('trekkinn on port 8080');
+	console.log('arazzi.io on port 8080');
 });

@@ -9,15 +9,25 @@
     width: auto;
     height: 100%;
 }
-
+.card img.owner-photo {
+    position: absolute;
+    top:-25px;
+    right: 25px;
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+    border: 3px solid white;
+}
+ 
 .card-block {
+    position: relative;
     background: white;
     padding: 1.75rem;
     -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
 }  
 
-.card-block > h4 {
+.card-block > h4 { 
 	font-size: 2.5em;
 }
 .card-image-container {
@@ -36,3 +46,15 @@
     right: 0;
     overflow: hidden;
 }
+
+.card-block p.card-text {
+    font-size: 16px;
+    /* max-height: 120px; */
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* height: 120px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+} 
+

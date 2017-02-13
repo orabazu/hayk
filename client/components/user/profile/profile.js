@@ -41,7 +41,7 @@ function profileController($rootScope, userService,trackService,markerParser) {
                     vm.markers = markerParser.toObject(response);
                 })
                 .catch(function (err) {
-                    console.log(response);
+
                 });
         });
     }

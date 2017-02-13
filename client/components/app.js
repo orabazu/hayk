@@ -2,7 +2,6 @@
     'use strict';
 
 angular.module('app', [
-    'app.layout',
     'app.navbar',
     'app.login',
     'app.register',
@@ -13,7 +12,7 @@ angular.module('app', [
     'app.markerParser',
     'app.map',
     'app.content',    
-    'app.rotaekle',
+    'app.rota',
     'oc.lazyLoad',
     'ui.router',
     'leaflet-directive',
@@ -29,12 +28,7 @@ angular.module('app', [
     // $urlRouterProvider.when('', '/#/');
 
 
-    var layoutState = {
-      name: 'layout',
-      url: '/a/{term}',
-      template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
-    };
-    $stateProvider.state(layoutState);
+    
 
     var loginState = {
       name: 'login',
@@ -56,43 +50,6 @@ angular.module('app', [
       template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
     };
     $stateProvider.state(profileState);
-
-    var addTrackState = {
-      name: 'addtrack',
-      url: '/rotaekle',
-      templateUrl: '../../components/rota/rotaekle/rotaekle.html',
-      controller: 'rotaEkleController',
-      controllerAs: 'rotaEkleController'
-    };
-    $stateProvider.state(addTrackState);
-
-    var addTrackLocationState = {
-      name: 'addtrack.location',
-      url: '/konum',
-      templateUrl: '../../components/rota/rotaekle.location/rotaekle.location.html'      
-    };
-    $stateProvider.state(addTrackLocationState);
-
-    var addTrackMetaState = {
-      name: 'addtrack.meta', 
-      url: '/bilgi',    
-      templateUrl: '../../components/rota/rotaekle.meta/rotaekle.meta.html'              
-    }
-    $stateProvider.state(addTrackMetaState);
-
-    var addTrackImageState = {
-      name: 'addtrack.image',
-      url: '/resimler',     
-      templateUrl: '../../components/rota/rotaekle.image/rotaekle.image.html'              
-    }
-    $stateProvider.state(addTrackImageState);
-
-    var addTrackFinishState = {
-      name: 'addtrack.finish',
-      url: '/kaydet',    
-      templateUrl: '../../components/rota/rotaekle.finish/rotaekle.finish.html'              
-    }
-    $stateProvider.state(addTrackFinishState);
   })
   .run(function ($rootScope, userService) {
     activate();
@@ -117,7 +74,7 @@ angular.module('app', [
           }
         })
         .catch(function (err) {
-          console.log(err);
+
         });
     }
   });

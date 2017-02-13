@@ -19,6 +19,7 @@ function layoutDirective() {
     return directive;
 }
 
+LayoutController.$inject = ['$scope', '$rootScope', '$state', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents','leafletData'];
 function LayoutController($scope, $rootScope, $state, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {}; 
@@ -32,16 +33,13 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     function getTrack() {
         return trackService.getTrack().then(function (respond) {
             vm.tracks.data = respond.data;
-            console.log(vm.tracks.data);
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
-                console.log(vm.markers);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();
                 leafletData.getMap().then(function (map) {
                     map.fitBounds(bounds);
                 });
             }).catch(function (err) {
-                console.log(response);
             });
         });
     }

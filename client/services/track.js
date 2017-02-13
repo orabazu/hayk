@@ -3,7 +3,8 @@ function trackService($http) {
 
 	var service = {
 		getTrack: getTrack,
-		addTrack: addTrack
+		addTrack: addTrack,
+		getTrackDetail:getTrackDetail,
 	};
 	return service;
 
@@ -11,6 +12,16 @@ function trackService($http) {
 		return $http({
 			method: 'GET',
 			url: 'api/tracks',
+			headers: {
+				'content-type': 'application/json; charset=utf-8'
+			}
+		})
+	};
+
+	function getTrackDetail(id) {
+		return $http({
+			method: 'GET',
+			url: 'api/tracks/'+id,
 			headers: {
 				'content-type': 'application/json; charset=utf-8'
 			}

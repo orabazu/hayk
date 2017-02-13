@@ -15,6 +15,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
 var upload = multer({
     storage: storage
 })
+var ObjectId = require('mongoose').Types.ObjectId; 
 // middleware is on
 router.use(function (req, res, next) {
     next(); // make sure we go to the next routes
@@ -44,25 +45,25 @@ router.route('/tracks')
             } else {
                 res.json({
                     OperationResult: true,
-                }); 
+                });
             }
         });
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
-    .get(function (req, res) {      
+    .get(function (req, res) {
         Track.find()
-        .populate('properties.ownedBy') 
-        .exec(function (err, tracks) {
-            if (err) {
-                res.status(400).send({
-                    OperationResult: false,
-                    Data: err
-                });
-            } else {
-                res.json(tracks);
-            }
-        });
- 
+            .populate('properties.ownedBy')
+            .exec(function (err, tracks) {
+                if (err) {
+                    res.status(400).send({
+                        OperationResult: false,
+                        Data: err
+                    });
+                } else {
+                    res.json(tracks);
+                }
+            });
+
     });
 
 
@@ -70,44 +71,19 @@ router.route('/tracks')
 router.route('/tracks/:id')
     // get all the tracks (accessed at GET http://localhost:8080/api/tracks/:id)
     .get(function (req, res) {
-
-        report = req;
-        var track = {
-            "type": "FeatureCollection",
-            "properties": {
-                "name": "Olimpos ",
-                "distance": 6.7,
-                "summary": "cennetten bir köşenin tasviridir...nerde çokluk orda bokluk olimposun gidişatınında özeti budur...bu şekliyle bile hala yazın en güzel günlerini orada .",
-                "altitude": ""
-            },
-            "features": [{
-                "type": "Feature",
-                "properties": {},
-                "geometry": {
-                    "type": "LineString",
-                    "coordinates": [
-                        [
-                            31.397209167480465,
-                            36.76735464310375
-                        ],
-                        [
-                            31.39566421508789,
-                            36.78564171960743
-                        ],
-                        [
-                            31.423473358154297,
-                            36.80474911423463
-                        ],
-                        [
-                            31.430339813232422,
-                            36.78041728578199
-                        ]
-                    ]
-                }
-            }]
-        };
-
-        res.json(track);
+debugger;
+        Track.findOne({
+            '_id': new ObjectId(req.params.id)
+        }, function (err, response) {
+            if (err) {
+                res.status(400).send({
+                    OperationResult: false,
+                    Data: err
+                });
+            } else {
+                res.json(response);
+            }
+        })
     });
 // --------------------------------------------------------------
 router.route('/profile')

@@ -34,6 +34,7 @@ function markerParser($q) {
                 //     size: "l"
                 // },
                 properties: {
+                    "id": val[i]._id,
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,

@@ -11,7 +11,7 @@
 		<div class="card-block">
 			<img class="owner-photo" ng-src="{{vm.owner.photo}}">
 			<!--Title-->
-			<h4 class="card-title">{{vm.title}}</h4>
+			<h4 class="card-title"><a ui-sref="layoutDetail({id: vm.id})" href="">{{vm.title}}</a></h4>
 			<!--Text-->
 			<p class="card-text">
 				{{vm.summary}}

@@ -10,6 +10,13 @@
                 template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
             };
             $stateProvider.state(layoutState);
+
+            var layoutDetailState = {
+                name: 'layoutDetail',
+                url: '/rota/:id',
+                template: '<navbar-directive></navbar-directive><layout-detail-directive></layout-detail-directive>'
+            };
+            $stateProvider.state(layoutDetailState);
  
             var addTrackState = {
                 name: 'addtrack',

@@ -15,6 +15,7 @@ function cardDirective() {
             summary: '<',
             owner:'<',
             imgSrc:'<',
+            id: '<',
         },
         controller: CardController,
         controllerAs: 'vm',
@@ -26,4 +27,5 @@ function cardDirective() {
 function CardController() {
     var vm = this; 
     vm.imgSrc = vm.imgSrc.split('client')[1];
+    console.log(vm);
 } 

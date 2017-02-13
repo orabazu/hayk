@@ -1,3 +1,8 @@
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    
+    return target.split(search).join(replacement);
+};
 (function () {
     'use strict';
 
@@ -110,6 +115,13 @@ angular.module('app', [
                 template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
             };
             $stateProvider.state(layoutState);
+
+            var layoutDetailState = {
+                name: 'layoutDetail',
+                url: '/rota/:id',
+                template: '<navbar-directive></navbar-directive><layout-detail-directive></layout-detail-directive>'
+            };
+            $stateProvider.state(layoutDetailState);
  
             var addTrackState = {
                 name: 'addtrack',
@@ -187,6 +199,7 @@ function markerParser($q) {
                 //     size: "l"
                 // },
                 properties: {
+                    "id": val[i]._id,
                     "name": val[i].properties.name,
                     "altitude" : val[i].properties.altitude,
                     "distance" : val[i].properties.distance,
@@ -223,7 +236,8 @@ trackService.$inject = ["$http"];function trackService($http) {
 
 	var service = {
 		getTrack: getTrack,
-		addTrack: addTrack
+		addTrack: addTrack,
+		getTrackDetail:getTrackDetail,
 	};
 	return service;
 
@@ -231,6 +245,16 @@ trackService.$inject = ["$http"];function trackService($http) {
 		return $http({
 			method: 'GET',
 			url: 'api/tracks',
+			headers: {
+				'content-type': 'application/json; charset=utf-8'
+			}
+		})
+	};
+
+	function getTrackDetail(id) {
+		return $http({
+			method: 'GET',
+			url: 'api/tracks/'+id,
 			headers: {
 				'content-type': 'application/json; charset=utf-8'
 			}
@@ -502,32 +526,6 @@ function FooterController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
-   
-function navbarDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/navbar/navbar.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: navbarController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function navbarController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.profile', [])
     .directive('profileDirective', profileDirective);
 
@@ -570,6 +568,32 @@ function profileController($rootScope, userService,trackService,markerParser) {
                 });
         });
     }
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
+    var vm = this;
 }
 /**
 * @desc spinner directive that can be used anywhere across apps at a company named Acme
@@ -658,6 +682,7 @@ function cardDirective() {
             summary: '<',
             owner:'<',
             imgSrc:'<',
+            id: '<',
         },
         controller: CardController,
         controllerAs: 'vm',
@@ -669,6 +694,7 @@ function cardDirective() {
 function CardController() {
     var vm = this; 
     vm.imgSrc = vm.imgSrc.split('client')[1];
+    console.log(vm);
 } 
 
 /**
@@ -771,7 +797,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
     }
 
 }
-
 angular
     .module('app.layoutDetail', [])
     .directive('layoutDetailDirective', layoutDetailDirective)
@@ -780,7 +805,7 @@ function layoutDetailDirective() {
     var directive = {
         restrict: 'EA',
         templateUrl: '../../components/rota/layout.detail/layout.detail.html',
-        scope: {},    
+        scope: {},
         controller: LayoutDetailController,
         controllerAs: 'vm',
         bindToController: true
@@ -789,22 +814,34 @@ function layoutDetailDirective() {
     return directive;
 }
 
-function LayoutDetailController($scope, $state, trackService, mapConfigService) {
+function LayoutDetailController($scope, $stateParams, trackService, mapConfigService) {
     var vm = this;
-    vm.tracks = {}; 
+    vm.trackDetail = {};
+    vm.center = {};
+    
+
 
     activate();
- 
+
     function activate() {
-        
+        trackService.getTrackDetail($stateParams.id).then(function (res) {
+            vm.trackDetail = res.data;
+            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
+            vm.center = {
+                lat:  vm.trackDetail.geometry.coordinates[1],
+                lng: vm.trackDetail.geometry.coordinates[0],
+                zoom: 12
+            }
+            // console.log(vm.center);
+
+        })
     }
 
 
     vm.layers = mapConfigService.getLayer();
-    vm.center = mapConfigService.getCenter();
 
 
-} 
+}
 (function () {
   'use strict';
 

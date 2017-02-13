@@ -45,6 +45,7 @@ var servicePath2 = 'client/services/*/*.js';
 var componentsPathcss = 'client/components/*/*.css';
 
 var jsPath = [
+  'client/components/utils.js',
   'client/components/app.js',    
   componentsPath,
   servicePath,

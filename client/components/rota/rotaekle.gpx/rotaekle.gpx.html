@@ -1,0 +1,34 @@
+<div class="container layout-padding">
+    <div class="col-md-offset-3 col-md-6 ">
+        <h3 class="text-center">Rota Bilgileri</h3>
+        <div class="panel">
+            <div class="panel-heading">
+                <legend>Rotanızın koordinatları varsa ekleyebilirsiniz.</legend>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <fieldset ng-form="rota.gpx" enctype="multipart/form-data">
+                        <!-- Form Name -->
+                        <br>GPX:
+                        <input type="file" class="btn btn-primary btn-file" 
+                        ngf-select 
+                        ng-model="gpxFile" 
+                        name="file" 
+                        accept=".gpx" 
+                        ngf-max-size="15MB" 
+                        required ngf-model-invalid="errorFile">
+                        <i ng-show="rota.image.file.$error.maxSize">Dosya çok büyük {{errorFile.size / 1000000|number:1}}MB: En fazla 15MB</i>
+                        <button class="btn btn-primary" ng-click="gpxFile = null" ng-show="gpxFile">Sil</button>
+                        <br>
+                        <span ng-show="gpxFile.result">Yüklendi</span>
+                        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+                        <p class="">
+                            <a ui-sref="addtrack.location" class="pull-left"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>
+                            <a ng-click="rotaEkleController.uploadGPX(gpxFile)" ladda="rotaEkleController.uploading" data-style="expand-left"  data-spinner-color="#1abc9c" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+                        </p>
+                    </fieldset>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>

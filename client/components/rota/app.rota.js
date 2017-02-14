@@ -48,12 +48,21 @@
             }
             $stateProvider.state(addTrackImageState);
 
+            var addTrackGPXState = {
+                name: 'addtrack.gpx',
+                url: '/gpx',
+                templateUrl: '../../components/rota/rotaekle.gpx/rotaekle.gpx.html'
+            }
+            $stateProvider.state(addTrackGPXState);
+
             var addTrackFinishState = {
                 name: 'addtrack.finish',
                 url: '/kaydet',
                 templateUrl: '../../components/rota/rotaekle.finish/rotaekle.finish.html'
             }
             $stateProvider.state(addTrackFinishState);
+
+            
         })
 
 })();

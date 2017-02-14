@@ -15,12 +15,12 @@ function layoutDetailDirective() {
     return directive;
 }
 
-function LayoutDetailController($scope, $stateParams, trackService, mapConfigService) {
+LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+
+function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
     var vm = this;
     vm.trackDetail = {};
     vm.center = {};
-    
-
 
     activate();
 
@@ -29,11 +29,19 @@ function LayoutDetailController($scope, $stateParams, trackService, mapConfigSer
             vm.trackDetail = res.data;
             vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
             vm.center = {
-                lat:  vm.trackDetail.geometry.coordinates[1],
+                lat: vm.trackDetail.geometry.coordinates[1],
                 lng: vm.trackDetail.geometry.coordinates[0],
                 zoom: 12
             }
             // console.log(vm.center);
+            leafletData.getMap().then(function (map) {
+                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
+                new L.GPX(gpx, {
+                    async: true
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);             
+            });
 
         })
     }

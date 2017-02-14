@@ -12,6 +12,7 @@ module.exports = mongoose.model('Track', new Schema({
         summary: { type: String },
         img_src: { type: String },
         img: {type:Buffer}, 
+        gpx: {type:String},
     },
     geometry: { 
         'type': {

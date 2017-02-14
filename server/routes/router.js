@@ -15,7 +15,14 @@ var storage = multer.diskStorage({ //multers disk storage settings
 var upload = multer({
     storage: storage
 })
-var ObjectId = require('mongoose').Types.ObjectId; 
+
+var ramStorage = multer.memoryStorage()
+var uploadTemp = multer({
+    storage: ramStorage
+})
+var gpxParse = require("gpx-parse");
+
+var ObjectId = require('mongoose').Types.ObjectId;
 // middleware is on
 router.use(function (req, res, next) {
     next(); // make sure we go to the next routes
@@ -32,7 +39,7 @@ router.route('/tracks')
         track.properties.summary = req.body.summary;
         track.properties.img_src = req.body.img_src;
         track.properties.ownedBy = req.body.ownedBy;
-        // track.properties.img = fs.readFileSync(req.body.img_src);
+        track.properties.gpx = fs.readFileSync(req.body.gpx);
         track.geometry.coordinates = req.body.coordinates;
 
         // save the track and check for errors
@@ -71,7 +78,7 @@ router.route('/tracks')
 router.route('/tracks/:id')
     // get all the tracks (accessed at GET http://localhost:8080/api/tracks/:id)
     .get(function (req, res) {
-debugger;
+ 
         Track.findOne({
             '_id': new ObjectId(req.params.id)
         }, function (err, response) {
@@ -125,6 +132,32 @@ router.route('/photos')
         })
     })
 
+    router.route('/gpx')
+    .post(function (req, res) {
+        //or from string
+        upload.single('file')(req, res, function (err) {
+            if (err) {
+                res.json({
+                    OperationResult: false,
+                    Error: err.message
+                });
+                return;
+            }
+            res.json({
+                OperationResult: true,
+                Error: null,
+                Data: req.file,
+            });
+
+
+
+            // gpxParse.parseGpx(req.file.buffer, function (err, data) {
+            //     //do stuff
+
+            // });
+        })
+
+    })
 
 
 

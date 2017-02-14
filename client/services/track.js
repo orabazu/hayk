@@ -43,6 +43,7 @@ function trackService($http) {
 				"img_src": track.img_src,
 				"coordinates": track.coordinates,
 				"ownedBy": track.ownedBy,
+				"gpx": track.gpx,
 			})
 		})
 	}

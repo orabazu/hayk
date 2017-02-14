@@ -18,7 +18,7 @@ angular.module('app', [
     'leaflet-directive',
     'ngAutocomplete'
   ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $logProvider, $ocLazyLoadProvider) { // provider-injector
+  .config(['$stateProvider','$locationProvider','$logProvider','$ocLazyLoadProvider','$compileProvider', function ($stateProvider, $locationProvider, $logProvider, $ocLazyLoadProvider,$compileProvider) { // provider-injector
 
     $ocLazyLoadProvider.config({
       debug: true
@@ -26,7 +26,7 @@ angular.module('app', [
     $locationProvider.html5Mode(true);
     $logProvider.debugEnabled(false);
     // $urlRouterProvider.when('', '/#/');
-
+    $compileProvider.debugInfoEnabled(false);
 
     
 
@@ -50,7 +50,7 @@ angular.module('app', [
       template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
     };
     $stateProvider.state(profileState);
-  })
+  }])
   .run(function ($rootScope, userService) {
     activate();
 

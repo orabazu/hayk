@@ -2,14 +2,14 @@
     'use strict';
 angular 
     .module('app.header',[])
-    .directive('headerDirective', headerDirective);
+    .directive('headlineDirective', headlineDirective);
 
-function headerDirective() {
+function headlineDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/content/header/header.html',
+        templateUrl: '../../components/content/headline/headline.html',
         scope: {},
-        controller: HeaderController,
+        controller: HeadlineController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -17,8 +17,9 @@ function headerDirective() {
     return directive;
 }
 
-function HeaderController($scope,$state) {
+function HeadlineController($scope,$state) {
     var vm = this;
+    window.loadAutoComplete();
     vm.search = function(){
         $state.go('layout', {term: vm.elma})
     }   

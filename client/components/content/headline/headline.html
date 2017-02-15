@@ -18,9 +18,9 @@
 			<form class="">
 				<div class="input-group main-search">
 					<!--<input type="text" class="form-control " placeholder="Örn: Saklıkent Kanyonu" ng-model="vm.elma">-->
-					<input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>
+					<input type="text" id="Autocomplete" class="form-control geocode-autocomplete" data-from="headline-search-button"  autocomplete="off"/>
 					<span class="input-group-btn">
-							<button class="btn btn-info" type="button" ng-click="vm.search()">ARA</button>
+							<button class="btn btn-info" type="button" ng-click="vm.search()" id="headline-search-button" >ARA</button>
 					</span>
 				</div>
 				<!-- /input-group -->

@@ -14,7 +14,7 @@ window.loadAutoComplete = function () {
                 $.getJSON('http://geocode-maps.yandex.ru/1.x/?results=5&bbox=24.125977,34.452218~45.109863,42.601620&format=json&lang=tr_TR&geocode=' + query, function (data) {
                     for (var i = 0; i < data.response.GeoObjectCollection.featureMember.length; i++) {
                         var item = {
-                            name: data.response.GeoObjectCollection.featureMember[i].GeoObject.name,
+                            name: data.response.GeoObjectCollection.featureMember[i].GeoObject.name + ', ' +data.response.GeoObjectCollection.featureMember[i].GeoObject.description.replace(', Türkiye', ''),
                             description: data.response.GeoObjectCollection.featureMember[i].GeoObject.description,
                             longlat: data.response.GeoObjectCollection.featureMember[i].GeoObject.Point.pos,
                             type: data.response.GeoObjectCollection.featureMember[i].GeoObject.metaDataProperty.GeocoderMetaData.kind,
@@ -25,31 +25,30 @@ window.loadAutoComplete = function () {
                             continue;
                         predictions.push(item);
                     }
+                    // if (predictions && predictions.length) {
+                    //     var results = $.map(predictions,
+                    //         function (prediction) {
+                    //             var dest = prediction.name + ", " + prediction.description;
+                    //             dest = dest.replace(', Türkiye', '');
+                    //             return dest;
+                    //         })
+                    // }
 
                     return process(predictions);
                 });
             },
             afterSelect: function (item) {
-                console.log(item);
-                 var a = document.createElement('a');
-                    a.href = '/a/'+ item.name
-                    +'?latSW=' + item.bbox.lowerCorner.split(' ')[0]
-                    +'&lngSW='+item.bbox.lowerCorner.split(' ')[1]
-                    +'&latNE='+ item.bbox.upperCorner.split(' ')[0]
-                    +'&lngNE='+ item.bbox.upperCorner.split(' ')[1]
-                    ;
-                    document.body.appendChild(a);
-                    a.click();
-                // setTimeout(function () { document.activeElement.blur(); }, 0);
-                // setTimeout(function () {
-                //     if ($(that).attr('data-from') == "headline-search-button") {
-                //         $('#headline-search-button').click();
-                //         // $('#ed-top-nav-address-input-mobile').val($(that).val());                        
-                //         return false;
-                //     }
-                // }, 100);
+                var a = document.createElement('a');
+                a.href = '/a/' + item.name +
+                    '?latSW=' + item.bbox.lowerCorner.split(' ')[0] +
+                    '&lngSW=' + item.bbox.lowerCorner.split(' ')[1] +
+                    '&latNE=' + item.bbox.upperCorner.split(' ')[0] +
+                    '&lngNE=' + item.bbox.upperCorner.split(' ')[1];
+                document.body.appendChild(a);
+                a.click();
             },
             highlighter: function (item) {
+                console.log(item)
                 item = '<span class="item-address">' + item + '</span>';
                 return item;
             },
@@ -64,7 +63,7 @@ window.loadAutoComplete = function () {
         });
         $(that).on('typeahead:change',
             function (e, item) {
-                 $(that).val(item.find('a>span.item-address').text());
+                $(that).val(item.find('a>span.item-address').text());
             });
 
     });
@@ -578,6 +577,32 @@ angular
 * @example <div acme-shared-spinner></div>
 */
 angular
+    .module('app.navbar', [])
+    .directive('navbarDirective', navbarDirective);
+   
+function navbarDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/navbar/navbar.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: navbarController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function navbarController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
     .module('app.login', [])
     .directive('loginDirective', loginDirective);
    
@@ -604,17 +629,17 @@ function FooterController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.navbar', [])
-    .directive('navbarDirective', navbarDirective);
+    .module('app.register', [])
+    .directive('registerDirective', registerDirective);
    
-function navbarDirective() {
+function registerDirective() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/user/navbar/navbar.html',
+        templateUrl: '../../components/user/register/register.html',
         // scope: {
         //     max: '='
         // },
-        controller: navbarController,
+        controller: registerController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -622,7 +647,7 @@ function navbarDirective() {
     return directive;
 }
 
-function navbarController() {
+function registerController() {
     var vm = this;
 }
 /**
@@ -673,32 +698,6 @@ function profileController($rootScope, userService,trackService,markerParser) {
         });
     }
 }
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.register', [])
-    .directive('registerDirective', registerDirective);
-   
-function registerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/register/register.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: registerController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function registerController() {
-    var vm = this;
-}
 (function () {
     'use strict';
 angular
@@ -718,32 +717,40 @@ function footerDirective() {
 
 (function () {
     'use strict';
-angular 
-    .module('app.header',[])
-    .directive('headlineDirective', headlineDirective);
+    angular
+        .module('app.header', [])
+        .directive('headlineDirective', headlineDirective);
 
-function headlineDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/content/headline/headline.html',
-        scope: {},
-        controller: HeadlineController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
+    function headlineDirective() {
+        var directive = {
+            restrict: 'EA',
+            templateUrl: '../../components/content/headline/headline.html',
+            scope: {},
+            controller: HeadlineController,
+            controllerAs: 'vm',
+            bindToController: true
+        };
 
-    return directive;
-}
+        return directive;
+    }
 
-function HeadlineController($scope,$state) {
-    var vm = this;
-    window.loadAutoComplete();
-    vm.search = function(){
-        $state.go('layout', {term: vm.elma})
-    }   
-}
-})(); 
- 
+    function HeadlineController($scope, $state) {
+        var vm = this;
+        window.loadAutoComplete();
+        vm.search = function () {
+            $state.go('layout', {
+                term: vm.elma
+            })
+        }
+
+        $("#Autocomplete").focus(function () {
+            $('html, body').animate({
+                scrollTop: $("#Autocomplete").offset().top - 200
+            }, 300);
+        });
+
+    }
+})();
 /**
 * @desc card component 
 * @example <card></card>
@@ -776,6 +783,59 @@ function CardController() {
     console.log(vm);
 } 
 
+angular
+    .module('app.layoutDetail', [])
+    .directive('layoutDetailDirective', layoutDetailDirective)
+
+function layoutDetailDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
+        scope: {},
+        controller: LayoutDetailController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+
+function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
+    var vm = this;
+    vm.trackDetail = {};
+    vm.center = {};
+
+    activate();
+
+    function activate() {
+        trackService.getTrackDetail($stateParams.id).then(function (res) {
+            vm.trackDetail = res.data;
+            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
+            vm.center = {
+                lat: vm.trackDetail.geometry.coordinates[1],
+                lng: vm.trackDetail.geometry.coordinates[0],
+                zoom: 12
+            }
+            // console.log(vm.center);
+            leafletData.getMap().then(function (map) {
+                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
+                new L.GPX(gpx, {
+                    async: true
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);             
+            });
+
+        })
+    }
+
+
+    vm.layers = mapConfigService.getLayer();
+
+
+}
 /**
  * @desc Main layout for application
  * @example <layout-directive></layout-directive>
@@ -874,59 +934,6 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
 
         });
     }
-
-}
-angular
-    .module('app.layoutDetail', [])
-    .directive('layoutDetailDirective', layoutDetailDirective)
-
-function layoutDetailDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
-        scope: {},
-        controller: LayoutDetailController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
-
-function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
-    var vm = this;
-    vm.trackDetail = {};
-    vm.center = {};
-
-    activate();
-
-    function activate() {
-        trackService.getTrackDetail($stateParams.id).then(function (res) {
-            vm.trackDetail = res.data;
-            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
-            vm.center = {
-                lat: vm.trackDetail.geometry.coordinates[1],
-                lng: vm.trackDetail.geometry.coordinates[0],
-                zoom: 12
-            }
-            // console.log(vm.center);
-            leafletData.getMap().then(function (map) {
-                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
-                new L.GPX(gpx, {
-                    async: true
-                }).on('loaded', function (e) {
-                    map.fitBounds(e.target.getBounds());
-                }).addTo(map);             
-            });
-
-        })
-    }
-
-
-    vm.layers = mapConfigService.getLayer();
-
 
 }
 (function () {

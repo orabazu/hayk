@@ -491,7 +491,7 @@ font-family: 'Amatic SC', cursive;
 
  @media (min-width: 767px) {
  	.main-search {
- 		width: 400px;
+ 		width: 650px;
  		margin: 5 auto;
  	}
  }

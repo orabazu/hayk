@@ -40,10 +40,10 @@ window.loadAutoComplete = function () {
             afterSelect: function (item) {
                 var a = document.createElement('a');
                 a.href = '/a/' + item.name +
-                    '?latSW=' + item.bbox.lowerCorner.split(' ')[0] +
-                    '&lngSW=' + item.bbox.lowerCorner.split(' ')[1] +
-                    '&latNE=' + item.bbox.upperCorner.split(' ')[0] +
-                    '&lngNE=' + item.bbox.upperCorner.split(' ')[1];
+                    '?latSW=' + item.bbox.lowerCorner.split(' ')[1] +
+                    '&lngSW=' + item.bbox.lowerCorner.split(' ')[0] +
+                    '&latNE=' + item.bbox.upperCorner.split(' ')[1] +
+                    '&lngNE=' + item.bbox.upperCorner.split(' ')[0];
                 document.body.appendChild(a);
                 a.click();
             },

@@ -19,15 +19,35 @@ function layoutDirective() {
     return directive;
 }
 
-LayoutController.$inject = ['$scope', '$rootScope', '$state', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents','leafletData'];
-function LayoutController($scope, $rootScope, $state, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
+LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData'];
+
+function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
-    vm.tracks = {}; 
+    vm.tracks = {};
 
     activate();
 
     function activate() {
-        return getTrack().then(function () {});
+        if ($stateParams) {
+            leafletData.getMap().then(function (map) {
+                    // map.fitBounds([
+
+                    //     [30.855244, 36.975586]
+                    //     [30.580368, 36.820286]
+                    //     ]);
+                    // var bounds = [[36.975586,30.855244], [36.820286,30.580368]];
+                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];
+                    
+                    map.fitBounds(bounds);
+                });
+            return getTrack().then(function () {
+                
+            });
+
+        } else {
+            return getTrack().then(function () {});
+        }
+        console.log($stateParams);
     }
 
     function getTrack() {
@@ -36,11 +56,11 @@ function LayoutController($scope, $rootScope, $state, trackService, markerParser
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();
-                leafletData.getMap().then(function (map) {
-                    map.fitBounds(bounds);
-                });
-            }).catch(function (err) {
-            });
+                // leafletData.getMap().then(function (map) {
+                //     map.fitBounds(bounds);
+                // });
+                
+            }).catch(function (err) {});
         });
     }
 

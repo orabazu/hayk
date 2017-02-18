@@ -6,7 +6,7 @@
 
             var layoutState = {
                 name: 'layout',
-                url: '/a/{term}',
+                url: '/a/{term}?latSW&lngSW&latNE&lngNE',
                 template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
             };
             $stateProvider.state(layoutState);

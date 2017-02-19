@@ -7,7 +7,8 @@
             var layoutState = {
                 name: 'layout',
                 url: '/a/{term}?latSW&lngSW&latNE&lngNE',
-                template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>'
+                template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>',
+                reloadOnSearch: false,
             };
             $stateProvider.state(layoutState);
 

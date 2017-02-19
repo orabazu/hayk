@@ -19,21 +19,29 @@ function layoutDirective() {
     return directive;
 }
 
-LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData'];
+LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData', '$location'];
 
-function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
+function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData, $location) {
     var vm = this;
     vm.tracks = {};
     vm.getTrack = getTrack;
-
+    vm.params = {
+        latNE: parseFloat($stateParams.latNE),
+        lngNE: parseFloat($stateParams.lngNE),
+        latSW: parseFloat($stateParams.latSW),
+        lngSW: parseFloat($stateParams.lngSW),
+    }
     activate();
 
     function activate() {
-        if ($stateParams.latNE && $stateParams.lngNE && $stateParams.latSW && $stateParams.lngSW) {
+        if (vm.params.latNE && vm.params.lngNE && vm.params.latSW && vm.params.lngSW) {
             leafletData.getMap().then(function (map) {
-                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];                   
-                    map.fitBounds(bounds);
-                    return vm.getTrack().then(function () {}); 
+                var bounds = [
+                    [vm.params.latNE, vm.params.lngNE],
+                    [vm.params.latSW, vm.params.lngSW],
+                ];
+                map.fitBounds(bounds);
+                return vm.getTrack().then(function () {});
             });
 
         } else {
@@ -42,10 +50,10 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     }
 
     function getTrack() {
-        return trackService.getTrack($stateParams).then(function (respond) {
+        return trackService.getTrack(vm.params).then(function (respond) {
             vm.tracks.data = respond.data;
-            if( vm.tracks.data == []){
-                
+            if (vm.tracks.data == []) {
+
             }
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
@@ -53,7 +61,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
                 // leafletData.getMap().then(function (map) {
                 //     map.fitBounds(bounds);
                 // });
-                
+
             }).catch(function (err) {});
         });
     }
@@ -69,7 +77,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
         //     marker.focus = false;
         // else
         //     marker.focus = true;
-
+        // console.log($location.search().latNE = 20);
         marker.icon = {
             type: 'makiMarker',
             icon: 'park',
@@ -100,15 +108,42 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     vm.mapEvents = leafletMapEvents.getAvailableMapEvents();
 
     for (var k in vm.mapEvents) {
+        // console.log(vm.mapEvents);
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function (event, args) {
             if (event.name == 'leafletDirectiveMarker.mouseover') {
                 vm.changeIcon(vm.markers[args.modelName]);
             } else if (event.name == 'leafletDirectiveMarker.mouseout') {
                 vm.removeIcon(vm.markers[args.modelName]);
+            } else if (event.name == 'leafletDirectiveMap.moveend') {
+                console.log(asd);
             }
-
         });
     }
+    var mapEvent = 'leafletDirectiveMap.moveend';
+
+    $scope.$on(mapEvent, function (event, args) {
+        console.log(args.leafletObject);
+        if (vm.markers != undefined) {
+            vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
+            vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
+            vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
+            vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+        }
+        $location.search({
+            'latNE': args.leafletObject.getBounds()._northEast.lat,
+            'lngNE': args.leafletObject.getBounds()._northEast.lng,
+            'latSW': args.leafletObject.getBounds()._southWest.lat,
+            'lngSW': args.leafletObject.getBounds()._southWest.lng
+        })
+        leafletData.getMap().then(function (map) {
+            // map.fitBounds(bounds);
+            return vm.getTrack().then(function () {});
+        });
+
+    })
+    $scope.$on('$routeUpdate', function () {
+        alert(1)
+    });
 
 }

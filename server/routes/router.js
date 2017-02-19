@@ -64,8 +64,9 @@ router.route('/tracks')
                 geometry: {
                     $geoWithin: {
                         $box: [
-                            [parseFloat(req.query.latNE), parseFloat(req.query.lngNE)],
-                            [parseFloat(req.query.latSW), parseFloat(req.query.lngSW)]
+                            [parseFloat(req.query.lngSW),parseFloat(req.query.latSW)],
+                            [ parseFloat(req.query.lngNE),parseFloat(req.query.latNE)],
+                            
                         ]
                         // $box:  [ [ 0, 0 ], [ 40, 40 ] ] 
                     }

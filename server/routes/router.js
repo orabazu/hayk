@@ -58,8 +58,24 @@ router.route('/tracks')
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
     .get(function (req, res) {
-        Track.find()
-            .populate('properties.ownedBy')
+        var query;
+        if (req.query.latNE) {
+            query = Track.find({
+                geometry: {
+                    $geoWithin: {
+                        $box: [
+                            [parseFloat(req.query.latNE), parseFloat(req.query.lngNE)],
+                            [parseFloat(req.query.latSW), parseFloat(req.query.lngSW)]
+                        ]
+                        // $box:  [ [ 0, 0 ], [ 40, 40 ] ] 
+                    }
+                }
+            })
+        } else {
+            query = Track.find({})
+        }
+        
+            query.populate('properties.ownedBy')
             .exec(function (err, tracks) {
                 if (err) {
                     res.status(400).send({
@@ -67,7 +83,7 @@ router.route('/tracks')
                         Data: err
                     });
                 } else {
-                    res.json(tracks);
+                    res.status(200).json(tracks);
                 }
             });
 
@@ -78,7 +94,7 @@ router.route('/tracks')
 router.route('/tracks/:id')
     // get all the tracks (accessed at GET http://localhost:8080/api/tracks/:id)
     .get(function (req, res) {
- 
+
         Track.findOne({
             '_id': new ObjectId(req.params.id)
         }, function (err, response) {
@@ -132,7 +148,7 @@ router.route('/photos')
         })
     })
 
-    router.route('/gpx')
+router.route('/gpx')
     .post(function (req, res) {
         //or from string
         upload.single('file')(req, res, function (err) {

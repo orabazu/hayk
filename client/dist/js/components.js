@@ -317,13 +317,13 @@ trackService.$inject = ["$http"];function trackService($http) {
 	};
 	return service;
 
-	function getTrack() {
+	function getTrack(params) {
 		return $http({
 			method: 'GET',
-			url: 'api/tracks',
+			url: 'api/tracks?latNE='+ params.latNE+'&lngNE='+params.lngNE +'&latSW='+params.latSW +'&lngSW='+params.lngSW,
 			headers: {
 				'content-type': 'application/json; charset=utf-8'
-			}
+			},
 		})
 	};
 
@@ -629,6 +629,32 @@ function navbarController() {
 * @example <div acme-shared-spinner></div>
 */
 angular
+    .module('app.register', [])
+    .directive('registerDirective', registerDirective);
+   
+function registerDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/register/register.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: registerController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function registerController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
     .module('app.profile', [])
     .directive('profileDirective', profileDirective);
 
@@ -671,32 +697,6 @@ function profileController($rootScope, userService,trackService,markerParser) {
                 });
         });
     }
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.register', [])
-    .directive('registerDirective', registerDirective);
-   
-function registerDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/register/register.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: registerController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function registerController() {
-    var vm = this;
 }
 (function () {
     'use strict';
@@ -809,35 +809,29 @@ LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 't
 function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {};
+    vm.getTrack = getTrack;
 
     activate();
 
     function activate() {
-        if ($stateParams) {
+        if ($stateParams.latNE && $stateParams.lngNE && $stateParams.latSW && $stateParams.lngSW) {
             leafletData.getMap().then(function (map) {
-                    // map.fitBounds([
-
-                    //     [30.855244, 36.975586]
-                    //     [30.580368, 36.820286]
-                    //     ]);
-                    // var bounds = [[36.975586,30.855244], [36.820286,30.580368]];
-                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];
-                    
+                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];                   
                     map.fitBounds(bounds);
-                });
-            return getTrack().then(function () {
-                
+                    return vm.getTrack().then(function () {}); 
             });
 
         } else {
-            return getTrack().then(function () {});
+            return vm.getTrack().then(function () {});
         }
-        console.log($stateParams);
     }
 
     function getTrack() {
-        return trackService.getTrack().then(function (respond) {
+        return trackService.getTrack($stateParams).then(function (respond) {
             vm.tracks.data = respond.data;
+            if( vm.tracks.data == []){
+                
+            }
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();
@@ -901,6 +895,59 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
 
         });
     }
+
+}
+angular
+    .module('app.layoutDetail', [])
+    .directive('layoutDetailDirective', layoutDetailDirective)
+
+function layoutDetailDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
+        scope: {},
+        controller: LayoutDetailController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+
+function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
+    var vm = this;
+    vm.trackDetail = {};
+    vm.center = {};
+
+    activate();
+
+    function activate() {
+        trackService.getTrackDetail($stateParams.id).then(function (res) {
+            vm.trackDetail = res.data;
+            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
+            vm.center = {
+                lat: vm.trackDetail.geometry.coordinates[1],
+                lng: vm.trackDetail.geometry.coordinates[0],
+                zoom: 12
+            }
+            // console.log(vm.center);
+            leafletData.getMap().then(function (map) {
+                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
+                new L.GPX(gpx, {
+                    async: true
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);             
+            });
+
+        })
+    }
+
+
+    vm.layers = mapConfigService.getLayer();
+
 
 }
 (function () {
@@ -1023,56 +1070,3 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     }
 
 })();
-angular
-    .module('app.layoutDetail', [])
-    .directive('layoutDetailDirective', layoutDetailDirective)
-
-function layoutDetailDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
-        scope: {},
-        controller: LayoutDetailController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
-
-function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
-    var vm = this;
-    vm.trackDetail = {};
-    vm.center = {};
-
-    activate();
-
-    function activate() {
-        trackService.getTrackDetail($stateParams.id).then(function (res) {
-            vm.trackDetail = res.data;
-            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
-            vm.center = {
-                lat: vm.trackDetail.geometry.coordinates[1],
-                lng: vm.trackDetail.geometry.coordinates[0],
-                zoom: 12
-            }
-            // console.log(vm.center);
-            leafletData.getMap().then(function (map) {
-                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
-                new L.GPX(gpx, {
-                    async: true
-                }).on('loaded', function (e) {
-                    map.fitBounds(e.target.getBounds());
-                }).addTo(map);             
-            });
-
-        })
-    }
-
-
-    vm.layers = mapConfigService.getLayer();
-
-
-}

@@ -24,35 +24,29 @@ LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 't
 function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData) {
     var vm = this;
     vm.tracks = {};
+    vm.getTrack = getTrack;
 
     activate();
 
     function activate() {
-        if ($stateParams) {
+        if ($stateParams.latNE && $stateParams.lngNE && $stateParams.latSW && $stateParams.lngSW) {
             leafletData.getMap().then(function (map) {
-                    // map.fitBounds([
-
-                    //     [30.855244, 36.975586]
-                    //     [30.580368, 36.820286]
-                    //     ]);
-                    // var bounds = [[36.975586,30.855244], [36.820286,30.580368]];
-                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];
-                    
+                    var bounds = [[$stateParams.latNE,$stateParams.lngNE], [$stateParams.latSW,$stateParams.lngSW]];                   
                     map.fitBounds(bounds);
-                });
-            return getTrack().then(function () {
-                
+                    return vm.getTrack().then(function () {}); 
             });
 
         } else {
-            return getTrack().then(function () {});
+            return vm.getTrack().then(function () {});
         }
-        console.log($stateParams);
     }
 
     function getTrack() {
-        return trackService.getTrack().then(function (respond) {
+        return trackService.getTrack($stateParams).then(function (respond) {
             vm.tracks.data = respond.data;
+            if( vm.tracks.data == []){
+                
+            }
             markerParser.jsonToMarkerArray(vm.tracks.data).then(function (response) {
                 vm.markers = markerParser.toObject(response);
                 var bounds = L.geoJson(vm.tracks.data).getBounds();

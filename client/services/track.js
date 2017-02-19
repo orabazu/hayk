@@ -8,13 +8,13 @@ function trackService($http) {
 	};
 	return service;
 
-	function getTrack() {
+	function getTrack(params) {
 		return $http({
 			method: 'GET',
-			url: 'api/tracks',
+			url: 'api/tracks?latNE='+ params.latNE+'&lngNE='+params.lngNE +'&latSW='+params.latSW +'&lngSW='+params.lngSW,
 			headers: {
 				'content-type': 'application/json; charset=utf-8'
-			}
+			},
 		})
 	};
 

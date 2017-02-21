@@ -25,6 +25,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     var vm = this;
     vm.tracks = {};
     vm.getTrack = getTrack;
+    vm.mapAutoRefresh = true;
     vm.params = {
         latNE: parseFloat($stateParams.latNE),
         lngNE: parseFloat($stateParams.lngNE),
@@ -123,23 +124,26 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     var mapEvent = 'leafletDirectiveMap.moveend';
 
     $scope.$on(mapEvent, function (event, args) {
-        console.log(args.leafletObject);
-        if (vm.markers != undefined) {
-            vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
-            vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
-            vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
-            vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+        // console.log(args.leafletObject);
+        if (vm.mapAutoRefresh) {
+            if (vm.markers != undefined) {
+                vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
+                vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
+                vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
+                vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+            }
+            $location.search({
+                'latNE': args.leafletObject.getBounds()._northEast.lat,
+                'lngNE': args.leafletObject.getBounds()._northEast.lng,
+                'latSW': args.leafletObject.getBounds()._southWest.lat,
+                'lngSW': args.leafletObject.getBounds()._southWest.lng
+            })
+            leafletData.getMap().then(function (map) {
+                // map.fitBounds(bounds);
+                return vm.getTrack().then(function () {});
+            });
         }
-        $location.search({
-            'latNE': args.leafletObject.getBounds()._northEast.lat,
-            'lngNE': args.leafletObject.getBounds()._northEast.lng,
-            'latSW': args.leafletObject.getBounds()._southWest.lat,
-            'lngSW': args.leafletObject.getBounds()._southWest.lng
-        })
-        leafletData.getMap().then(function (map) {
-            // map.fitBounds(bounds);
-            return vm.getTrack().then(function () {});
-        });
+
 
     })
     $scope.$on('$routeUpdate', function () {

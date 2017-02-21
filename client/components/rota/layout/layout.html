@@ -2,19 +2,23 @@
 		<div class="side-menu">
 			<h2>Rotalar</h2>
 
-			<div class="col-md-6" ng-repeat="marker in vm.markers" >
-				<!-- CARD  -->
-				<card-directive 
-				ng-mouseover="vm.changeIcon(marker)"
-				ng-mouseleave="vm.removeIcon(marker)" 
-				title = marker.properties.name
-				summary =  marker.properties.summary 
-				owner = marker.properties.owner
-				img-src = marker.properties.img_src
-				id = marker.properties.id
-				>
-				</card-directive>
+			<div ng-repeat="marker in vm.markers track by marker.properties.id" >
+			<div class="col-md-6">
+						<!-- CARD  -->
+						<card-directive 
+						ng-mouseover="vm.changeIcon(marker)"
+						ng-mouseleave="vm.removeIcon(marker)" 
+						title = marker.properties.name
+						summary =  marker.properties.summary 
+						owner = marker.properties.owner
+						img-src = marker.properties.img_src
+						id = marker.properties.id
+						>
+					</card-directive>
 			</div>
+			<div class="clearfix" ng-if="$index % 3 == 1">{{}}</div>
+			</div>
+			
 
 			<!-- ng-class="marker.focus ? 'active-place' : ''" ng-mouseenter="changeIcon(marker)" ng-mouseleave="changeIcon(marker)" ng-click="zoomMarker(marker)"> -->
 			<div class="btn-map-filter-table">
@@ -31,8 +35,8 @@
 		<div class="data-viz" id="map">
 			<div class="map-auto-refresh">
 				<label class="checkbox" for="map-auto-refresh-checkbox">
-					<input type="checkbox" class="map-auto-refresh-checkbox" id="map-auto-refresh-checkbox" checked="">
-					<small ><span>Haritada gezindekçe ara</span></small>
+					<input type="checkbox" ng-model="vm.mapAutoRefresh" class="map-auto-refresh-checkbox" id="map-auto-refresh-checkbox" checked="true">
+					<small ><span>Haritada gezindekçe ara </span></small>
 				</label>
 			</div>
 		<leaflet 

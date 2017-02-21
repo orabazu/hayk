@@ -578,32 +578,6 @@ angular
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.login', [])
-    .directive('loginDirective', loginDirective);
-   
-function loginDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/login/login.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
     .module('app.navbar', [])
     .directive('navbarDirective', navbarDirective);
    
@@ -697,6 +671,32 @@ function registerDirective() {
 }
 
 function registerController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
+   
+function loginDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/login/login.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
     var vm = this;
 }
 (function () {
@@ -810,6 +810,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     var vm = this;
     vm.tracks = {};
     vm.getTrack = getTrack;
+    vm.mapAutoRefresh = true;
     vm.params = {
         latNE: parseFloat($stateParams.latNE),
         lngNE: parseFloat($stateParams.lngNE),
@@ -908,23 +909,26 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     var mapEvent = 'leafletDirectiveMap.moveend';
 
     $scope.$on(mapEvent, function (event, args) {
-        console.log(args.leafletObject);
-        if (vm.markers != undefined) {
-            vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
-            vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
-            vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
-            vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+        // console.log(args.leafletObject);
+        if (vm.mapAutoRefresh) {
+            if (vm.markers != undefined) {
+                vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
+                vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
+                vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
+                vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+            }
+            $location.search({
+                'latNE': args.leafletObject.getBounds()._northEast.lat,
+                'lngNE': args.leafletObject.getBounds()._northEast.lng,
+                'latSW': args.leafletObject.getBounds()._southWest.lat,
+                'lngSW': args.leafletObject.getBounds()._southWest.lng
+            })
+            leafletData.getMap().then(function (map) {
+                // map.fitBounds(bounds);
+                return vm.getTrack().then(function () {});
+            });
         }
-        $location.search({
-            'latNE': args.leafletObject.getBounds()._northEast.lat,
-            'lngNE': args.leafletObject.getBounds()._northEast.lng,
-            'latSW': args.leafletObject.getBounds()._southWest.lat,
-            'lngSW': args.leafletObject.getBounds()._southWest.lng
-        })
-        leafletData.getMap().then(function (map) {
-            // map.fitBounds(bounds);
-            return vm.getTrack().then(function () {});
-        });
+
 
     })
     $scope.$on('$routeUpdate', function () {

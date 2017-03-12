@@ -3,6 +3,13 @@ var multer = require('multer');
 var router = express.Router();
 var Track = require('./../models/track.js');
 var fs = require('fs');
+var cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: 'tabiatizi',
+    api_key: '296748465215916',
+    api_secret: 'ro4Db4JHAGSOi4WWdoXxKNLRkcs'
+});
+
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
         cb(null, './client/dist/uploads')
@@ -15,6 +22,7 @@ var storage = multer.diskStorage({ //multers disk storage settings
 var upload = multer({
     storage: storage
 })
+
 
 var ramStorage = multer.memoryStorage()
 var uploadTemp = multer({
@@ -64,9 +72,9 @@ router.route('/tracks')
                 geometry: {
                     $geoWithin: {
                         $box: [
-                            [parseFloat(req.query.lngSW),parseFloat(req.query.latSW)],
-                            [ parseFloat(req.query.lngNE),parseFloat(req.query.latNE)],
-                            
+                            [parseFloat(req.query.lngSW), parseFloat(req.query.latSW)],
+                            [parseFloat(req.query.lngNE), parseFloat(req.query.latNE)],
+
                         ]
                         // $box:  [ [ 0, 0 ], [ 40, 40 ] ] 
                     }
@@ -75,8 +83,8 @@ router.route('/tracks')
         } else {
             query = Track.find({})
         }
-        
-            query.populate('properties.ownedBy')
+
+        query.populate('properties.ownedBy')
             .exec(function (err, tracks) {
                 if (err) {
                     res.status(400).send({
@@ -132,7 +140,7 @@ router.route('/profile')
 
 router.route('/photos')
     .post(function (req, res) {
-        upload.single('file')(req, res, function (err) {
+        upload.array('file',1)(req, res, function (err) {
             // console.log(req.file);
             if (err) {
                 res.json({
@@ -141,12 +149,27 @@ router.route('/photos')
                 });
                 return;
             }
-            res.json({
-                OperationResult: true,
-                Error: null,
-                Data: req.file,
-            });
+            var path = req.files[0].path;
+      
+            cloudinary.uploader.upload(req.files[0].path, 
+                function (cloudinaryRes) {
+                    fs.unlink(path);
+                    res.json({
+                        OperationResult: true,
+                        Error: null,
+                        Data: {
+                            path: cloudinaryRes.secure_url,
+
+                        }
+                    });
+                });
+
         })
+
+
+
+
+
     })
 
 router.route('/gpx')

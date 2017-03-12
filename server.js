@@ -69,7 +69,17 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(morgan('dev')); //log files
 
+/*
+CONNECT TO LOCAL DB
 mongoose.connect(config.database); // connect to database
+*/
+
+mongoose.connect(process.env.MONGODB_URI, function (error) {
+    if (error) console.error(error);
+    else console.log('mongo connected');
+});
+
+
 var db = mongoose.connection;
 
 // Session Configuration for Passport and MongoDB

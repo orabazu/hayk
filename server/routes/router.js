@@ -10,6 +10,7 @@ cloudinary.config({
     api_secret: 'ro4Db4JHAGSOi4WWdoXxKNLRkcs'
 });
 
+
 var storage = multer.diskStorage({ //multers disk storage settings
     destination: function (req, file, cb) {
         cb(null, './client/dist/uploads')
@@ -47,7 +48,8 @@ router.route('/tracks')
         track.properties.summary = req.body.summary;
         track.properties.img_src = req.body.img_src;
         track.properties.ownedBy = req.body.ownedBy;
-        track.properties.gpx = fs.readFileSync(req.body.gpx);
+        // track.properties.gpx = fs.readFileSync(req.body.gpx);
+        track.properties.gpx = req.body.gpx;
         track.geometry.coordinates = req.body.coordinates;
 
         // save the track and check for errors
@@ -140,7 +142,7 @@ router.route('/profile')
 
 router.route('/photos')
     .post(function (req, res) {
-        upload.array('file',1)(req, res, function (err) {
+        upload.array('file', 1)(req, res, function (err) {
             // console.log(req.file);
             if (err) {
                 res.json({
@@ -150,8 +152,8 @@ router.route('/photos')
                 return;
             }
             var path = req.files[0].path;
-      
-            cloudinary.uploader.upload(req.files[0].path, 
+
+            cloudinary.uploader.upload(req.files[0].path,
                 function (cloudinaryRes) {
                     fs.unlink(path);
                     res.json({
@@ -163,19 +165,13 @@ router.route('/photos')
                         }
                     });
                 });
-
         })
-
-
-
-
-
     })
 
 router.route('/gpx')
     .post(function (req, res) {
         //or from string
-        upload.single('file')(req, res, function (err) {
+        upload.array('file', 1)(req, res, function (err) {
             if (err) {
                 res.json({
                     OperationResult: false,
@@ -183,11 +179,25 @@ router.route('/gpx')
                 });
                 return;
             }
-            res.json({
-                OperationResult: true,
-                Error: null,
-                Data: req.file,
-            });
+
+            var path = req.files[0].path;
+
+            cloudinary.uploader.upload(req.files[0].path,
+                function (cloudinaryRes) {
+                    fs.unlink(path);
+                    res.json({
+                        OperationResult: true,
+                        Error: null,
+                        Data: {
+                            path: cloudinaryRes.secure_url,
+                        }
+                    });
+                },{
+                    resource_type: "raw"
+                });
+
+
+
 
 
 

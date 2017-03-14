@@ -42,12 +42,14 @@ function generateOrFindUser(accessToken, refreshToken, profile, done) {
 	});
 }
 
+urltestString= "http://localhost:8080";
+urlProdString= "http://localhost:8080";
+
+
 passport.use(new FacebookStrategy({
-		// clientID: process.env.FACEBOOK_APP_ID,
-		clientID: '1044143785702675',
-		// clientSecret: process.env.FACEBOOK_APP_SECRET,
-		clientSecret: '109525a2a67d5af26078885ae9a6b4dd',
-		callbackURL: "http://localhost:8080/facebook/return",
+		clientID: process.env.FACEBOOK_APP_ID,
+		clientSecret: process.env.FACEBOOK_APP_SECRET,
+		callbackURL: urltestString + "/facebook/return",
 		profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
 	},
 	generateOrFindUser));

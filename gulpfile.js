@@ -44,6 +44,30 @@ var servicePath = 'client/services/*.js';
 var servicePath2 = 'client/services/*/*.js';
 var componentsPathcss = 'client/components/*/*.css';
 
+var vendorPath = [
+'client/bower_components/jquery/dist/jquery.min.js',
+'client/bower_components/bootstrap/dist/js/bootstrap.min.js',
+'client/bower_components/angular/angular.min.js',
+'client/bower_components/angular-ui-router/release/angular-ui-router.min.js',
+'client/bower_components/leaflet/dist/leaflet.js',
+'client/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
+'client/bower_components/oclazyload/dist/ocLazyLoad.min.js',
+'client/bower_components/ng-file-upload/ng-file-upload-all.js',
+'client/bower_components/ladda/dist/ladda.min.js',
+'client/bower_components/ladda/dist/spin.min.js',
+'client/bower_components/ladda/dist/ladda.min.js',
+'client/bower_components/angular-ladda/dist/angular-ladda.min.js',
+'client/bower_components/leaflet.gpx/leaflet.gpx.js',
+'client/bower_components/typeahead/typeahead.bundle.js',
+'client/bower_components/typeahead/angular-typeahead.js',
+'client/bower_components/sticky/jquery.jsticky.min.js',
+
+
+
+]
+
+
+
 var jsPath = [
   'client/components/utils.js',
   'client/components/app.js',    
@@ -67,6 +91,12 @@ gulp.task('minify-js', function () {
   .pipe(gulp.dest('client/dist/js'));
 });
 
+gulp.task('vendor-js', function () {
+  return  gulp.src(vendorPath) // path to your files
+  .pipe(concat('vendor.js'))
+  //  .pipe(uglify())
+  .pipe(gulp.dest('client/dist/js'));
+});
 
 gulp.task('minify-css', function() {
 	return gulp.src([componentsPathcss, 'client/components/*/*/*.css'])

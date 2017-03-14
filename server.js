@@ -64,6 +64,7 @@ passport.deserializeUser(function (userId, done) {
 
 // view engine setup
 app.set('view engine', 'ejs'); // set up ejs for templating
+app.use('/bower_components', express.static(__dirname + '/client/bower_components'));
 app.use('/', express.static(__dirname + '/client'));
 app.use(bodyParser.urlencoded({
 	extended: true

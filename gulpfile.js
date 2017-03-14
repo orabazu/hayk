@@ -61,10 +61,16 @@ var vendorPath = [
 'client/bower_components/typeahead/typeahead.bundle.js',
 'client/bower_components/typeahead/angular-typeahead.js',
 'client/bower_components/sticky/jquery.jsticky.min.js',
+];
 
+var vendorCSSPath = [
+'client/bower_components/bootstrap/dist/css/bootstrap.min.css',
+'client/bower_components/bootstrap/dist/css/bootstrap.min.css',
+'client/bower_components/font-awesome/css/font-awesome.min.css',
+'client/bower_components/leaflet/dist/leaflet.css',
+'client/bower_components/ladda/dist/ladda.min.css',
+];
 
-
-]
 
 
 
@@ -105,6 +111,12 @@ gulp.task('minify-css', function() {
 	.pipe(gulp.dest('client/dist/css'))
 });
 
+gulp.task('vendor-css', function() {
+	return gulp.src(vendorCSSPath)
+  .pipe(concat('vendor.css'))  
+	// .pipe(cleanCSS({compatibility: 'ie8'}))
+	.pipe(gulp.dest('client/dist/css'))
+});
 
 gulp.task('watch', function () {
       gulp.watch([jsPath], ['minify-js']);

@@ -11,7 +11,7 @@ window.loadAutoComplete = function () {
         $(that).typeahead({
             source: function (query, process) {
                 var predictions = [];
-                $.getJSON('http://geocode-maps.yandex.ru/1.x/?results=5&bbox=24.125977,34.452218~45.109863,42.601620&format=json&lang=tr_TR&geocode=' + query, function (data) {
+                $.getJSON('https://geocode-maps.yandex.ru/1.x/?results=5&bbox=24.125977,34.452218~45.109863,42.601620&format=json&lang=tr_TR&geocode=' + query, function (data) {
                     for (var i = 0; i < data.response.GeoObjectCollection.featureMember.length; i++) {
                         var item = {
                             name: data.response.GeoObjectCollection.featureMember[i].GeoObject.name + ', ' +data.response.GeoObjectCollection.featureMember[i].GeoObject.description.replace(', Türkiye', ''),
@@ -578,6 +578,32 @@ angular
 * @example <div acme-shared-spinner></div>
 */
 angular
+    .module('app.login', [])
+    .directive('loginDirective', loginDirective);
+   
+function loginDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/user/login/login.html',
+        // scope: {
+        //     max: '='
+        // },
+        controller: FooterController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+function FooterController() {
+    var vm = this;
+}
+/**
+* @desc spinner directive that can be used anywhere across apps at a company named Acme
+* @example <div acme-shared-spinner></div>
+*/
+angular
     .module('app.navbar', [])
     .directive('navbarDirective', navbarDirective);
    
@@ -671,32 +697,6 @@ function registerDirective() {
 }
 
 function registerController() {
-    var vm = this;
-}
-/**
-* @desc spinner directive that can be used anywhere across apps at a company named Acme
-* @example <div acme-shared-spinner></div>
-*/
-angular
-    .module('app.login', [])
-    .directive('loginDirective', loginDirective);
-   
-function loginDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/user/login/login.html',
-        // scope: {
-        //     max: '='
-        // },
-        controller: FooterController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-function FooterController() {
     var vm = this;
 }
 (function () {
@@ -936,59 +936,6 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     });
 
 }
-angular
-    .module('app.layoutDetail', [])
-    .directive('layoutDetailDirective', layoutDetailDirective)
-
-function layoutDetailDirective() {
-    var directive = {
-        restrict: 'EA',
-        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
-        scope: {},
-        controller: LayoutDetailController,
-        controllerAs: 'vm',
-        bindToController: true
-    };
-
-    return directive;
-}
-
-LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
-
-function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
-    var vm = this;
-    vm.trackDetail = {};
-    vm.center = {};
-
-    activate();
-
-    function activate() {
-        trackService.getTrackDetail($stateParams.id).then(function (res) {
-            vm.trackDetail = res.data;
-            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
-            vm.center = {
-                lat: vm.trackDetail.geometry.coordinates[1],
-                lng: vm.trackDetail.geometry.coordinates[0],
-                zoom: 12
-            }
-            // console.log(vm.center);
-            leafletData.getMap().then(function (map) {
-                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
-                new L.GPX(gpx, {
-                    async: true
-                }).on('loaded', function (e) {
-                    map.fitBounds(e.target.getBounds());
-                }).addTo(map);             
-            });
-
-        })
-    }
-
-
-    vm.layers = mapConfigService.getLayer();
-
-
-}
 (function () {
     'use strict';
 
@@ -1109,3 +1056,56 @@ function LayoutDetailController($scope, $stateParams, trackService, mapConfigSer
     }
 
 })();
+angular
+    .module('app.layoutDetail', [])
+    .directive('layoutDetailDirective', layoutDetailDirective)
+
+function layoutDetailDirective() {
+    var directive = {
+        restrict: 'EA',
+        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
+        scope: {},
+        controller: LayoutDetailController,
+        controllerAs: 'vm',
+        bindToController: true
+    };
+
+    return directive;
+}
+
+LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+
+function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
+    var vm = this;
+    vm.trackDetail = {};
+    vm.center = {};
+
+    activate();
+
+    function activate() {
+        trackService.getTrackDetail($stateParams.id).then(function (res) {
+            vm.trackDetail = res.data;
+            vm.trackDetail.properties.img_src = vm.trackDetail.properties.img_src.split('client')[1].replaceAll('\\', '/')
+            vm.center = {
+                lat: vm.trackDetail.geometry.coordinates[1],
+                lng: vm.trackDetail.geometry.coordinates[0],
+                zoom: 12
+            }
+            // console.log(vm.center);
+            leafletData.getMap().then(function (map) {
+                var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
+                new L.GPX(gpx, {
+                    async: true
+                }).on('loaded', function (e) {
+                    map.fitBounds(e.target.getBounds());
+                }).addTo(map);             
+            });
+
+        })
+    }
+
+
+    vm.layers = mapConfigService.getLayer();
+
+
+}

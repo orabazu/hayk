@@ -20,11 +20,20 @@
             </div>
         </div>
         <div class="col-md-8 ">
-            <h1 class="padding-left-15 "> Rotalarım </h1>
-            <div class="col-md-6 " ng-repeat="track in vm.markers">
-                <card-directive ng-mouseover="vm.changeIcon(track) " ng-mouseleave="vm.removeIcon(track) " title="track.properties.name"" summary="track.properties.summary">
-                </card-directive>
+            <div class="panel">
+                <a ui-sref="addtrack.location">
+                    <div class="panel-body">
+                        <h3><i class="fa fa-plus"></i> Rota Ekle </h3>
+                    </div>
+                </a>
+
+
             </div>
+            <!--<h1 class="padding-left-15 "> Rotalarım </h1>
+            <div class="col-md-6 " ng-repeat="track in vm.markers">
+                <card-directive ng-mouseover="vm.changeIcon(track) " ng-mouseleave="vm.removeIcon(track)" title="track.properties.name" summary="track.properties.summary">
+                </card-directive>
+            </div>-->
         </div>
     </div>
 </div>

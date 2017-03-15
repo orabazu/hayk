@@ -28,21 +28,6 @@ function profileController($rootScope, userService,trackService,markerParser) {
     activate();
 
     function activate() {
-        return getTrack().then(function () {
-            
-        })
-    }
-
-    function getTrack() {
-        return trackService.getTrack().then(function (respond) {
-            vm.tracks.data = respond.data;
-            markerParser.jsonToMarkerArray(vm.tracks.data)
-                .then(function (response) {
-                    vm.markers = markerParser.toObject(response);
-                })
-                .catch(function (err) {
-
-                });
-        });
+  
     }
 }

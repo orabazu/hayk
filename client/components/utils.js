@@ -11,7 +11,7 @@ window.loadAutoComplete = function () {
         $(that).typeahead({
             source: function (query, process) {
                 var predictions = [];
-                $.getJSON('http://geocode-maps.yandex.ru/1.x/?results=5&bbox=24.125977,34.452218~45.109863,42.601620&format=json&lang=tr_TR&geocode=' + query, function (data) {
+                $.getJSON('https://geocode-maps.yandex.ru/1.x/?results=5&bbox=24.125977,34.452218~45.109863,42.601620&format=json&lang=tr_TR&geocode=' + query, function (data) {
                     for (var i = 0; i < data.response.GeoObjectCollection.featureMember.length; i++) {
                         var item = {
                             name: data.response.GeoObjectCollection.featureMember[i].GeoObject.name + ', ' +data.response.GeoObjectCollection.featureMember[i].GeoObject.description.replace(', Türkiye', ''),

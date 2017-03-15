@@ -10,6 +10,8 @@ var MongoStore = require('connect-mongo')(session);
 var FacebookStrategy = require('passport-facebook').Strategy;
 var config = require('./server/config/config.js');
 var User = require('./server/models/user.js');
+var os = require("os");
+
 
 function generateOrFindUser(accessToken, refreshToken, profile, done) {
 
@@ -43,13 +45,13 @@ function generateOrFindUser(accessToken, refreshToken, profile, done) {
 }
 
 urltestString= "http://localhost:8080";
-urlProdString= "http://localhost:8080";
+urlProdString= "https://tabiatizi.herokuapp.com";
 
 
 passport.use(new FacebookStrategy({
 		clientID: process.env.FACEBOOK_APP_ID,
 		clientSecret: process.env.FACEBOOK_APP_SECRET,
-		callbackURL: urltestString + "/facebook/return",
+		callbackURL: urlProdString + "/facebook/return",
 		profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
 	},
 	generateOrFindUser));

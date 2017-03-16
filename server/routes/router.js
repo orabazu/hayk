@@ -161,7 +161,6 @@ router.route('/photos')
                         Error: null,
                         Data: {
                             path: cloudinaryRes.secure_url,
-
                         }
                     });
                 });

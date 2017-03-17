@@ -17,6 +17,8 @@
         return directive;
     }
 
+    HeadlineController.$inject = ['$scope', '$state'];
+
     function HeadlineController($scope, $state) {
         var vm = this;
         window.loadAutoComplete();
@@ -28,7 +30,7 @@
 
         $("#Autocomplete").focus(function () {
             $('html, body').animate({
-                scrollTop: $("#Autocomplete").offset().top - 200
+                scrollTop: $("#Autocomplete").offset().top - 80
             }, 300);
         });
 

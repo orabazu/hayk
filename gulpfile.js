@@ -23,7 +23,7 @@ gulp.task('bower-fonts', function () {
 
 var componentsPathcss = 'client/components/*/*.css'
 
-var jsList = [
+var jsPath = [
   'client/components/utils.js',
   'client/components/app.js',
   'client/components/app.content.js',
@@ -124,6 +124,6 @@ gulp.task('watch', function () {
   gulp.watch([componentsPathcss, 'client/components/*/*/*.css'], ['minify-css']);
 });
 
-gulp.task('build', ['minify-js', 'minify-css'])
+gulp.task('build', ['build-js', 'build-css'])
 
 gulp.task('default', ['minify-js', 'minify-css', 'watch']);

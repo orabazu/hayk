@@ -22,6 +22,10 @@ function profileDirective() {
     return directive;
 }
 
+
+
+profileController.$inject = ['$rootScope', 'userService', 'trackService', 'markerParser'];
+
 function profileController($rootScope, userService,trackService,markerParser) {
     var vm = this;
     vm.tracks = {};

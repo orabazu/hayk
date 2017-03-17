@@ -17,6 +17,8 @@
         return directive;
     }
 
+    HeadlineController.$inject = ['$scope', '$state'];
+
     function HeadlineController($scope, $state) {
         var vm = this;
         window.loadAutoComplete();

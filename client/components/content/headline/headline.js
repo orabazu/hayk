@@ -30,7 +30,7 @@
 
         $("#Autocomplete").focus(function () {
             $('html, body').animate({
-                scrollTop: $("#Autocomplete").offset().top - 200
+                scrollTop: $("#Autocomplete").offset().top - 80
             }, 300);
         });
 

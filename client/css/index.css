@@ -624,3 +624,11 @@ a.disabled {
 .padding-top-50{
 	padding-top: 50px;
 }
+
+.btn-shadow{
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+}
+
+.btn-upper {
+	z-index: 1000;
+}

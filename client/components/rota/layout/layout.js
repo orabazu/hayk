@@ -19,19 +19,24 @@ function layoutDirective() {
     return directive;
 }
 
-LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService', 'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData', '$location'];
+LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService',
+    'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData', '$location', '$window'
+];
 
-function LayoutController($scope, $rootScope, $state, $stateParams, trackService, markerParser, mapConfigService, leafletMapEvents, leafletData, $location) {
+function LayoutController($scope, $rootScope, $state, $stateParams, trackService,
+    markerParser, mapConfigService, leafletMapEvents, leafletData, $location, $window) {
     var vm = this;
     vm.tracks = {};
     vm.getTrack = getTrack;
     vm.mapAutoRefresh = true;
+    vm.openMap = openMap;
     vm.params = {
         latNE: parseFloat($stateParams.latNE),
         lngNE: parseFloat($stateParams.lngNE),
         latSW: parseFloat($stateParams.latSW),
         lngSW: parseFloat($stateParams.lngSW),
     }
+
     activate();
 
     function activate() {
@@ -127,21 +132,29 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
         // console.log(args.leafletObject);
         if (vm.mapAutoRefresh) {
             if (vm.markers != undefined) {
-                vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
-                vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
-                vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
-                vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+                // vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
+                // vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
+                // vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
+                // vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+                vm.params.latNE = 50.429517947;
+                vm.params.lngNE = 49.790039062;
+                vm.params.latSW = 24.126701958;
+                vm.params.lngSW = 19.775390625;
             }
-            $location.search({
-                'latNE': args.leafletObject.getBounds()._northEast.lat,
-                'lngNE': args.leafletObject.getBounds()._northEast.lng,
-                'latSW': args.leafletObject.getBounds()._southWest.lat,
-                'lngSW': args.leafletObject.getBounds()._southWest.lng
-            })
+            if ($('.data-viz').width() > 0) {
+                $location.search({
+                    'latNE': args.leafletObject.getBounds()._northEast.lat,
+                    'lngNE': args.leafletObject.getBounds()._northEast.lng,
+                    'latSW': args.leafletObject.getBounds()._southWest.lat,
+                    'lngSW': args.leafletObject.getBounds()._southWest.lng
+                })
+            }
+
             leafletData.getMap().then(function (map) {
                 // map.fitBounds(bounds);
                 return vm.getTrack().then(function () {});
             });
+
         }
 
 
@@ -149,5 +162,20 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     $scope.$on('$routeUpdate', function () {
         alert(1)
     });
+
+    vm.toggleTitle = ' Harita';
+    function openMap() {
+        vm.mapActive = !vm.mapActive;
+        $('.data-viz').toggleClass('map-open');
+        $('.map-auto-refresh').toggleClass('refresh-open');
+        (vm.toggleTitle == ' Harita' ? vm.toggleTitle = ' Liste' : vm.toggleTitle = ' Harita' )
+        
+        console.log($('.data-viz').width());
+        leafletData.getMap().then(function (map) {
+            map.invalidateSize();
+        });
+    }
+
+
 
 }

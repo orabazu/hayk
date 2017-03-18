@@ -17,9 +17,9 @@
         return directive;
     }
 
-    HeadlineController.$inject = ['$scope', '$state'];
+    HeadlineController.$inject = ['$scope', '$state','$interval'];
 
-    function HeadlineController($scope, $state) {
+    function HeadlineController($scope, $state,$interval) {
         var vm = this;
         window.loadAutoComplete();
         vm.search = function () {
@@ -33,6 +33,26 @@
                 scrollTop: $("#Autocomplete").offset().top - 80
             }, 300);
         });
+
+
+
+        $interval(changeBg, 6500);
+
+        var i = 0;
+        function changeBg() {
+            if( i === 5){
+                //restart
+                i=0;
+            }
+            i++;
+            angular.element(".headline")
+                .css({
+                    background: "url('../../img/bg-"+ i +".jpg')",
+                    // backgroundSize: "cover",
+                    // backgroundPosition: "bottom",
+                });
+        }
+
 
     }
 })();

@@ -26,5 +26,5 @@ function cardDirective() {
 
 function CardController() {
     var vm = this; 
-    vm.imgSrc = vm.imgSrc.split('client')[1];
+    // vm.imgSrc = vm.imgSrc.split('client')[1];
 } 

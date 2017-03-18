@@ -46,6 +46,7 @@
     display: table;
     table-layout: fixed;
     width: 100%;
+    z-index: 2000;
 }
 
 @media screen and (min-width: 768px) {
@@ -84,7 +85,7 @@
 .map-auto-refresh {
     position: absolute;
     top: 10px;
-    left: 50px;
+    left: 40px;
     background: white;
     height: 40px;
     width: 160px;
@@ -92,5 +93,21 @@
     margin-left: 20px;
     padding-left: 30px;
     border-radius: 4px;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+    display: none;
+}
+
+@media screen and (min-width: 768px) {
+    .map-auto-refresh {
+        display: block;
+    }
+}
+
+.refresh-open{
+    display: block;
+}
+
+.map-open {
+    width: 100%;
+    left: 0px;
 }

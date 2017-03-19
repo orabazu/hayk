@@ -88,7 +88,9 @@ gulp.task('build-js', function () {
 
 gulp.task('minify-css', function () {
   return gulp.src([componentsPathcss, 'client/components/*/*/*.css'])
+    .pipe(sourceMaps.init())
     .pipe(concat('components.css'))
+    .pipe(sourceMaps.write())
     .pipe(gulp.dest('client/dist/css'))
 });
 

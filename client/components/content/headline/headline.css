@@ -37,7 +37,7 @@
  
  @media (min-width: 768px) {
  	header {
- 		height: 700px;
+ 		height: 100vh;
  	}
  	header .container {
  		padding-top: 200px;
@@ -75,4 +75,5 @@
  	height: 55px !important;
  	width: 104px !important;
  	background-repeat: no-repeat;
+	margin: 5px 0px;
  }

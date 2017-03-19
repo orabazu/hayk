@@ -23,4 +23,5 @@ function navbarDirective() {
 
 function navbarController() {
     var vm = this;
+    window.loadAutoComplete();
 }

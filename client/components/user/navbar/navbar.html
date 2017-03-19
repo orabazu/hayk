@@ -1,17 +1,10 @@
 <nav class="navbar navbar-inverse navbar-fixed-top layout-nav">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand navbar-search-mobile visible-sm visible-xs" href="#">
-                <button type="button" class="btn btn-default btn-block">
-                        <span class="fa fa-search" aria-hidden="true"></span> Ara
-                </button>
-            </a>
-            <a href="/" class="navbar-brand visible-md visible-lg">
-                    Tabiat İzi
-                </a>
+            <a href="/" class="navbar-brand navbar-brand-tabiat"></a>
         </div>
-        <div id="navbar" class="visible-md visible-lg">
-            <ul class="nav navbar-nav navbar-right">
+        <div id="navbar" class="visible-sm visible-md visible-lg">
+            <ul class="nav navbar-nav navbar-right">     
                 <li ng-if="!flagLogin" class="active"><a ui-sref="login">Giriş Yap</a></li>
                 <li ng-if="flagLogin">
                     <a ui-sref="addtrack.location" style="padding-bottom: 5px;">
@@ -30,13 +23,21 @@
                         <a href="/logout " target="_self ">Oturumu Kapat</a>
                     </div>
                 </li>
+            </ul>
+            <div class="col-sm-4 col-md-4 navbar-search">
+                <form class="navbar-form" role="search">
+                    <div class="input-group" style="width:100%">
+                        <input type="text" class="form-control geocode-autocomplete" placeholder="Nereye ?" name="q" autocomplete="off">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>Ara</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         <!--/.nav-collapse -->
     </div>
-    <a class="btn mobile-menu visible-sm visible-xs" ui-sref="profile">
+    <!--<a class="btn mobile-menu visible-sm visible-xs" ui-sref="profile">
         <img class="menu-profile-photo" src="{{user.photo}}"><img>
-    </a>
-    <a class="btn btn-default mobile-menu-pull-left visible-sm visible-xs" href="/">
-        <i class="fa fa-home"></i>
-    </a>
+    </a>-->
 </nav>

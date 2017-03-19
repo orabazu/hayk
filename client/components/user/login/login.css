@@ -1,17 +1,19 @@
 .right-image {
-	background: url('../../img/the-hills.jpg');
+	background: url('../../img/the-plains.jpg');
 	height: 100%;
 	width: 100%;
 	display: block;
 	background-size: cover;
 	background-position: center;
-}  
+}
 
 .glue-right {
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
+	min-width: 50%;
+	z-index: -1;
 }
 
 .glue-left {
@@ -21,11 +23,13 @@
 	bottom: 0;
 	padding: 50px;
 }
+
 .login-table {
-    display: table;
-    width: 100%;
-    height: 100%; 
+	display: table;
+	width: 100%;
+	height: 100%;
 }
+
 .login-cell {
 	display: table-cell;
 	vertical-align: middle;

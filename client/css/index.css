@@ -730,6 +730,10 @@ ul.typeahead.dropdown-menu {
 }
 }
 
+.layout-mobile-search-group ul.typeahead.dropdown-menu{
+	left: -38px!important;
+}
+
 
 /* The Overlay (background) */
 .overlay {

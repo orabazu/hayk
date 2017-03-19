@@ -72,8 +72,17 @@
  	background-image: url(../../img/logo-alt-5.svg);
  	background-size: 100%;
  	background-position: center;
+ 	background-repeat: no-repeat;
  	height: 55px !important;
  	width: 104px !important;
- 	background-repeat: no-repeat;
-	margin: 5px 0px;
+ 	margin: 5px 0px;
  }
+ 
+ @media screen and(min-width:480px) {}
+ /*
+  	margin: auto;
+ 	text-align: center;
+ 	display: block !important;
+ 	float: none;
+ 	height: 59px!important;
+ 	width: 80px!important;*/

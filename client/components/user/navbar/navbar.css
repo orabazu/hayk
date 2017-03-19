@@ -13,10 +13,19 @@
 .navbar-search-mobile {
     color: white;
     display: block;
-    width: 200px;
+    width: 225px;
     float: initial;
-    padding: 7px 3px;
+    padding: 16px 3px;
     margin: auto !important;
+    font-size: 20px;
+}
+
+.navbar-search-mobile button {
+    font-size: 15px;
+}
+
+.navbar-search-mobile input{ 
+    font-size: 20px;
 }
 
 .mobile-menu {
@@ -84,4 +93,19 @@
 .navbar-search {
     height: 65px;
     padding: 7px;
+}
+
+.menu-toggle {
+    color: white;
+    float: left;
+    font-size: 25px;
+    height: 65px;
+    padding: 20px 0px;
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 22px;
+    background: 0 0!important;
+    -webkit-transition: color .25s linear;
+    -o-transition: color .25s linear;
+    transition: color .25s linear;
 }

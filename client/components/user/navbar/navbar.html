@@ -1,10 +1,21 @@
 <nav class="navbar navbar-inverse navbar-fixed-top layout-nav">
     <div class="container-fluid">
+        <a href="" class="menu-toggle visible-xs">
+            <i class="fa fa-bars"></i>
+        </a>
         <div class="navbar-header">
-            <a href="/" class="navbar-brand navbar-brand-tabiat"></a>
+            <a href="/" class="navbar-brand navbar-brand-tabiat visible-sm visible-md visible-lg"></a>
+            <div class="navbar-search-mobile visible-xs">
+            <div class="input-group" style="width:100%">
+                <input type="text" class="form-control geocode-autocomplete" placeholder=" Nereye ?" name="q" autocomplete="off">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Ara</button>
+                </div>
+            </div>
         </div>
+        </div>      
         <div id="navbar" class="visible-sm visible-md visible-lg">
-            <ul class="nav navbar-nav navbar-right">     
+            <ul class="nav navbar-nav navbar-right">
                 <li ng-if="!flagLogin" class="active"><a ui-sref="login">Giriş Yap</a></li>
                 <li ng-if="flagLogin">
                     <a ui-sref="addtrack.location" style="padding-bottom: 5px;">
@@ -27,9 +38,9 @@
             <div class="col-sm-4 col-md-4 navbar-search">
                 <form class="navbar-form" role="search">
                     <div class="input-group" style="width:100%">
-                        <input type="text" class="form-control geocode-autocomplete" placeholder="Nereye ?" name="q" autocomplete="off">
+                        <input type="text" class="form-control geocode-autocomplete" placeholder=" Nereye ?" name="q" autocomplete="off">
                         <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i>Ara</button>
+                            <button class="btn btn-default" type="submit"><i class="fa fa-search"></i> Ara</button>
                         </div>
                     </div>
                 </form>
@@ -41,3 +52,20 @@
         <img class="menu-profile-photo" src="{{user.photo}}"><img>
     </a>-->
 </nav>
+
+
+<!-- The overlay -->
+<div id="myNav" class="overlay">
+
+    <!-- Button to close the overlay navigation -->
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+    <!-- Overlay content -->
+    <div class="overlay-content">
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+    </div>
+
+</div>

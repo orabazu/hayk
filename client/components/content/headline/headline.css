@@ -55,8 +55,8 @@
  	background: url(../../img/bg-1.jpg);
  	background-size: cover !important;
  	background-position: center !important;
- 	-webkit-transition: background-image 1s ease-in-out;
- 	transition: background-image 1s ease-in-out;
+ 	-webkit-transition: background-image 1s ease-in;
+ 	transition: background-image 1s ease-in;
  }
  
  .intro-text-footer {

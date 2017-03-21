@@ -29,7 +29,14 @@ function generateOrFindUser(accessToken, refreshToken, profile, done) {
 
 			// set all of the facebook information in our user model
 			newUser.userid = profile.id;
-			newUser.email = profile.emails[0].value;
+			if(profile.emails)
+			{
+		     newUser.email = profile.emails[0].value;
+			}
+			else {
+			 newUser.email = '';
+			}
+			 
 			newUser.name = profile.displayName || profile.username;
 			newUser.photo = profile.photos[0].value;
 
@@ -51,7 +58,7 @@ urlProdString= "https://tabiatizi.herokuapp.com";
 passport.use(new FacebookStrategy({
 		clientID: process.env.FACEBOOK_APP_ID,
 		clientSecret: process.env.FACEBOOK_APP_SECRET,
-		callbackURL: urlProdString + "/facebook/return",
+		callbackURL: urltestString + "/facebook/return",
 		profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
 	},
 	generateOrFindUser));
@@ -68,6 +75,7 @@ passport.deserializeUser(function (userId, done) {
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.use('/bower_components', express.static(__dirname + '/client/bower_components'));
 app.use('/', express.static(__dirname + '/client'));
+
 app.use(bodyParser.urlencoded({
 	extended: true
 }));

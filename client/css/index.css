@@ -94,7 +94,7 @@ hr.star-primary:after {
 }
 
 .navbar-custom {
-	background: #2C3E50;
+	background: rgba(44, 62, 80, 0.52);
 	font-family: 'Josefin Sans', sans-serif;
 	font-weight: 700;
 	border: none;
@@ -578,7 +578,7 @@ fieldset[disabled] .btn-success.active {
 /* track cards*/
 
 .track-card {
-	background-image: url('../img/1.jpg');
+	background-image: url('../img/borcka.jpg');
 	height: 351px;
 	background-color: #f5f5f5;
 	-webkit-background-size: cover;
@@ -591,11 +591,23 @@ fieldset[disabled] .btn-success.active {
 }
 
 .track-card2 {
-	background-image: url('../img/2.jpg');
+	background-image: url('../img/ihlara.jpg');
 }
 
 .track-card3 {
-	background-image: url('../img/3.jpg');
+	background-image: url('../img/abant.jpg');
+}
+
+.track-card4 {
+	background-image: url('../img/palu.jpg');
+}
+
+.track-card5 {
+	background-image: url('../img/kizilcahamam.jpg');
+}
+
+.track-card6 {
+	background-image: url('../img/sehriban.jpg');
 }
 
 .track-container {
@@ -726,68 +738,12 @@ ul.typeahead.dropdown-menu {
 
 @media screen and (min-width:480px) {
 	ul.typeahead.dropdown-menu {
-	width: initial !important;
-}
+		width: initial !important;
+	}
 }
 
-.layout-mobile-search-group ul.typeahead.dropdown-menu{
+.layout-mobile-search-group ul.typeahead.dropdown-menu {
 	left: -38px!important;
 }
 
 
-/* The Overlay (background) */
-.overlay {
-    /* Height & width depends on how you want to reveal the overlay (see JS below) */    
-    height: 100%;
-    width: 0;
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    background-color: rgb(0,0,0); /* Black fallback color */
-    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
-    overflow-x: hidden; /* Disable horizontal scroll */
-    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
-}
-
-/* Position the content inside the overlay */
-.overlay-content {
-    position: relative;
-    top: 25%; /* 25% from the top */
-    width: 100%; /* 100% width */
-    text-align: center; /* Centered text/links */
-    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
-}
-
-/* The navigation links inside the overlay */
-.overlay a {
-    padding: 8px;
-    text-decoration: none;
-    font-size: 36px;
-    color: #818181;
-    display: block; /* Display block instead of inline */
-    transition: 0.3s; /* Transition effects on hover (color) */
-}
-
-/* When you mouse over the navigation links, change their color */
-.overlay a:hover, .overlay a:focus {
-    color: #f1f1f1;
-}
-
-/* Position the close button (top right corner) */
-.overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
-    font-size: 60px;
-}
-
-/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
-@media screen and (max-height: 450px) {
-    .overlay a {font-size: 20px}
-    .overlay .closebtn {
-        font-size: 40px;
-        top: 15px;
-        right: 35px;
-    }
-}

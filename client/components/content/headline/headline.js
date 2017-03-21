@@ -17,9 +17,9 @@
         return directive;
     }
 
-    HeadlineController.$inject = ['$scope', '$state','$interval'];
+    HeadlineController.$inject = ['$scope', '$state', '$interval', '$q'];
 
-    function HeadlineController($scope, $state,$interval) {
+    function HeadlineController($scope, $state, $interval, $q) {
         var vm = this;
         window.loadAutoComplete();
         vm.search = function () {
@@ -39,19 +39,47 @@
         $interval(changeBg, 6500);
 
         var i = 1;
+
         function changeBg() {
-            if( i === 5){
+            if (i === 5) {
                 //restart
-                i=0;
+                i = 0;
             }
             i++;
-            var imgUrl = "url('../../img/bg-"+ i +".jpg')";
-            angular.element(".headline")
-                .css({
-                    background: imgUrl,
-                    // backgroundSize: "cover",
-                    // backgroundPosition: "bottom",
+            // var imgUrl = "url('../../img/bg-" + i + ".jpg')";
+            var imgUrl = "../../img/bg-" + i + ".jpg";
+
+            preload(imgUrl).then(function () {
+                angular.element(".headline")
+                    .css({
+                        background: "url("+ imgUrl +")",
+                    });
+            });
+        }
+
+
+        function preload(url) {
+            var deffered = $q.defer(),
+            image = new Image();
+
+            image.src = url;
+
+            if (image.complete) {
+
+                deffered.resolve();
+
+            } else {
+
+                image.addEventListener('load', function () {
+                    deffered.resolve();
                 });
+
+                image.addEventListener('error', function () {
+                    deffered.reject();
+                });
+            }
+
+            return deffered.promise;
         }
 
 

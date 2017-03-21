@@ -137,7 +137,7 @@
 	z-index: 3000;
 	/* Sit on top */
 	left: 0;
-	top: 0;
+	top: 0; 
 	background-color: #2C3E50;
 	/* Black fallback color */
 	/*background-color: rgba(0, 0, 0, 0.9);*/

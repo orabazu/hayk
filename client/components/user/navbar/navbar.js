@@ -24,7 +24,7 @@ function navbarDirective() {
 function navbarController() {
     var vm = this;
 
-    window.loadAutoComplete();
+    window.loadAutoComplete(); 
 
     vm.openNav = openNav;
     vm.closeNav = closeNav;

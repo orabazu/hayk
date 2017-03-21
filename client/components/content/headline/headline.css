@@ -51,8 +51,36 @@
  	}
  }
  
- .headline {
+ .headline{
  	background: url(../../img/bg-1.jpg);
+ 	background-size: cover !important;
+ 	background-position: center !important;
+ 	-webkit-transition: background-image 1s ease-in;
+ 	transition: background-image 1s ease-in;
+ }
+  .headline-2 {
+ 	background: url(../../img/bg-2.jpg);
+ 	background-size: cover !important;
+ 	background-position: center !important;
+ 	-webkit-transition: background-image 1s ease-in;
+ 	transition: background-image 1s ease-in;
+ }
+  .headline-3 {
+ 	background: url(../../img/bg-3.jpg);
+ 	background-size: cover !important;
+ 	background-position: center !important;
+ 	-webkit-transition: background-image 1s ease-in;
+ 	transition: background-image 1s ease-in;
+ }
+  .headline-4 {
+ 	background: url(../../img/bg-4.jpg);
+ 	background-size: cover !important;
+ 	background-position: center !important;
+ 	-webkit-transition: background-image 1s ease-in;
+ 	transition: background-image 1s ease-in;
+ }
+  .headline-5 {
+ 	background: url(../../img/bg-5.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;

@@ -38,16 +38,17 @@
 
         $interval(changeBg, 6500);
 
-        var i = 0;
+        var i = 1;
         function changeBg() {
             if( i === 5){
                 //restart
                 i=0;
             }
             i++;
+            var imgUrl = "url('../../img/bg-"+ i +".jpg')";
             angular.element(".headline")
                 .css({
-                    background: "url('../../img/bg-"+ i +".jpg')",
+                    background: imgUrl,
                     // backgroundSize: "cover",
                     // backgroundPosition: "bottom",
                 });

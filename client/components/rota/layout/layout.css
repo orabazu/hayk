@@ -1,7 +1,7 @@
 .side-menu {
     position: absolute;
     background: whitesmoke;
-    height: calc(100% - 51px);
+    height: calc(100% - 65px);
     left: 0;
     top: 50px;
     width: 60%;
@@ -13,7 +13,7 @@
     .side-menu {
         position: absolute;
         background: whitesmoke;
-        height: calc(100% - 51px);
+        height: calc(100% - 65px);
         left: 0;
         top: 50px;
         width: 100%;
@@ -23,7 +23,7 @@
 .data-viz {
     position: absolute;
     width: 40%;
-    height: calc(100% - 51px);
+    height: calc(100% - 65px);
     background: darkorchid;
     top: 64px;
     left: 60%;
@@ -33,7 +33,7 @@
     .data-viz {
         position: absolute;
         width: 0%;
-        height: calc(100% - 51px);
+        height: calc(100% - 65px);
         background: darkorchid;
         top: 50px;
         left: 60%;

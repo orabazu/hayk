@@ -1,6 +1,6 @@
-<nav class="navbar navbar-inverse navbar-fixed-top layout-nav">
+<nav class="navbar navbar-inverse navbar-fixed-top layout-nav ">
     <div class="container-fluid">
-        <a href="" class="menu-toggle visible-xs">
+        <a href="" class="menu-toggle visible-xs" ng-click="vm.openNav()">
             <i class="fa fa-bars"></i>
         </a>
         <div class="navbar-header">
@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li ng-if="flagLogin" class="active dropdown">
-                    <a ui-sref="profile" style="padding-bottom: 5px;" class="dropbtn">
+                    <a ui-sref="profile" style="padding-bottom: 5px; background-color: transparent;" class="dropbtn">
                        {{user.name}}
                         <img class="menu-profile-photo" src="{{user.photo}}"><img>
                     </a>
@@ -58,14 +58,14 @@
 <div id="myNav" class="overlay">
 
     <!-- Button to close the overlay navigation -->
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="javascript:void(0)" class="closebtn" ng-click="vm.closeNav()">&times;</a>
 
     <!-- Overlay content -->
     <div class="overlay-content">
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        <a href="/">Ana Sayfa</a>
+        <a ui-sref="addtrack.location"><i class="fa fa-plus"></i>Rota Ekle</a>
+        <a href="/profil">Profil</a>        
+        <a href="#">Oturumu Kapat</a>
     </div>
 
 </div>

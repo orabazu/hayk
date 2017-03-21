@@ -47,7 +47,6 @@ var vendorPath = [
   'client/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
   'client/bower_components/oclazyload/dist/ocLazyLoad.min.js',
   'client/bower_components/ng-file-upload/ng-file-upload-all.js',
-  'client/bower_components/ladda/dist/ladda.min.js',
   'client/bower_components/ladda/dist/spin.min.js',
   'client/bower_components/ladda/dist/ladda.min.js',
   'client/bower_components/angular-ladda/dist/angular-ladda.min.js',

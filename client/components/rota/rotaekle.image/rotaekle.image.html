@@ -20,7 +20,7 @@
                         <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                         <p class="">
                             <a ui-sref="addtrack.location" class="pull-left"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>
-                            <a ng-disabled="!rota.image.$valid" ng-click="rotaEkleController.uploadPic(picFile)" ladda="rotaEkleController.uploading" data-style="expand-left"  data-spinner-color="#1abc9c" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+                            <button ng-disabled="!rota.image.$valid" ng-click="rotaEkleController.uploadPic(picFile)" ladda="rotaEkleController.uploading" data-style="expand-left"  data-spinner-color="#1abc9c" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
                         </p>
                     </fieldset>
             </div>

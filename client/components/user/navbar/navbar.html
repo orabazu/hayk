@@ -28,9 +28,9 @@
                         <img class="menu-profile-photo" src="{{user.photo}}"><img>
                     </a>
                     <div class="dropdown-content">
-                        <a href="#">Profil</a>
-                        <a href="#">Rotalarım</a>
-                        <a href="#">Ayarlar</a>
+                        <a ui-sref="profile">Profil</a>
+                        <!--<a href="#">Rotalarım</a>-->
+                        <!--<a href="#">Ayarlar</a>-->
                         <a href="/logout " target="_self ">Oturumu Kapat</a>
                     </div>
                 </li>
@@ -63,9 +63,15 @@
     <!-- Overlay content -->
     <div class="overlay-content">
         <a href="/">Ana Sayfa</a>
-        <a ui-sref="addtrack.location"><i class="fa fa-plus"></i>Rota Ekle</a>
-        <a href="/profil">Profil</a>        
-        <a href="#">Oturumu Kapat</a>
+        <a ng-if="flagLogin" ui-sref="addtrack.location"><i class="fa fa-plus" style="font-size:26px;"></i> Rota Ekle</a>
+        <a ng-if="flagLogin" ui-sref="profile">Profil</a>        
+        <a ng-if="flagLogin" href="/logout "  target="_self ">Oturumu Kapat</a>
+        <a ng-if="!flagLogin" ui-sref="login"><i class="fa fa-arrow-right"></i> Giriş Yap</a>
+        
+    </div>
+
+    <div class="mobile-menu-footer">
+        <img class="mobile-menu-footer-img" src="../img/logo-alt-5.svg"> </img>
     </div>
 
 </div>

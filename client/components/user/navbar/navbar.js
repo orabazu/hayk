@@ -23,9 +23,15 @@ function navbarDirective() {
 
 function navbarController() {
     var vm = this;
+
     window.loadAutoComplete();
+
     vm.openNav = openNav;
     vm.closeNav = closeNav;
+
+
+
+
     function openNav() {
         document.getElementById("myNav").style.height = "100%";
     }

@@ -47,7 +47,7 @@ angular.module('app', [
     var profileState = {
       name: 'profile',
       url: '/profil',
-      template: '<navbar-directive></navbar-directive><profile-directive></profile-directive>'
+      template: '<profile-directive></profile-directive>'
     };
     $stateProvider.state(profileState);
   }])

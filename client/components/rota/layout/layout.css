@@ -32,11 +32,11 @@
 @media screen and (max-width: 768px) {
     .data-viz {
         position: absolute;
-        width: 0%;
+        width: 100%;
         height: calc(100% - 65px);
         background: darkorchid;
-        top: 50px;
-        left: 60%;
+        top: 65px;
+        left: 100%;
     }
 }
 

@@ -31,14 +31,18 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     vm.mapAutoRefresh = true;
     vm.openMap = openMap;
     vm.params = {
-        latNE: parseFloat($stateParams.latNE),
+        latNE: parseFloat($stateParams.latNE), 
         lngNE: parseFloat($stateParams.lngNE),
         latSW: parseFloat($stateParams.latSW),
         lngSW: parseFloat($stateParams.lngSW),
     }
 
     activate();
+    $rootScope.searchLocation = $stateParams.term;
 
+    // if(window.mobilecheck && vm.mapActive){
+
+    // }
     function activate() {
         if (vm.params.latNE && vm.params.lngNE && vm.params.latSW && vm.params.lngSW) {
             leafletData.getMap().then(function (map) {
@@ -67,7 +71,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
                 // leafletData.getMap().then(function (map) {
                 //     map.fitBounds(bounds);
                 // });
-
+                vm.markersEmpty = angular.equals(Object.keys(vm.markers).length,0);
             }).catch(function (err) {});
         });
     }

@@ -126,24 +126,24 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
             } else if (event.name == 'leafletDirectiveMarker.mouseout') {
                 vm.removeIcon(vm.markers[args.modelName]);
             } else if (event.name == 'leafletDirectiveMap.moveend') {
-                console.log(asd);
+                // console.log(asd);
             }
         });
     }
-    var mapEvent = 'leafletDirectiveMap.moveend';
+    var mapEvent = 'leafletDirectiveMap.dragend';
 
     $scope.$on(mapEvent, function (event, args) {
-        // console.log(args.leafletObject);
+        //  console.log(args.leafletObject);
         if (vm.mapAutoRefresh) {
             if (vm.markers != undefined) {
-                // vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
-                // vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
-                // vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
-                // vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
-                vm.params.latNE = 50.429517947;
-                vm.params.lngNE = 49.790039062;
-                vm.params.latSW = 24.126701958;
-                vm.params.lngSW = 19.775390625;
+                vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
+                vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
+                vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
+                vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
+                // vm.params.latNE = 50.429517947;
+                // vm.params.lngNE = 49.790039062;
+                // vm.params.latSW = 24.126701958;
+                // vm.params.lngSW = 19.775390625;
             }
             if ($('.data-viz').width() > 0) {
                 $location.search({
@@ -174,7 +174,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
         $('.map-auto-refresh').toggleClass('refresh-open');
         (vm.toggleTitle == ' Harita' ? vm.toggleTitle = ' Liste' : vm.toggleTitle = ' Harita' )
         
-        console.log($('.data-viz').width());
+        // console.log($('.data-viz').width());
         leafletData.getMap().then(function (map) {
             map.invalidateSize();
         });

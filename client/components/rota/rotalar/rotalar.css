@@ -27,16 +27,26 @@
     background: darkorchid;
     top: 64px;
     left: 60%;
+    -webkit-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -moz-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -ms-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -o-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 @media screen and (max-width: 768px) {
     .data-viz {
         position: absolute;
-        width: 0%;
+        width: 100%;
         height: calc(100% - 65px);
         background: darkorchid;
-        top: 50px;
-        left: 60%;
+        top: 65px;
+        left: -800px;
     }
 }
 
@@ -109,5 +119,5 @@
 
 .map-open {
     width: 100%;
-    left: 0px;
+    left: 0px
 }

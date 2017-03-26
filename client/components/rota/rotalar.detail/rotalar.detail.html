@@ -9,13 +9,14 @@
 		<div class="col-md-8">
 			<h1 class="sticky-title">{{vm.trackDetail.properties.name}}</h1>
 			<p class="font-size-24">
-				<span><i class="fa fa-flag"></i> Rakım: <b>{{vm.trackDetail.properties.altitude}} (m)</b> </span> <br>
-				<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.trackDetail.properties.distance}} (m)</b> </span>
+				<span><i class="fa fa-flag"></i> Rakım (min-maks): <b>{{vm.gpxData.eleMin.toFixed(0) }} - {{vm.gpxData.eleMax.toFixed(0) }} (m)</b> </span> <br>
+				<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.gpxData.distance.toFixed(0) }} (m)</b> </span>
 			</p>
 			<h4>Rota Hakkında:</h4>
 			<p>
 				{{vm.trackDetail.properties.summary}}
 			</p>			
+			<line-chart data=vm.data options="vm.chartOptions"></line-chart>
 		</div>
 		<div class="col-md-4">
 			<div style="width: 100%; height: 80vh" class="sticky-map">

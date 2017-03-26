@@ -54,8 +54,8 @@ var vendorPath = [
   'client/bower_components/typeahead/typeahead.bundle.js',
   'client/bower_components/typeahead/angular-typeahead.js',
   'client/bower_components/sticky/jquery.jsticky.min.js',
-  // 'client/bower_components/leaflet-plugins/layer/tile/Bing.js',
-
+  // 'client/bower_components/chart.js/Chart.min.js',
+  // 'client/bower_components/angular-chart.js/dist/angular-chart.min.js'
 ];
 
 var vendorCSSPath = [
@@ -104,8 +104,10 @@ gulp.task('build-css', function () {
 
 gulp.task('vendor-js', function () {
   return gulp.src(vendorPath) // path to your files
+    .pipe(sourceMaps.init())
     .pipe(concat('vendor.js'))
     .pipe(uglify())
+    .pipe(sourceMaps.write())    
     .pipe(gulp.dest('client/dist/js'));
 });
 

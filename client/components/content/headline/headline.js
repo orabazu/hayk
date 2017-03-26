@@ -17,13 +17,13 @@
         return directive;
     }
 
-    HeadlineController.$inject = ['$scope', '$state', '$interval', '$q'];
+    HeadlineController.$inject = ['$scope', '$state', '$interval', '$q','$window'];
 
-    function HeadlineController($scope, $state, $interval, $q) {
+    function HeadlineController($scope, $state, $interval, $q,$window) {
         var vm = this;
         window.loadAutoComplete();
         vm.search = function () {
-            $state.go('layout', {
+            $state.go('rotalar', {
                 term: vm.elma
             })
         }
@@ -34,6 +34,8 @@
             }, 300);
         });
 
+        // window.scrollX = 0;
+        $window.scrollTo(0,0);
 
 
         $interval(changeBg, 6500);

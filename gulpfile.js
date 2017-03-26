@@ -104,8 +104,10 @@ gulp.task('build-css', function () {
 
 gulp.task('vendor-js', function () {
   return gulp.src(vendorPath) // path to your files
+    .pipe(sourceMaps.init())
     .pipe(concat('vendor.js'))
     .pipe(uglify())
+    .pipe(sourceMaps.write())    
     .pipe(gulp.dest('client/dist/js'));
 });
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.rotaekle', ['app.map', 'ngAutocomplete', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
+        .module('app.rotaekle', ['app.map','app.trackService', 'ngFileUpload', 'angular-ladda'])
         .controller('rotaEkleController', rotaEkleController)
 
 

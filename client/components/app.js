@@ -16,7 +16,7 @@ angular.module('app', [
     'oc.lazyLoad',
     'ui.router',
     'leaflet-directive',
-    'ngAutocomplete'
+    'ngAutocomplete',
   ])
   .config(['$stateProvider','$locationProvider','$logProvider','$ocLazyLoadProvider','$compileProvider', function ($stateProvider, $locationProvider, $logProvider, $ocLazyLoadProvider,$compileProvider) { // provider-injector
 

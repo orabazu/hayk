@@ -118,7 +118,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
     vm.mapEvents = leafletMapEvents.getAvailableMapEvents();
 
     for (var k in vm.mapEvents) {
-        // console.log(vm.mapEvents);
+        //  console.log(vm.mapEvents);
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function (event, args) {
             if (event.name == 'leafletDirectiveMarker.mouseover') {

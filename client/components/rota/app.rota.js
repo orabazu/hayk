@@ -1,23 +1,23 @@
 (function () {
     'use strict';
     angular
-        .module('app.rota', ['app.layout', 'app.layoutDetail', 'app.rotaekle', 'ui.router'])
+        .module('app.rota', ['app.rotalar', 'app.rotalarDetail', 'app.rotaekle', 'ui.router'])
         .config(function ($stateProvider) { // provider-injector
 
-            var layoutState = {
-                name: 'layout',
+            var rotalarState = {
+                name: 'rotalar',
                 url: '/a/{term}?latSW&lngSW&latNE&lngNE',
-                template: '<navbar-directive></navbar-directive><layout-directive></layout-directive>',
+                template: '<navbar-directive></navbar-directive><rotalar></rotalar>',
                 reloadOnSearch: false,
             };
-            $stateProvider.state(layoutState);
+            $stateProvider.state(rotalarState);
 
-            var layoutDetailState = {
-                name: 'layoutDetail',
+            var rotalarDetailState = {
+                name: 'rotalarDetail',
                 url: '/rota/:id',
-                template: '<navbar-directive></navbar-directive><layout-detail-directive></layout-detail-directive>'
+                template: '<navbar-directive></navbar-directive><rotalar-detail></rotalar-detail>'
             };
-            $stateProvider.state(layoutDetailState);
+            $stateProvider.state(rotalarDetailState);
  
             var addTrackState = {
                 name: 'addtrack',

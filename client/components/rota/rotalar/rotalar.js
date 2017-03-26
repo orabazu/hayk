@@ -1,17 +1,16 @@
-/**
- * @desc Main layout for application
- * @example <layout-directive></layout-directive>
- */
+angular.isUndefinedOrNull = function (val) {
+    return angular.isUndefined(val) || val === null
+}
 angular
-    .module('app.layout', [])
-    .directive('layoutDirective', layoutDirective)
+    .module('app.rotalar', [])
+    .directive('rotalar', rotalar)
 
-function layoutDirective() {
+function rotalar() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/rota/layout/layout.html',
+        templateUrl: '../../components/rota/rotalar/rotalar.html',
         scope: {},
-        controller: LayoutController,
+        controller: RotalarController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -19,23 +18,36 @@ function layoutDirective() {
     return directive;
 }
 
-LayoutController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService',
+RotalarController.$inject = ['$scope', '$rootScope', '$state', '$stateParams', 'trackService',
     'markerParser', 'mapConfigService', 'leafletMapEvents', 'leafletData', '$location', '$window'
 ];
 
-function LayoutController($scope, $rootScope, $state, $stateParams, trackService,
+function RotalarController($scope, $rootScope, $state, $stateParams, trackService,
     markerParser, mapConfigService, leafletMapEvents, leafletData, $location, $window) {
     var vm = this;
     vm.tracks = {};
     vm.getTrack = getTrack;
     vm.mapAutoRefresh = true;
     vm.openMap = openMap;
-    vm.params = {
-        latNE: parseFloat($stateParams.latNE), 
-        lngNE: parseFloat($stateParams.lngNE),
-        latSW: parseFloat($stateParams.latSW),
-        lngSW: parseFloat($stateParams.lngSW),
+    vm.params = {};
+    if (angular.isUndefinedOrNull($stateParams.latNE) || 
+    angular.isUndefinedOrNull($stateParams.lngNE) || 
+    angular.isUndefinedOrNull($stateParams.latSW) || 
+    angular.isUndefinedOrNull($stateParams.lngSW)
+    ) {
+        vm.params.latNE = 44.292;
+        vm.params.lngNE = 41.264;
+        vm.params.latSW = 32.805;
+        vm.params.lngSW = 27.773;
+    } else {
+        vm.params = {
+            latNE: parseFloat($stateParams.latNE),
+            lngNE: parseFloat($stateParams.lngNE),
+            latSW: parseFloat($stateParams.latSW),
+            lngSW: parseFloat($stateParams.lngSW),
+        };
     }
+
 
     activate();
     $rootScope.searchLocation = $stateParams.term;
@@ -71,7 +83,7 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
                 // leafletData.getMap().then(function (map) {
                 //     map.fitBounds(bounds);
                 // });
-                vm.markersEmpty = angular.equals(Object.keys(vm.markers).length,0);
+                vm.markersEmpty = angular.equals(Object.keys(vm.markers).length, 0);
             }).catch(function (err) {});
         });
     }
@@ -140,10 +152,6 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
                 vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
                 vm.params.latSW = args.leafletObject.getBounds()._southWest.lat;
                 vm.params.lngSW = args.leafletObject.getBounds()._southWest.lng;
-                // vm.params.latNE = 50.429517947;
-                // vm.params.lngNE = 49.790039062;
-                // vm.params.latSW = 24.126701958;
-                // vm.params.lngSW = 19.775390625;
             }
             if ($('.data-viz').width() > 0) {
                 $location.search({
@@ -162,18 +170,16 @@ function LayoutController($scope, $rootScope, $state, $stateParams, trackService
         }
 
 
-    })
-    $scope.$on('$routeUpdate', function () {
-        alert(1)
     });
 
     vm.toggleTitle = ' Harita';
+
     function openMap() {
         vm.mapActive = !vm.mapActive;
         $('.data-viz').toggleClass('map-open');
         $('.map-auto-refresh').toggleClass('refresh-open');
-        (vm.toggleTitle == ' Harita' ? vm.toggleTitle = ' Liste' : vm.toggleTitle = ' Harita' )
-        
+        (vm.toggleTitle == ' Harita' ? vm.toggleTitle = ' Liste' : vm.toggleTitle = ' Harita')
+
         // console.log($('.data-viz').width());
         leafletData.getMap().then(function (map) {
             map.invalidateSize();

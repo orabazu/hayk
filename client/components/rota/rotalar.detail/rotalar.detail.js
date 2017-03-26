@@ -1,13 +1,13 @@
 angular
-    .module('app.layoutDetail', [])
-    .directive('layoutDetailDirective', layoutDetailDirective)
+    .module('app.rotalarDetail', [])
+    .directive('rotalarDetail', rotalarDetail)
 
-function layoutDetailDirective() {
+function rotalarDetail() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/rota/layout.detail/layout.detail.html',
+        templateUrl: '../../components/rota/rotalar.detail/rotalar.detail.html',
         scope: {},
-        controller: LayoutDetailController,
+        controller: RotalarDetailController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -15,9 +15,9 @@ function layoutDetailDirective() {
     return directive;
 }
 
-LayoutDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
 
-function LayoutDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
+function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
     var vm = this;
     vm.trackDetail = {};
     vm.center = {};
@@ -62,7 +62,7 @@ function LayoutDetailController($scope, $stateParams, trackService, mapConfigSer
                     vm.gpxData.eleMin = e.target.get_elevation_min();
                     vm.gpxData.eleMax = e.target.get_elevation_max();
 
-                    console.log(e.target.get_elevation_data())
+                    // console.log(e.target.get_elevation_data())
                     vm.data = {
                         dataset0: e.target.get_elevation_data()
                     }

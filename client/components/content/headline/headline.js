@@ -23,7 +23,7 @@
         var vm = this;
         window.loadAutoComplete();
         vm.search = function () {
-            $state.go('layout', {
+            $state.go('rotalar', {
                 term: vm.elma
             })
         }

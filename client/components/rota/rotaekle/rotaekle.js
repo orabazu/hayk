@@ -31,7 +31,7 @@
 
         vm.addTrack = function () {
             trackService.addTrack(vm).then(function (addTrackResponse) {
-                $state.go('layout');
+                $state.go('rotalar');
             }, function (addTrackError) {
 
             })

@@ -16,6 +16,7 @@ angular.module('app', [
     'oc.lazyLoad',
     'ui.router',
     'leaflet-directive',
+    'app.weather',
   ])
   .config(['$stateProvider','$locationProvider','$logProvider','$ocLazyLoadProvider','$compileProvider', function ($stateProvider, $locationProvider, $logProvider, $ocLazyLoadProvider,$compileProvider) { // provider-injector
 

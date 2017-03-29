@@ -105,18 +105,21 @@ router.route('/tracks')
 router.route('/tracks/:id')
     // get all the tracks (accessed at GET http://localhost:8080/api/tracks/:id)
     .get(function (req, res) {
-
-        Track.findOne({
+        var query;
+        query = Track.findOne({
             '_id': new ObjectId(req.params.id)
         }, function (err, response) {
-            if (err) {
-                res.status(400).send({
-                    OperationResult: false,
-                    Data: err
-                });
-            } else {
-                res.json(response);
-            }
+           query.populate('properties.ownedBy')
+            .exec(function (err, track) {
+                if (err) {
+                    res.status(400).send({
+                        OperationResult: false,
+                        Data: err
+                    });
+                } else {
+                    res.status(200).json(track);
+                }
+            });
         })
     });
 // --------------------------------------------------------------

@@ -62,6 +62,9 @@ var vendorCSSPath = [
   'client/bower_components/bootstrap/dist/css/bootstrap.min.css',
   'client/bower_components/bootstrap/dist/css/bootstrap.min.css',
   'client/bower_components/font-awesome/css/font-awesome.min.css',
+  'client/bower_components/font-awesome/css/font-awesome.min.css',
+  'client/dist/css/weather-icons-wind.css',
+  'client/dist/css/weather-icons.css',
   'client/bower_components/leaflet/dist/leaflet.css',
   'client/bower_components/ladda/dist/ladda.min.css',
 ];

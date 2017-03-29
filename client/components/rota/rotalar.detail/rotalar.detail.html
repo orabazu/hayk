@@ -7,51 +7,88 @@
 <div class="container padding-top-50">
 	<div class="row">
 		<div class="col-md-8">
-			<h1 class="sticky-title">{{vm.trackDetail.properties.name}}</h1>
-			<p class="font-size-24">
-				<span><i class="fa fa-flag"></i> Rakım (min-maks): <b>{{vm.gpxData.eleMin.toFixed(0) }} - {{vm.gpxData.eleMax.toFixed(0) }} (m)</b> </span> <br>
-				<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.gpxData.distance.toFixed(0) }} (m)</b> </span>
-			</p>
-			<h4>Rota Hakkında:</h4>
-			<p>
-				{{vm.trackDetail.properties.summary}}
-			</p>			
+			<div class="row card-block margin-bottom-15">
+				<div class="owner-detail">
+					<img class="owner-photo-detail" ng-src="{{vm.trackDetail.properties.ownedBy.photo}}">
+					<p class="owner-name text-center">{{vm.trackDetail.properties.ownedBy.name.split(" ")[0]}}</p>
+				</div>
+
+
+				<div class="col-md-12 ">
+					<h1 class="sticky-title">{{vm.trackDetail.properties.name}}</h1>
+				</div>
+			</div>
+			<div class="row  card-block margin-bottom-15">
+				<div class="col-md-12">
+					<h4>Hava Durumu:</h4>
+				</div>
+				<div class="col-md-3">
+					<div class="weather-desc">
+						<span class="text-left">
+							<i class="wi {{vm.weather.dataCurrent.weatherClass}}"></i>
+						</span>
+						<p class="text-left">
+							<b>{{vm.weather.dataCurrent.weatherDescription}} / {{vm.weather.data.main.temp.toFixed(0)}}°C</b>
+						</p>
+					</div>
+					<br>
+				</div>
+				<div class="col-md-4">
+					<p class="font-size-16" style="color: #676767 !important;">
+						<span><i class="fa fa-flag"></i> Rakım (min-maks): <b>{{vm.gpxData.eleMin.toFixed(0) }} - {{vm.gpxData.eleMax.toFixed(0) }} (m)</b> </span>						<br>
+						<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.gpxData.distance.toFixed(0) }} (m)</b> </span><br>
+						<span><i class="wi wi-wind-beaufort-{{vm.weather.data.wind.speed.toFixed(0)}}"></i> Rüzgar şiddeti:<b> {{vm.weather.data.wind.speed}} km/s</b></span><br>
+						<span><i class="wi wi-wind from-{{vm.weather.data.wind.deg.toFixed(0)}}-deg"></i> Rüzgar yönü: <b>{{vm.weather.data.wind.deg.toFixed(0)}}°</b></span><br>
+
+					</p>
+				</div>
+
+
+
+
+			</div>
+
+			<div class="row card-block margin-bottom-15">
+				<div class="col-md-12">
+					<h4>Rota Hakkında:</h4>
+					<p>
+						{{vm.trackDetail.properties.summary}}
+					</p>
+				</div>
+			</div>
+
 			<line-chart data=vm.data options="vm.chartOptions"></line-chart>
 		</div>
 		<div class="col-md-4">
 			<div style="width: 100%; height: 80vh" class="sticky-map">
-				<leaflet 
-				lf-center="vm.center" 
-				layers="vm.layers"
-				height="100%" 
-				width="100%"></leaflet>
+				<leaflet lf-center="vm.center" layers="vm.layers" height="100%" width="100%"></leaflet>
 			</div>
 		</div>
 		<div class="col-md-12" id=stop>
 			<div id="disqus_thread"></div>
 		</div>
 
-	
-<script>
 
-/**
-*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-s.src = '//localhost-8080-2.disqus.com/embed.js';
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+		<script>
+			/**
+			 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+			 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+			/*
+			var disqus_config = function () {
+			this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+			this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			};
+			*/
+			(function () { // DON'T EDIT BELOW THIS LINE
+				var d = document,
+					s = d.createElement('script');
+				s.src = '//localhost-8080-2.disqus.com/embed.js';
+				s.setAttribute('data-timestamp', +new Date());
+				(d.head || d.body).appendChild(s);
+			})();
+		</script>
+		<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 	</div>
 </div>
 </div>
-<footer-directive ></footer-directive>
+<footer-directive></footer-directive>

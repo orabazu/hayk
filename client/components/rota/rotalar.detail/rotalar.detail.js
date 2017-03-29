@@ -15,9 +15,9 @@ function rotalarDetail() {
     return directive;
 }
 
-RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData'];
+RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData','weatherAPI'];
 
-function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData) {
+function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData,weatherAPI) {
     var vm = this;
     vm.trackDetail = {};
     vm.center = {};
@@ -34,6 +34,13 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                 zoom: 12
             }
             vm.gpxData = {};
+
+            weatherAPI.weather(vm.trackDetail.geometry.coordinates[1],vm.trackDetail.geometry.coordinates[0]).then(function(res){
+                console.log(res);
+                vm.weather = res;
+
+            })
+            
             // console.log(vm.center);
             leafletData.getMap().then(function (map) {
                 var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
@@ -73,6 +80,7 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             });
 
         })
+
     }
 
 

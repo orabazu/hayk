@@ -54,6 +54,8 @@ var vendorPath = [
   'client/bower_components/typeahead/typeahead.bundle.js',
   'client/bower_components/typeahead/angular-typeahead.js',
   'client/bower_components/sticky/jquery.jsticky.min.js',
+  'client/bower_components/skycons/skycons.js',
+  
   // 'client/bower_components/chart.js/Chart.min.js',
   // 'client/bower_components/angular-chart.js/dist/angular-chart.min.js'
 ];

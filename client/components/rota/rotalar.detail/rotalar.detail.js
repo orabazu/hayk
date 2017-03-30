@@ -35,10 +35,16 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             }
             vm.gpxData = {};
 
-            weatherAPI.weather(vm.trackDetail.geometry.coordinates[1],vm.trackDetail.geometry.coordinates[0]).then(function(res){
+            weatherAPI.darkSkyWeather(vm.trackDetail.geometry.coordinates[1],vm.trackDetail.geometry.coordinates[0]).then(function(res){
                 console.log(res);
-                vm.weather = res;
+                vm.weather = res; 
+                var skycons = new Skycons({color: 'black'});
+                skycons.add("icon1", res.currently.icon);
+                skycons.play();
 
+                var skycons = new Skycons({color: 'white'});
+                skycons.add("icon2", res.currently.icon);
+                skycons.play();
             })
             
             // console.log(vm.center);

@@ -4,6 +4,9 @@ var router = express.Router();
 var Track = require('./../models/track.js');
 var fs = require('fs');
 var cloudinary = require('cloudinary');
+var darkSky = require('dark-sky');
+
+
 cloudinary.config({
     cloud_name: 'tabiatizi',
     api_key: '296748465215916',
@@ -109,17 +112,17 @@ router.route('/tracks/:id')
         query = Track.findOne({
             '_id': new ObjectId(req.params.id)
         }, function (err, response) {
-           query.populate('properties.ownedBy')
-            .exec(function (err, track) {
-                if (err) {
-                    res.status(400).send({
-                        OperationResult: false,
-                        Data: err
-                    });
-                } else {
-                    res.status(200).json(track);
-                }
-            });
+            query.populate('properties.ownedBy')
+                .exec(function (err, track) {
+                    if (err) {
+                        res.status(400).send({
+                            OperationResult: false,
+                            Data: err
+                        });
+                    } else {
+                        res.status(200).json(track);
+                    }
+                });
         })
     });
 // --------------------------------------------------------------
@@ -194,7 +197,7 @@ router.route('/gpx')
                             path: cloudinaryRes.secure_url,
                         }
                     });
-                },{
+                }, {
                     resource_type: "raw"
                 });
 
@@ -210,6 +213,36 @@ router.route('/gpx')
         })
 
     })
+
+router.route('/weather/:lat/:lng')
+    .get(function (req, res) {
+
+        var forecast = new darkSky(process.env.DARKSKY_KEY);
+        forecast
+            .latitude(req.params.lat)
+            .longitude(req.params.lng)
+            // .time('2016-01-28')
+            .units('ca')
+            .language('tr')
+            .exclude('minutely,hourly')
+            .get()
+            .then(function(forecastResult){
+                res.json({
+                    OperationResult: true,
+                    data: forecastResult // get the user out of session and pass to template
+                });
+            })
+            .catch(function(forecastReject) {
+                // console.log(forecastReject)
+                res.status = 400;
+                res.json({
+                    OperationResult: false,
+                    data: forecastReject
+                });
+            })
+
+    })
+
 
 
 

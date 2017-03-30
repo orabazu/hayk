@@ -18,11 +18,11 @@
 					<h1 class="sticky-title">{{vm.trackDetail.properties.name}}</h1>
 				</div>
 			</div>
-			<div class="row  card-block margin-bottom-15">
+			<div class="row  card-block margin-bottom-15 weather-card">
 				<div class="col-md-12">
-					<h4>Hava Durumu:</h4>
+					<h4>Hava Durumu</h4>
 				</div>
-				<div class="col-md-3">
+				<!--<div class="col-md-3">
 					<div class="weather-desc">
 						<span class="text-left">
 							<i class="wi {{vm.weather.dataCurrent.weatherClass}}"></i>
@@ -32,16 +32,55 @@
 						</p>
 					</div>
 					<br>
-				</div>
-				<div class="col-md-4">
-					<p class="font-size-16" style="color: #676767 !important;">
-						<span><i class="fa fa-flag"></i> Rakım (min-maks): <b>{{vm.gpxData.eleMin.toFixed(0) }} - {{vm.gpxData.eleMax.toFixed(0) }} (m)</b> </span>						<br>
-						<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.gpxData.distance.toFixed(0) }} (m)</b> </span><br>
-						<span><i class="wi wi-wind-beaufort-{{vm.weather.data.wind.speed.toFixed(0)}}"></i> Rüzgar şiddeti:<b> {{vm.weather.data.wind.speed}} km/s</b></span><br>
-						<span><i class="wi wi-wind from-{{vm.weather.data.wind.deg.toFixed(0)}}-deg"></i> Rüzgar yönü: <b>{{vm.weather.data.wind.deg.toFixed(0)}}°</b></span><br>
+				
+				</div>-->
+				<div class="">
+					<div class="col-md-12">
+						<ul class="nav nav-pills">
+							<li class="active weather-pills"><a data-toggle="pill" href="#home">Şu an</a></li>
+							<li class="weather-pills"><a data-toggle="pill" href="#menu1">Günlük</a></li>
+						</ul>
 
-					</p>
+					</div>
+
+					<div class="col-md-12">
+						<div class="tab-content">
+							<div id="home" class="tab-pane fade in active">
+								<div class="col-sm-3">
+									<div class="weather-desc">
+										<span class="text-left weather-hide-on-hover" style="padding-top: 20px;">
+											<canvas id="icon1" width="128" height="128"></canvas>
+										</span>
+										<span class="text-left weather-show-on-hover" style="padding-top: 20px;">
+											<canvas id="icon2" width="128" height="128"></canvas>
+										</span>
+										<p class="text-left">
+											<b>{{vm.weather.currently.summary}} / {{vm.weather.currently.apparentTemperature.toFixed(0)}}°C</b>
+										</p>
+									</div>
+									<br>
+								</div>
+								<div class="col-sm-9">
+									<p class="font-size-24" style="color: #676767 !important;">
+										<span><i class="wi wi-wind-beaufort-{{vm.weather.currently.windSpeed.toFixed(0)}}"></i> Rüzgar şiddeti:<b> {{vm.weather.currently.windSpeed}} m/s</b></span><br>
+										<span><i class="wi wi-wind from-{{vm.weather.currently.windBearing.toFixed(0)}}-deg"></i> Rüzgar yönü: <b>{{vm.weather.currently.windBearing.toFixed(0)}}°</b></span><br>
+
+									</p>
+								</div>
+							</div>
+							<div id="menu1" class="tab-pane fade">
+								<h3>Menu 1</h3>
+								<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							</div>
+						</div>
+					</div>
 				</div>
+
+
+
+
+
+
 
 
 
@@ -50,7 +89,13 @@
 
 			<div class="row card-block margin-bottom-15">
 				<div class="col-md-12">
-					<h4>Rota Hakkında:</h4>
+					<h4>Rota Hakkında</h4>
+					<p class="font-size-24">
+						<span><i class="fa fa-flag"></i> Rakım (min-maks): <b>{{vm.gpxData.eleMin.toFixed(0) }} - {{vm.gpxData.eleMax.toFixed(0) }} (m)</b> </span>						<br>
+						<span><i class="fa fa-map-signs"></i> Uzunluk: <b>{{vm.gpxData.distance.toFixed(0) }} (m)</b> </span><br>
+					</p>
+
+
 					<p>
 						{{vm.trackDetail.properties.summary}}
 					</p>

@@ -10,6 +10,7 @@
         var service = {
             weather: weather,
             forecast: forecast,
+            darkSkyWeather: darkSkyWeather,
             appid: 'fa2d593aa58e90fde328426e64a64e38'
         };
         return service;
@@ -265,5 +266,35 @@
         function forecast(lat, lng) {
 
         }
+
+        function darkSkyWeather(lat, lng) {
+            var deferred = $q.defer();
+            $http({
+                method: 'GET',
+                url: 'api/weather/'+ lat +'/'+lng,
+                headers: {
+                    'content-type': 'application/json; charset=utf-8'
+                }
+            }).then(
+                function (res) {
+                    if(res.data.OperationResult){
+                        var data = res.data.data;
+                        data.currently.time = new Date(( data.currently.time * 1000));
+                        deferred.resolve(data);
+                        console.log(data)
+                    }
+                    else {
+                        deferred.resolve(false);                        
+                    }
+                },
+                function (reject) {
+                    deferred.reject({
+                        data: reject.code,
+                        errorType: 2
+                    });
+                });
+            return deferred.promise;
+        }
     }
 })();
+

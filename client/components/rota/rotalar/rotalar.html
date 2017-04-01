@@ -8,7 +8,7 @@
 			</p>
 		</div>
 		<div ng-repeat="marker in vm.markers track by marker.properties.id" ng-show="!vm.markersEmpty">
-			<div class="col-md-6">
+			<div class="col-md-6 margin-bottom-60">
 				<!-- CARD  -->
 				<card-directive ng-mouseover="vm.changeIcon(marker)" ng-mouseleave="vm.removeIcon(marker)" title=marker.properties.name
 				    summary=marker.properties.summary owner=marker.properties.owner img-src=marker.properties.img_src id=marker.properties.id>

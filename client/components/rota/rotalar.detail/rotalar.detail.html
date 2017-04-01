@@ -21,6 +21,7 @@
 			<div class="row  card-block margin-bottom-15 weather-card">
 				<div class="col-md-12">
 					<h4>Hava Durumu</h4>
+					<p>{{vm.weather.daily.summary}}</p>
 				</div>
 				<!--<div class="col-md-3">
 					<div class="weather-desc">
@@ -37,15 +38,15 @@
 				<div class="">
 					<div class="col-md-12">
 						<ul class="nav nav-pills">
-							<li class="active weather-pills"><a data-toggle="pill" href="#home">Şu an</a></li>
-							<li class="weather-pills"><a data-toggle="pill" href="#menu1">Günlük</a></li>
+							<li class="active weather-pills"><a data-toggle="pill" href="#anlik-hava">Şu an</a></li>
+							<li class="weather-pills"><a data-toggle="pill" href="#haftalik-hava">Haftalık</a></li>
 						</ul>
 
 					</div>
 
 					<div class="col-md-12">
 						<div class="tab-content">
-							<div id="home" class="tab-pane fade in active">
+							<div id="anlik-hava" class="tab-pane fade in active">
 								<div class="col-sm-3">
 									<div class="weather-desc">
 										<span class="text-left weather-hide-on-hover" style="padding-top: 20px;">
@@ -68,11 +69,33 @@
 									</p>
 								</div>
 							</div>
-							<div id="menu1" class="tab-pane fade">
-								<h3>Menu 1</h3>
-								<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+							<div id="haftalik-hava" class="tab-pane fade padding-top-15">
+								<div ng-repeat="dailyWeather in vm.weather.daily.data | limitTo: 5">
+									<div class="col-sm-2 col-xs-6">
+										<span class="text-left weather-hide-on-hover">
+											<canvas id="icon{{$index+10}}" width="48" height="48"></canvas>
+										</span>
+										<span class="text-left weather-show-on-hover">
+											<canvas id="icon{{$index+20}}" width="48" height="48"></canvas>
+										</span>
+										<p>
+											{{::dailyWeather.time | date : 'EEEE' }}
+										</p>
+										<p>
+											<b>{{::dailyWeather.temperatureMax}} °C/ {{::dailyWeather.temperatureMin }} °C/</b>
+										</p>
+										<p>{{::dailyWeather.summary }}</p>
+
+
+									</div>
+									<div ng-if="$index == 1 || $index == 3" class="clearfix visible-xs"></div>
+								</div>
 							</div>
 						</div>
+						<a href="https://darksky.net/poweredby/" target="_blank">
+							<img src="../../img/darksky.svg" class="weather-hide-on-hover darksky-logo"/>
+							<img src="../../img/darksky_white.svg" class="weather-show-on-hover darksky-logo" />			
+						</a>
 					</div>
 				</div>
 
@@ -106,7 +129,7 @@
 		</div>
 		<div class="col-md-4">
 			<div style="width: 100%; height: 80vh" class="sticky-map">
-				<leaflet lf-center="vm.center" layers="vm.layers" height="100%" width="100%"></leaflet>
+				<leaflet lf-center="vm.center" layers="vm.layers" controls="vm.controls" height="100%" width="100%"></leaflet>
 			</div>
 		</div>
 		<div class="col-md-12" id=stop>

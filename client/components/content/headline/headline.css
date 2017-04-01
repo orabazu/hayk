@@ -6,17 +6,17 @@
  	background-size: cover;
  	position: relative;
  }
- 
+
  header .container {
  	padding-top: 100px;
  	padding-bottom: 50px;
  }
- 
+
  header img {
  	display: block;
  	margin: 0 auto 20px;
  }
- 
+
  header .intro-text .name {
  	display: block;
  	font-family: 'Amatic SC', cursive;
@@ -24,18 +24,18 @@
  	font-size: 4.5em;
  	text-shadow: 2px 2px rgba(31, 28, 28, 0.33);
  }
- 
+
  header .intro-text .skills {
  	padding-top: 20px;
  	font-size: 1.25em;
  	font-weight: 700;
-	 text-shadow: 2px 2px rgba(31, 28, 28, 0.33);
+ 	text-shadow: 2px 2px rgba(31, 28, 28, 0.33);
  }
- 
+
  .skills-wrapper {
  	background: rgba();
  }
- 
+
  @media (min-width: 768px) {
  	header {
  		height: 100vh;
@@ -51,43 +51,47 @@
  		font-size: 1.75em;
  	}
  }
- 
- .headline{
+
+ .headline {
  	background: url(../../img/bg-1.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;
  	transition: background-image 1s ease-in;
  }
-  .headline-2 {
+
+ .headline-2 {
  	background: url(../../img/bg-2.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;
  	transition: background-image 1s ease-in;
  }
-  .headline-3 {
+
+ .headline-3 {
  	background: url(../../img/bg-3.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;
  	transition: background-image 1s ease-in;
  }
-  .headline-4 {
+
+ .headline-4 {
  	background: url(../../img/bg-4.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;
  	transition: background-image 1s ease-in;
  }
-  .headline-5 {
+
+ .headline-5 {
  	background: url(../../img/bg-5.jpg);
  	background-size: cover !important;
  	background-position: center !important;
  	-webkit-transition: background-image 1s ease-in;
  	transition: background-image 1s ease-in;
  }
- 
+
  .intro-text-footer {
  	position: absolute;
  	bottom: 0;
@@ -96,17 +100,18 @@
  	background: rgba(38, 44, 44, 0.7);
  	padding: 15px;
  }
- 
+
  .navbar-brand-tabiat {
  	background-image: url(../../img/logo-alt-5.svg);
- 	background-size: 100%;
+ 	background-size: 77%;
  	background-position: center;
  	background-repeat: no-repeat;
  	height: 55px !important;
- 	width: 104px !important;
- 	margin: 5px 0px;
+ 	width: 101px !important;
+ 	margin: 6px -10px 0px 0px;
+ 	padding: 5px;
  }
- 
+
  @media screen and(min-width:480px) {}
  /*
   	margin: auto;

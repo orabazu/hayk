@@ -27,6 +27,9 @@
 .padding-15 {
     padding: 15px !important;
 }
+.padding-top-15{
+    padding-top: 15px;
+}
 
 .weather-desc {
     font-size: 30px;
@@ -72,13 +75,38 @@
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
+    border-top: 10px solid #337ab7;
+    right: 35%;
+}
+
+.weather-card:hover .active.weather-pills::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
     border-top: 10px solid white;
     right: 35%;
 }
 
-li.active.weather-pills>a,
-li.active.weather-pills>a:focus,
-li.active.weather-pills>a:hover {
+.weather-card li.weather-pills>a {
+    background: gainsboro;
+    color: black;    
+}
+.weather-card li.active.weather-pills>a {
+    background: #337ab7;
+    color: white;
+}
+
+.weather-card:hover li.weather-pills>a{
+    background: gainsboro;
+    color: black;
+}
+
+.weather-card:hover li.active.weather-pills>a,
+.weather-card:hover li.active.weather-pills>a:focus,
+.weather-card:hover li.active.weather-pills>a:hover {
     background-color: transparent;
     background: #3F51B5;
     background: -moz-linear-gradient(183deg, #3F51B5 8%, #03A9F4 99%);
@@ -113,4 +141,15 @@ li.active.weather-pills>a:hover {
 
 .weather-card:hover .weather-hide-on-hover {
     display: none !important;
+}
+
+.darksky-logo{
+    height: 45px; 
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.leaflet-retina .leaflet-control-layers-toggle {
+    background-image: url(../../img/layers.svg);
 }

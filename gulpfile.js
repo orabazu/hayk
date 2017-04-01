@@ -42,20 +42,22 @@ var vendorPath = [
   'client/bower_components/jquery/dist/jquery.min.js',
   'client/bower_components/bootstrap/dist/js/bootstrap.min.js',
   'client/bower_components/angular/angular.min.js',
+  'client/assets/angular-locale_tr-tr.min.js',
   'client/bower_components/angular-ui-router/release/angular-ui-router.min.js',
   'client/bower_components/leaflet/dist/leaflet.js',
+  'client/bower_components/leaflet-plugins/layer/tile/Yandex.js',   
+  'client/bower_components/leaflet.gpx/leaflet.gpx.js',
+  'client/bower_components/leaflet-fullscreen/dist/Leaflet.fullscreen.js',   
   'client/bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js',
   'client/bower_components/oclazyload/dist/ocLazyLoad.min.js',
   'client/bower_components/ng-file-upload/ng-file-upload-all.js',
   'client/bower_components/ladda/dist/spin.min.js',
   'client/bower_components/ladda/dist/ladda.min.js',
   'client/bower_components/angular-ladda/dist/angular-ladda.min.js',
-  'client/bower_components/leaflet.gpx/leaflet.gpx.js',
   'client/bower_components/typeahead/typeahead.bundle.js',
   'client/bower_components/typeahead/angular-typeahead.js',
   'client/bower_components/sticky/jquery.jsticky.min.js',
-  'client/bower_components/skycons/skycons.js',
-  
+  'client/bower_components/skycons/skycons.js', 
   // 'client/bower_components/chart.js/Chart.min.js',
   // 'client/bower_components/angular-chart.js/dist/angular-chart.min.js'
 ];
@@ -69,6 +71,7 @@ var vendorCSSPath = [
   'client/dist/css/weather-icons.css',
   'client/bower_components/leaflet/dist/leaflet.css',
   'client/bower_components/ladda/dist/ladda.min.css',
+  'client/bower_components/leaflet-fullscreen/dist/leaflet.fullscreen.css',
 ];
 
 
@@ -132,6 +135,8 @@ gulp.task('watch', function () {
   gulp.watch([componentsPathcss, 'client/components/*/*/*.css'], ['minify-css']);
 });
 
-gulp.task('build', ['build-js', 'build-css'])
+gulp.task('vendor', ['vendor-js', 'vendor-css']);
+
+gulp.task('build', ['build-js', 'build-css']);
 
 gulp.task('default', ['minify-js', 'minify-css', 'watch']);

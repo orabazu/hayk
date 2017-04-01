@@ -746,4 +746,6 @@ ul.typeahead.dropdown-menu {
 	left: -38px!important;
 }
 
-
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+	background-color: #fbab29;
+}

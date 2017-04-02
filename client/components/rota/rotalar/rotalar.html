@@ -3,12 +3,16 @@
 		<h2>Rotalar</h2>
 
 		<div ng-show="vm.markersEmpty" style="text-align: center;">
-			<img src="../../img/embarrassed.svg" style="max-width: 200px; margin: auto; text-align: center;"></img>
-			<p style="font-size: 28px;"> Bu civarda pek birşey bulamadık.
+			<img src="../../img/embarrassed.svg" class="not-found-img "></img>
+			<img src="../../img/happy.svg" class="not-found-img hide"></img>			
+			<p style="font-size: 24px;"> Bu civarda pek birşey bulamadık. Katkıda bulunmak ister misin ?
+			</p>
+			<p>
+				<a class="btn btn-success btn-add-new-track" style="font-size: 30px;" ng-mouseover="vm.changeImg()" ng-mouseleave="vm.changeImg()" ui-sref="addtrack.location">Rota Ekle</a>
 			</p>
 		</div>
 		<div ng-repeat="marker in vm.markers track by marker.properties.id" ng-show="!vm.markersEmpty">
-			<div class="col-md-6">
+			<div class="col-md-6 margin-bottom-60">
 				<!-- CARD  -->
 				<card-directive ng-mouseover="vm.changeIcon(marker)" ng-mouseleave="vm.removeIcon(marker)" title=marker.properties.name
 				    summary=marker.properties.summary owner=marker.properties.owner img-src=marker.properties.img_src id=marker.properties.id>

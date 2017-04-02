@@ -271,20 +271,21 @@
             var deferred = $q.defer();
             $http({
                 method: 'GET',
-                url: 'api/weather/'+ lat +'/'+lng,
+                url: 'api/weather/' + lat + '/' + lng,
                 headers: {
                     'content-type': 'application/json; charset=utf-8'
                 }
             }).then(
                 function (res) {
-                    if(res.data.OperationResult){
+                    if (res.data.OperationResult) {
                         var data = res.data.data;
-                        data.currently.time = new Date(( data.currently.time * 1000));
+                        data.currently.time = new Date((data.currently.time * 1000));
+                        angular.forEach(data.daily.data, function (value, key) {
+                            data.daily.data[key].time =  new Date((value.time * 1000));
+                        });
                         deferred.resolve(data);
-                        console.log(data)
-                    }
-                    else {
-                        deferred.resolve(false);                        
+                    } else {
+                        deferred.resolve(false);
                     }
                 },
                 function (reject) {
@@ -297,4 +298,3 @@
         }
     }
 })();
-

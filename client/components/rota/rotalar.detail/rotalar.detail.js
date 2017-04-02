@@ -15,9 +15,9 @@ function rotalarDetail() {
     return directive;
 }
 
-RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData','weatherAPI'];
+RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData', 'weatherAPI'];
 
-function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData,weatherAPI) {
+function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData, weatherAPI) {
     var vm = this;
     vm.trackDetail = {};
     vm.center = {};
@@ -33,22 +33,51 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                 lng: vm.trackDetail.geometry.coordinates[0],
                 zoom: 12
             }
+
             vm.gpxData = {};
 
-            weatherAPI.darkSkyWeather(vm.trackDetail.geometry.coordinates[1],vm.trackDetail.geometry.coordinates[0]).then(function(res){
-                console.log(res);
-                vm.weather = res; 
-                var skycons = new Skycons({color: 'black'});
+            weatherAPI.darkSkyWeather(vm.trackDetail.geometry.coordinates[1], vm.trackDetail.geometry.coordinates[0]).then(function (res) {
+                vm.weather = res;
+                var skycons = new Skycons({
+                    color: 'black'
+                });
                 skycons.add("icon1", res.currently.icon);
                 skycons.play();
 
-                var skycons = new Skycons({color: 'white'});
+                var skycons = new Skycons({
+                    color: 'white'
+                });
                 skycons.add("icon2", res.currently.icon);
                 skycons.play();
+                var skyconsDaily = new Skycons({
+                    color: 'black'
+                });
+                var skyconsDailyWhite = new Skycons({
+                    color: 'white'
+                });
+                setTimeout(function () {
+                    angular.forEach(vm.weather.daily.data, function (value, key) {
+
+                        var s = key + 10;
+                        var k = key + 20;
+                        var ss = "icon" + s;
+                        var kk = "icon" + k;
+
+                        skyconsDaily.add(ss, value.icon)
+                        skyconsDailyWhite.add(kk, value.icon)
+                        skyconsDaily.play();
+                        skyconsDailyWhite.play();
+                    });
+                }, 0);
             })
-            
-            // console.log(vm.center);
+
             leafletData.getMap().then(function (map) {
+                if(window.mobilecheck())
+                    map.scrollWheelZoom.disable();
+                // map.dragging.disable();
+
+                // map.addControl(new L.Control.Fullscreen());
+
                 var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
                 var g = new L.GPX(gpx, {
                     async: true,
@@ -74,13 +103,29 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                     vm.gpxData.distance = e.target.get_distance();
                     vm.gpxData.eleMin = e.target.get_elevation_min();
                     vm.gpxData.eleMax = e.target.get_elevation_max();
-
-                    // console.log(e.target.get_elevation_data())
                     vm.data = {
                         dataset0: e.target.get_elevation_data()
                     }
 
                     map.fitBounds(e.target.getBounds());
+                    console.log(e.target.getBounds())
+                    var newBounds = {
+                        _northEast: {
+                            lat: e.target.getBounds()._northEast.lat + 0.2,
+                            lng: e.target.getBounds()._northEast.lng + 0.2
+                        },
+                        _southWest: {
+                            lat: e.target.getBounds()._southWest.lat - 0.2,
+                            lng: e.target.getBounds()._southWest.lng - 0.2
+                        }
+                    };
+
+                    var southWest = L.latLng(newBounds._northEast.lat, newBounds._northEast.lng),
+                        northEast = L.latLng(newBounds._southWest.lat, newBounds._southWest.lng),
+                        bounds = L.latLngBounds(southWest, northEast);
+
+                    map.setMaxBounds(bounds);
+                    map._layersMinZoom=10
                 });
                 g.addTo(map);
             });
@@ -90,7 +135,12 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
     }
 
 
-    vm.layers = mapConfigService.getLayer();
-
+    vm.layers = mapConfigService.getLayerForDetail();
+    var controls = {
+        fullscreen: {
+            position: 'topleft'
+        }
+    }
+    vm.controls = controls;
 
 }

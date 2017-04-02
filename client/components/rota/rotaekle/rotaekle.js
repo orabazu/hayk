@@ -16,6 +16,10 @@
         vm.location;
 
         //Track parameters
+        if(angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)){
+            $state.go('login');
+            // break;            
+        }
         vm.ownedBy = $rootScope.user._id;
         vm.img_src = "src";
         vm.summary;

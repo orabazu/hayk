@@ -88,7 +88,7 @@ mongoose.connect(config.database); // connect to database
 */
 
 mongoose.connect(process.env.MONGODB_URI, function (error) {
-    if (error) console.error(error);
+    if (error);
     else console.log('mongo connected');
 });
 

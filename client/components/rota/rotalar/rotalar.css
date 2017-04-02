@@ -113,11 +113,30 @@
     }
 }
 
-.refresh-open{
+.refresh-open {
     display: block;
 }
 
 .map-open {
     width: 100%;
     left: 0px
+}
+
+.margin-bottom-60 {
+    margin-bottom: 60px;
+}
+
+.not-found-img {
+    max-width: 150px;
+    margin: auto;
+    text-align: center;
+}
+
+.not-found-img.show{
+    display: block;
+}
+
+
+.not-found-img.hide{
+    display: none;
 }

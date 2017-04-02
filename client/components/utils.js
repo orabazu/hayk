@@ -39,11 +39,16 @@ window.loadAutoComplete = function () {
             },
             afterSelect: function (item) {
                 var a = document.createElement('a');
+                var latSW = item.bbox.lowerCorner.split(' ')[1];
+                var lngSW = item.bbox.lowerCorner.split(' ')[0];
+                var latNE = item.bbox.upperCorner.split(' ')[1];
+                var lngNE = item.bbox.upperCorner.split(' ')[0];
+                
                 a.href = '/a/' + item.name +
-                    '?latSW=' + item.bbox.lowerCorner.split(' ')[1] +
-                    '&lngSW=' + item.bbox.lowerCorner.split(' ')[0] +
-                    '&latNE=' + item.bbox.upperCorner.split(' ')[1] +
-                    '&lngNE=' + item.bbox.upperCorner.split(' ')[0];
+                    '?latSW=' + latSW.toString() +
+                    '&lngSW=' + lngSW.toString() +
+                    '&latNE=' + latNE.toString() +
+                    '&lngNE=' + lngNE.toString();
                 document.body.appendChild(a);
                 a.click();
             },
@@ -51,7 +56,7 @@ window.loadAutoComplete = function () {
                 console.log(item)
                 item = '<span class="item-address">' + item + '</span>';
                 return item;
-            },
+            }, 
             minLength: 3,
             fitToElement: true,
             matcher: function () {

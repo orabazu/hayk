@@ -29,11 +29,12 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
     vm.getTrack = getTrack;
     vm.mapAutoRefresh = true;
     vm.openMap = openMap;
+    vm.changeImg = changeImg;
     vm.params = {};
-    if (angular.isUndefinedOrNull($stateParams.latNE) || 
-    angular.isUndefinedOrNull($stateParams.lngNE) || 
-    angular.isUndefinedOrNull($stateParams.latSW) || 
-    angular.isUndefinedOrNull($stateParams.lngSW)
+    if (angular.isUndefinedOrNull($stateParams.latNE) ||
+        angular.isUndefinedOrNull($stateParams.lngNE) ||
+        angular.isUndefinedOrNull($stateParams.latSW) ||
+        angular.isUndefinedOrNull($stateParams.lngSW)
     ) {
         vm.params.latNE = 44.292;
         vm.params.lngNE = 41.264;
@@ -63,6 +64,8 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
                     [vm.params.latSW, vm.params.lngSW],
                 ];
                 map.fitBounds(bounds);
+                // map.setZoom(map.getZoom() - 1);
+
                 return vm.getTrack().then(function () {});
             });
 
@@ -145,8 +148,17 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
     var mapEvent = 'leafletDirectiveMap.dragend';
 
     $scope.$on(mapEvent, function (event, args) {
-        //  console.log(args.leafletObject);
-        if (vm.mapAutoRefresh) {
+        updateMap(args);
+    });
+
+    var mapEvent2 = 'leafletDirectiveMap.zoomend';
+
+    $scope.$on(mapEvent2, function (event, args) {
+        updateMap(args);
+    });
+
+    function updateMap(args){
+      if (vm.mapAutoRefresh) {
             if (vm.markers != undefined) {
                 vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
                 vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
@@ -168,9 +180,7 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
             });
 
         }
-
-
-    });
+    }
 
     vm.toggleTitle = ' Harita';
 
@@ -184,6 +194,13 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
         leafletData.getMap().then(function (map) {
             map.invalidateSize();
         });
+    }
+
+
+    function changeImg() {
+        angular.forEach(angular.element('.not-found-img'), function (val, key ) {
+            val.classList.toggle('hide');
+        })
     }
 
 

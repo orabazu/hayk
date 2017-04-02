@@ -72,10 +72,12 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             })
 
             leafletData.getMap().then(function (map) {
-                map.scrollWheelZoom.disable();
-                map.dragging.disable();
+                if(window.mobilecheck())
+                    map.scrollWheelZoom.disable();
+                // map.dragging.disable();
+
                 // map.addControl(new L.Control.Fullscreen());
-                
+
                 var gpx = vm.trackDetail.properties.gpx; // URL to your GPX file or the GPX itself
                 var g = new L.GPX(gpx, {
                     async: true,
@@ -106,6 +108,24 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                     }
 
                     map.fitBounds(e.target.getBounds());
+                    console.log(e.target.getBounds())
+                    var newBounds = {
+                        _northEast: {
+                            lat: e.target.getBounds()._northEast.lat + 0.2,
+                            lng: e.target.getBounds()._northEast.lng + 0.2
+                        },
+                        _southWest: {
+                            lat: e.target.getBounds()._southWest.lat - 0.2,
+                            lng: e.target.getBounds()._southWest.lng - 0.2
+                        }
+                    };
+
+                    var southWest = L.latLng(newBounds._northEast.lat, newBounds._northEast.lng),
+                        northEast = L.latLng(newBounds._southWest.lat, newBounds._southWest.lng),
+                        bounds = L.latLngBounds(southWest, northEast);
+
+                    map.setMaxBounds(bounds);
+                    map._layersMinZoom=10
                 });
                 g.addTo(map);
             });
@@ -116,11 +136,11 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
 
 
     vm.layers = mapConfigService.getLayerForDetail();
-    var controls =  {
-                    fullscreen: {
-                        position: 'topleft'
-                    }
-                }
+    var controls = {
+        fullscreen: {
+            position: 'topleft'
+        }
+    }
     vm.controls = controls;
 
 }

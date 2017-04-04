@@ -132,18 +132,21 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
 
     vm.mapEvents = leafletMapEvents.getAvailableMapEvents();
 
+
+    //log events for marker objects
     for (var k in vm.mapEvents) {
         //  console.log(vm.mapEvents);
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function (event, args) {
+            console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
                 vm.changeIcon(vm.markers[args.modelName]);
             } else if (event.name == 'leafletDirectiveMarker.mouseout') {
                 vm.removeIcon(vm.markers[args.modelName]);
-            } else if (event.name == 'leafletDirectiveMap.moveend') {
-                // console.log(asd);
+                // vm.markers[args.modelName].focus = true;
+                
             }
-        });
+        }); 
     }
     var mapEvent = 'leafletDirectiveMap.dragend';
 

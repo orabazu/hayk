@@ -140,3 +140,7 @@
 .not-found-img.hide{
     display: none;
 }
+
+.card-on-map{
+    min-width: 200px;
+}

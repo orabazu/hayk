@@ -36,7 +36,7 @@ function markerParser($q) {
                 icon: {
                     type: 'makiMarker',
                     icon: 'park',
-                    color: '#004c00',
+                    color: '#512DA8',
                     size: "l"
                 },
                 // icon_swap : {

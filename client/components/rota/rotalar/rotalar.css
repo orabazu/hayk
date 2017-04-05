@@ -144,3 +144,18 @@
 .card-on-map{
     min-width: 200px;
 }
+
+.leaflet-popup-content-wrapper{
+    padding: 0px !important;
+}
+.leaflet-popup-content {
+    margin: 0px !important;
+}
+
+.leaflet-popup-content .card-block {
+    padding: 0.5rem 1rem;
+}
+
+.leaflet-popup-content .card-block > h4 {
+    font-size: 1.9em;
+}

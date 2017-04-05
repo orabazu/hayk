@@ -58,7 +58,7 @@ urlProdString= "https://tabiatizi.herokuapp.com";
 passport.use(new FacebookStrategy({
 		clientID: process.env.FACEBOOK_APP_ID,
 		clientSecret: process.env.FACEBOOK_APP_SECRET,
-		callbackURL: urlProdString + "/facebook/return",
+		callbackURL: urltestString + "/facebook/return",
 		profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
 	},
 	generateOrFindUser));

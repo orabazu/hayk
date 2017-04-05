@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="side-menu">
 		<h2>Rotalar</h2>
-
+ 
 		<div ng-show="vm.markersEmpty" style="text-align: center;">
 			<img src="../../img/embarrassed.svg" class="not-found-img "></img>
 			<img src="../../img/happy.svg" class="not-found-img hide"></img>			
@@ -14,7 +14,7 @@
 		<div ng-repeat="marker in vm.markers track by marker.properties.id" ng-show="!vm.markersEmpty">
 			<div class="col-md-6 margin-bottom-60">
 				<!-- CARD  -->
-				<card-directive ng-mouseover="vm.changeIcon(marker)" ng-mouseleave="vm.removeIcon(marker)" title=marker.properties.name
+				<card-directive ng-mouseover="vm.removeIcon(marker)" ng-mouseleave="vm.changeIcon(marker)" title=marker.properties.name
 				    summary=marker.properties.summary owner=marker.properties.owner img-src=marker.properties.img_src id=marker.properties.id>
 				</card-directive>
 			</div>

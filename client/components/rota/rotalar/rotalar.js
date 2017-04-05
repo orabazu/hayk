@@ -98,11 +98,13 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
         // var swap = marker.icon;
         // marker.icon = marker.icon_swap;
         // marker.icon_swap = swap;
+
+        // console.log($location.search().latNE = 20);
+
         // if (marker.focus)
         //     marker.focus = false;
         // else
         //     marker.focus = true;
-        // console.log($location.search().latNE = 20);
         marker.icon = {
             type: 'makiMarker',
             icon: 'park',
@@ -115,7 +117,7 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
         marker.icon = {
             type: 'makiMarker',
             icon: 'park',
-            color: '#004c00',
+            color: '#B7A4E3',
             size: "l"
         }
     }
@@ -132,16 +134,21 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
 
     vm.mapEvents = leafletMapEvents.getAvailableMapEvents();
 
+
+    //log events for marker objects
     for (var k in vm.mapEvents) {
         //  console.log(vm.mapEvents);
         var eventName = 'leafletDirectiveMarker.' + vm.mapEvents[k];
         $scope.$on(eventName, function (event, args) {
+             console.log(event);
             if (event.name == 'leafletDirectiveMarker.mouseover') {
-                vm.changeIcon(vm.markers[args.modelName]);
+                // vm.changeIcon(vm.markers[args.modelName]);
             } else if (event.name == 'leafletDirectiveMarker.mouseout') {
-                vm.removeIcon(vm.markers[args.modelName]);
-            } else if (event.name == 'leafletDirectiveMap.moveend') {
-                // console.log(asd);
+                // vm.removeIcon(vm.markers[args.modelName]);
+                // vm.markers[args.modelName].focus = true;
+            }else if (event.name == 'leafletDirectiveMarker.click') {
+                //  vm.removeIcon(vm.markers[args.modelName]);
+                //  vm.markers[args.modelName].focus = true;
             }
         });
     }
@@ -157,8 +164,8 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
         updateMap(args);
     });
 
-    function updateMap(args){
-      if (vm.mapAutoRefresh) {
+    function updateMap(args) {
+        if (vm.mapAutoRefresh) {
             if (vm.markers != undefined) {
                 vm.params.latNE = args.leafletObject.getBounds()._northEast.lat;
                 vm.params.lngNE = args.leafletObject.getBounds()._northEast.lng;
@@ -198,7 +205,7 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
 
 
     function changeImg() {
-        angular.forEach(angular.element('.not-found-img'), function (val, key ) {
+        angular.forEach(angular.element('.not-found-img'), function (val, key) {
             val.classList.toggle('hide');
         })
     }

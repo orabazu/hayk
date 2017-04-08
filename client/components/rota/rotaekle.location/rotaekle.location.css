@@ -1,0 +1,54 @@
+.container-fullwidth {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.padding-top-65 {
+    padding-top: 65px;
+}
+
+.app-height {
+    height: calc(100vh - 65px);
+}
+
+.bg-orange {
+    background: #F44336;
+}
+
+.padding-left-0 {
+    padding-left: 0px !important;
+}
+
+.next-step-panel {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 15px;
+    /*left: 0px;*/
+}
+
+.margin-top-14 {
+    margin-top: 14px;
+}
+
+.white {
+    color: white;
+}
+
+.action-menu-item {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.next-step-panel-header {
+    position: absolute;
+    top: 0px;
+    right: 45px;
+    z-index: 20;
+    left: 45px;
+}
+
+.font-size-12{
+    font-size: 12px;
+}

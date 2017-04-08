@@ -42,6 +42,20 @@
             }
             $stateProvider.state(addTrackMetaState);
 
+            var addTrackCampState = {
+                name: 'addtrack.camp',
+                url: '/kamp',
+                templateUrl: '../../components/rota/rotaekle.kamp/rotaekle.kamp.html'
+            }
+            $stateProvider.state(addTrackCampState);
+
+            var addTrackSeasonState = {
+                name: 'addtrack.season',
+                url: '/sezon',
+                templateUrl: '../../components/rota/rotaekle.season/rotaekle.season.html'
+            }
+            $stateProvider.state(addTrackSeasonState);
+
             var addTrackImageState = {
                 name: 'addtrack.image',
                 url: '/resimler',

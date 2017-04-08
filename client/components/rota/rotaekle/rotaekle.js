@@ -17,10 +17,10 @@
 
         //Track parameters
         if(angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)){
-            $state.go('login');
+            // $state.go('login');
             // break;            
         }
-        vm.ownedBy = $rootScope.user._id;
+        // vm.ownedBy = $rootScope.user._id;
         vm.img_src = "src";
         vm.summary;
         vm.altitude;
@@ -32,6 +32,11 @@
 
 
         $scope.loginLoading = true;
+        vm.toggleState = true;
+        vm.togglePanel = function(){
+            $('.next-step-panel .panel-body').toggle('hide');
+            // alert(1);
+        }
 
         vm.addTrack = function () {
             trackService.addTrack(vm).then(function (addTrackResponse) {

@@ -29,6 +29,7 @@
         vm.coordinates = [];
         vm.uploadGPX = uploadGPX;
         vm.uploadPic = uploadPic;
+        vm.campSelected = campSelected;
 
 
         $scope.loginLoading = true;
@@ -98,6 +99,9 @@
             }
         }
 
+        function campSelected(camp){
+            $state.go("addtrack.season");
+        }
 
 
         angular.extend($scope, {

@@ -14,3 +14,20 @@
     padding-left: 48px !important;
     font-size: 20px !important;
 }
+
+.rotaekle-menu{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    padding-bottom: 30px;
+    background: white;
+}
+
+.btn-rotaekle {
+    font-size: 22px;
+}
+
+.fit-form-element {
+    margin-bottom: 150px;
+}

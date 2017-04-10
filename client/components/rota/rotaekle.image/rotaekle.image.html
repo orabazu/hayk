@@ -1,16 +1,17 @@
 <div class="container layout-padding">
     <div class="col-md-offset-3 col-md-6 ">
-        <h3 class="text-center">Rota Bilgileri</h3>
+        <h3 class="text-center">4- Fotoğraf & Video</h3>
         <div class="panel">
             <div class="panel-heading">
-                <legend>Rotaya ait diğer bilgiler</legend>
+                <legend>Bu rotayı anlatan bir fotoğraf ya da video</legend>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">
                     <fieldset ng-form="rota.image" enctype="multipart/form-data">
                         <!-- Form Name -->
                         <br>Fotoğraf:
-                        <input type="file" class="btn btn-primary btn-file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">
+                        <input type="file" class="btn btn-primary btn-file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB"
+                            required ngf-model-invalid="errorFile">
                         <i ng-show="rota.image.file.$error.required">*zorunlu</i><br>
                         <i ng-show="rota.image.file.$error.maxSize">Dosya çok büyük {{errorFile.size / 1000000|number:1}}MB: En fazla 2MB</i>
                         <img ng-show="rota.image.file.$valid" ngf-thumbnail="picFile" class="thumb">
@@ -19,12 +20,17 @@
                         <span ng-show="picFile.result">Yüklendi</span>
                         <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
                         <p class="">
-                            <a ui-sref="addtrack.location" class="pull-left"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>
-                            <button ng-disabled="!rota.image.$valid" ng-click="rotaEkleController.uploadPic(picFile)" ladda="rotaEkleController.uploading" data-style="expand-left"  data-spinner-color="#1abc9c" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
+
                         </p>
                     </fieldset>
             </div>
         </div>
         </form>
+    </div>
+    <div class="col-md-offset-3 col-md-6 rotaekle-menu">
+        <hr>
+        <a ui-sref="addtrack.season" class="pull-left btn-lg"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>
+        <button ng-disabled="!rota.image.$valid" ng-click="rotaEkleController.uploadPic(picFile)" ladda="rotaEkleController.uploading"
+            data-style="expand-left" data-spinner-color="#1abc9c" class="pull-right btn btn-primary btn-lg"> Devam et <i class="fa fa-arrow-circle-right"></i></button>
     </div>
 </div>

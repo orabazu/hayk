@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.rotaekle', ['app.map','app.trackService', 'ngFileUpload', 'angular-ladda'])
+        .module('app.rotaekle', ['app.map', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
         .controller('rotaEkleController', rotaEkleController)
 
 
@@ -11,12 +11,14 @@
     function rotaEkleController($scope, $rootScope, mapConfigService, reverseGeocode, trackService, $state, Upload) {
         // $ocLazyLoad.load('../../services/map/map.autocomplete.js');
         var vm = this;
+        console.log($state);
+        // vm.state = $state;
         vm.layers = mapConfigService.getLayer();
         vm.center = mapConfigService.getCenter();
         vm.location;
 
         //Track parameters
-        if(angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)){
+        if (angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)) {
             // $state.go('login');
             // break;            
         }
@@ -34,7 +36,7 @@
 
         $scope.loginLoading = true;
         vm.toggleState = true;
-        vm.togglePanel = function(){
+        vm.togglePanel = function () {
             $('.next-step-panel .panel-body').toggle('hide');
             // alert(1);
         }
@@ -99,7 +101,7 @@
             }
         }
 
-        function campSelected(camp){
+        function campSelected(camp) {
             $state.go("addtrack.season");
         }
 
@@ -116,6 +118,10 @@
             }
         });
 
+        $scope.$on('currentStep', function(event, data) { 
+            vm.currentStep = data; 
+        })
+
         $scope.$on("leafletDirectiveMap.click", function (event, args) {
             var leafEvent = args.leafletEvent;
             reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
@@ -128,6 +134,38 @@
             $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
             vm.coordinates = [leafEvent.latlng.lng, leafEvent.latlng.lat];
         });
+
+        $scope.$on('$stateChangeSuccess',
+            function (event, toState, toParams, fromState, fromParams) {
+                var state = toState.name.split(".")[1];
+                var step;
+                switch (state) {
+                    case "location":
+                        step = 1;
+                        break;
+                    case "camp":
+                        step = 2;
+                        break;
+                    case "season":
+                        step = 3;
+                        break;
+                    case "meta":
+                        step = 4;
+                        break;
+                    case "image":
+                        step = 5;
+                        break;
+                    case "gpx":
+                        step = 6;
+                        break;
+                    case "finish":
+                        step = 7;
+                }
+                $scope.$emit('currentStep', step);
+                console.log(step);
+            })
+
+
     }
 
 })();

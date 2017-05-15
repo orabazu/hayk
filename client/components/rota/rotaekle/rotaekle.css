@@ -38,3 +38,105 @@
 .fit-form-element {
     margin-bottom: 150px;
 }
+
+.stepy-header{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-top:64px;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.stepy-header li {
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: top;
+    width: auto;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+}
+
+.stepy-header li:after, .stepy-header li:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 43px;
+    width: 50%;
+    height: 2px;
+    background-color: #64c5b1;
+    z-index: 9;
+}
+.stepy-header li.stepy-active:after, .stepy-header li.stepy-active ~ li:after, .stepy-header li.stepy-active ~ li:before {
+    background-color: #e2e2e2;
+}
+.stepy-header li:after {
+    right: 0 !important;
+}
+
+.stepy-header li.stepy-active div {
+    cursor: auto;
+    border-color: #64c5b1;
+    background-color: #ffffff;
+    color: #64c5b1;
+}
+.stepy-header li div {
+    background-color: #64c5b1;
+    font-size: 0;
+    position: relative;
+    color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    width: 48px;
+    height: 48px;
+    border: 2px solid #64c5b1;
+    z-index: 10;
+    line-height: 44px;
+    text-align: center;
+    border-radius: 50%;
+}
+.stepy-header li.stepy-active span {
+    color: #64c5b1;
+}
+.stepy-header li span {
+    display: block;
+    margin-top: 10px;
+    color: #999;
+    font-weight: 600;
+}
+.stepy-header li div:after {
+    -webkit-font-smoothing: antialiased;
+    line-height: 44px;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-osx-font-smoothing: grayscale;
+    display: inline-block;
+    font-size: 24px;
+    -o-transition: all 0.15s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 18px;
+    content: "\f00c";    
+}
+
+.stepy-header li.stepy-active div:after {
+    content: "\f00c";
+}
+
+.stepy-header li.stepy-active ~ li div {
+    border-color: #e2e2e2;
+    background-color: #ffffff;
+    color: #797979;
+    font-size: 18px;
+    font-weight: 600;
+    content: "\f1bb";   
+}
+
+.stepy-header li.stepy-active ~ li div:after {
+    content: "\f1bb";
+    
+}

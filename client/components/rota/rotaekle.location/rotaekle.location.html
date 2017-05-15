@@ -1,8 +1,5 @@
-<div class="container-fluid container-fullwidth layout-padding padding-top-65">
+<!--<div class="container-fluid container-fullwidth layout-padding padding-top-65">
 	<div class="row">
-		<!--<div class="col-sm-4 padding-15 app-height bg-orange margin-top-14">
-			<p class="padding-15" style="color:white;">Rotanızın başlangıç konumunu harita üzerinden seçin</p>
-		</div>-->
 		<div class="col-sm-12 app-height margin-top-14">
 			<leaflet lf-center="rotaEkleController.center" layers="rotaEkleController.layers" markers="markers" class="app-height" width="100%"></leaflet>
 
@@ -27,14 +24,14 @@
 
 	</div>
 
-</div>
+</div>-->
 
 
 
 
-<!--<div class="container layout-padding">
+<div class="container layout-padding">
 	<div class="col-md-offset-3 col-md-6 ">
-		<h3 class="text-center"> Konum </h3>
+		<h3 class="text-center"> 1- Konum </h3>
 		<div class="panel">
 			<div class="panel-heading">
 				
@@ -46,13 +43,19 @@
 					</div>
 					<div style="padding-top: 15px;">
 						<p>{{rotaEkleController.location}}</p>
-						<p class="">
-							<a ui-sref="addtrack.meta" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
-						</p>
+						<!--<p class="">
+							<a ui-sref="addtrack.camp" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+						</p>-->
 					</div>
 				</form>
 
 			</div>
 		</div>
 	</div>
-</div>-->
+
+	 <div class="col-md-offset-3 col-md-6 rotaekle-menu">
+        <hr>
+        <!--<a ui-sref="addtrack.image" class="pull-left btn-lg"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>-->
+        <a ui-sref="addtrack.camp"  class="pull-right btn btn-primary btn-lg"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>

@@ -17,6 +17,7 @@ angular.module('app', [
     'ui.router',
     'leaflet-directive',
     'app.weather',
+    'passwordVerify',
   ])
   .config(['$stateProvider','$locationProvider','$logProvider','$ocLazyLoadProvider','$compileProvider', function ($stateProvider, $locationProvider, $logProvider, $ocLazyLoadProvider,$compileProvider) { // provider-injector
 

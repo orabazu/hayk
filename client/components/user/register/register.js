@@ -3,7 +3,7 @@
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.register', [])
+    .module('app.register', ['passwordVerify'])
     .directive('registerDirective', registerDirective);
    
 function registerDirective() {

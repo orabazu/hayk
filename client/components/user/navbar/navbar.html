@@ -24,8 +24,8 @@
                 </li>
                 <li ng-if="flagLogin" class="active dropdown">
                     <a ui-sref="profile" style="padding-bottom: 5px; background-color: transparent;" class="dropbtn">
-                       {{user.name}}
-                        <img class="menu-profile-photo" src="{{user.photo}}"><img>
+                       {{user.local.email}}
+                        <img class="menu-profile-photo" src="{{user.avatar}}"><img>
                     </a>
                     <div class="dropdown-content">
                         <a ui-sref="profile">Profil</a>

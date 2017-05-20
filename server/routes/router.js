@@ -5,6 +5,7 @@ var Track = require('./../models/track.js');
 var fs = require('fs');
 var cloudinary = require('cloudinary');
 var darkSky = require('dark-sky');
+var _ = require('lodash');
 
 
 cloudinary.config({
@@ -242,8 +243,6 @@ router.route('/weather/:lat/:lng')
             })
 
     })
-
-
 
 
 module.exports = router;

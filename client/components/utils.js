@@ -44,7 +44,7 @@ window.loadAutoComplete = function () {
                 var latNE = item.bbox.upperCorner.split(' ')[1];
                 var lngNE = item.bbox.upperCorner.split(' ')[0];
                 
-                a.href = '/a/' + item.name +
+                a.href = '/rotalar/' + item.name +
                     '?latSW=' + latSW.toString() +
                     '&lngSW=' + lngSW.toString() +
                     '&latNE=' + latNE.toString() +

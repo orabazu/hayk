@@ -5,6 +5,7 @@ angular.module('app', [
     'app.navbar',
     'app.login',
     'app.register',
+    'app.connect',
     'app.card', 
     'app.profile',
     'app.userService',
@@ -29,8 +30,6 @@ angular.module('app', [
     // $urlRouterProvider.when('', '/#/');
     $compileProvider.debugInfoEnabled(false);
 
-    
-
     var loginState = {
       name: 'login',
       url: '/giris',
@@ -51,33 +50,15 @@ angular.module('app', [
       template: '<profile-directive></profile-directive>'
     };
     $stateProvider.state(profileState);
+
+     var connectState = {
+      name: 'connect',
+      url: '/eposta-bagla',
+      template: '<connect-component></connect-component>'
+    };
+    $stateProvider.state(connectState);
   }])
-  .run(function ($rootScope, userService) {
-    activate();
 
-    function activate() {
-      return getUser().then(function () {
 
-      })
-    }
-
-    function getUser() {
-      return userService.getUser()
-        .then(function (respond) {
-          if (respond.data.OperationResult) 
-          {
-            $rootScope.user = respond.data.user;
-            $rootScope.flagLogin = true;
-          } 
-          else
-          {
-
-          }
-        })
-        .catch(function (err) {
-
-        });
-    }
-  });
 
   })(); 

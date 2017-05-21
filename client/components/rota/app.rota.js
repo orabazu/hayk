@@ -6,7 +6,7 @@
 
             var rotalarState = {
                 name: 'rotalar',
-                url: '/a/{term}?latSW&lngSW&latNE&lngNE',
+                url: '/rotalar/{term}?latSW&lngSW&latNE&lngNE',
                 template: '<navbar-directive></navbar-directive><rotalar></rotalar>',
                 reloadOnSearch: false,
             };

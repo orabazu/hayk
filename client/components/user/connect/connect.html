@@ -1,12 +1,12 @@
-<div class="right-image-register">
+<div class="image-connect">
     <div class="container">
 
         <div class="col-md-offset-4 col-md-4">
             <div class="panel card">
                 <div class="panel-body">
-                    <h1><span class="fa fa-user"></span> Kayıt Ol</h1>
+                    <h1><span class="fa fa-user"></span> Eposta bağla</h1>
 
-                    <form action="/signup" method="post" name="registerForm">
+                    <form action="/connect/local" method="post" name="registerForm">
                         <div class="form-group" ng-class="registerForm.email.$error.email ? 'has-error' : ''">
                             <label>Eposta</label>
                             <!--<pre>{{registerForm.password |json}}</pre>-->
@@ -26,18 +26,12 @@
                         </div>
                         <p class="form-error-text" ng-show="registerForm.password != undefined && registerForm.passwordConfirm.$error.equals" class="help-block">Parolalar eşleşmiyor</p>
 
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="registerForm.passwordConfirm.$error.equals"><i class="fa fa-tree"></i> Kaydol </button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block" ng-disabled="registerForm.passwordConfirm.$error.equals"><i class="fa fa-tree"></i> E-posta bağla </button>
                     </form>
 
-                    <p class="text-center padding-20">Ya da</p>
-                    <a href="/auth/facebook" target="_self"class="btn btn-primary btn-lg btn-facebook btn-block"><span class="fa fa-facebook"></span> Facebook</a>
-
                     <hr>
-
-                    <p>Kayıtlı mısınız ?
-                        <a href="/giris"> <i class="fa fa-user"></i> Giriş Yap</a>
-                    </p>
-                    <p> <a href="/"><i class="fa fa-arrow-left"></i> Ana sayfaya dön</a></p>
+                    <p>Hesabına bir eposta adresi ve şifre oluşturarak bunun ilede giriş yapabilirsin.</p>
+                    <p> <a href="" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> Geri</a></p>
 
                 </div>
 

@@ -45,30 +45,41 @@ router.use(function (req, res, next) {
 router.route('/tracks')
 
     .post(function (req, res) {
-        var track = new Track(); // create a new instance of the Track model
-        track.properties.name = req.body.name;
-        track.properties.distance = req.body.distance;
-        track.properties.altitude = req.body.altitude;
-        track.properties.summary = req.body.summary;
-        track.properties.img_src = req.body.img_src;
-        track.properties.ownedBy = req.body.ownedBy;
-        // track.properties.gpx = fs.readFileSync(req.body.gpx);
-        track.properties.gpx = req.body.gpx;
-        track.geometry.coordinates = req.body.coordinates;
 
-        // save the track and check for errors
-        track.save(function (err) {
-            if (err) {
-                res.status(400).send({
-                    OperationResult: false,
-                    Data: err
-                });
-            } else {
-                res.json({
-                    OperationResult: true,
-                });
-            }
-        });
+        //check user is online 
+        if (!req.user) {
+            var err = "Unauthorized"
+            res.status(401).send({
+                OperationResult: false,
+                Data: err
+            });
+        } else {
+            var track = new Track(); // create a new instance of the Track model
+            track.properties.name = req.body.name;
+            track.properties.distance = req.body.distance;
+            track.properties.altitude = req.body.altitude;
+            track.properties.summary = req.body.summary;
+            track.properties.img_src = req.body.img_src;
+            track.properties.ownedBy = req.user;
+            // track.properties.gpx = fs.readFileSync(req.body.gpx);
+            track.properties.gpx = req.body.gpx;
+            track.geometry.coordinates = req.body.coordinates;
+
+            // save the track and check for errors
+            track.save(function (err) {
+                if (err) {
+                    res.status(400).send({
+                        OperationResult: false,
+                        Data: err
+                    });
+                } else {
+                    res.json({
+                        OperationResult: true,
+                    });
+                }
+            });
+        }
+
     })
     // get all the users (accessed at GET http://localhost:8080/api/track)
     .get(function (req, res) {
@@ -137,11 +148,11 @@ router.route('/profile')
                 user: req.user // get the user out of session and pass to template
             });
         } else {
-            res.status = 400;
-            res.json({
+            var err = "Kullanıcı verileri alınamadı."
+            res.status(401).send({
                 OperationResult: false,
+                Data: err
             });
-            res.redirect("/login");
         }
     })
 
@@ -227,13 +238,13 @@ router.route('/weather/:lat/:lng')
             .language('tr')
             .exclude('minutely,hourly')
             .get()
-            .then(function(forecastResult){
+            .then(function (forecastResult) {
                 res.json({
                     OperationResult: true,
                     data: forecastResult // get the user out of session and pass to template
                 });
             })
-            .catch(function(forecastReject) {
+            .catch(function (forecastReject) {
                 // console.log(forecastReject)
                 res.status = 400;
                 res.json({

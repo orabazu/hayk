@@ -26,6 +26,7 @@ var componentsPathcss = 'client/components/*/*.css'
 var jsPath = [
   'client/components/utils.js',
   'client/components/app.js',
+  'client/components/app.run.js',  
   'client/components/app.content.js',
   'client/components/*/*.js',
   'client/components/content/*/*.js',

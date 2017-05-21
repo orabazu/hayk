@@ -5,7 +5,7 @@
             <div class="card testimonial-card">
                 <!--Bacground color-->
                 <div class="card-up default-color-dark">
-                </div> 
+                </div>
                 <!--Avatar-->
                 <div class="avatar">
                     <img src="{{user.avatar}}" class="img-circle img-responsive ">
@@ -15,7 +15,25 @@
                     <h4 class="card-title "> Profilim </h4>
                     <hr>
                     <!--Quotation-->
-                    <p><i class="fa fa-email "></i>{{user.local.email}}</p>
+                    <p ng-show="user.local.email"><i class="fa fa-email "></i> {{user.local.email}}</p>
+                    <p ng-show="user.facebook.name"><i class="fa fa-facebook-official"></i> {{user.facebook.name}}</p>
+                    
+
+                    <p ng-show="user.facebook.token && user.local.email">
+                        <a href="/unlink/facebook" target="_self" class="btn btn-primary btn-facebook"><i class="fa fa-facebook"></i> Facebook bağlantısını kaldır</a>
+                    </p>
+                    <p ng-show="!user.facebook.token">
+                        <a href="/connect/facebook" target="_self" class="btn btn-primary btn-facebook"><i class="fa fa-facebook"></i> Facebook hesabını bağla</a>
+                    </p>
+
+                    <p ng-show="!user.local.email">
+                        <a ui-sref="connect" class="btn btn-default"> E-posta hesabımı bağla </a> <br>
+                        <small class="font-size-12">   Tabiat izi hesabına başka bir e-posta adresi bağlayabilir ve bununlada giriş yapabilirsin. </small>
+                    </p>
+                    <p ng-show="user.facebook.token && user.local.email">
+                        <a ui-sref="connect" class="btn btn-default"> <b> {{user.local.email}} </b> E-posta bağlantısını kaldır </a> <br> 
+                    </p>
+
                     <!--<a class="btn btn-lg btn-warning " href="/logout " target="_self "><i class="fa fa-ban "></i> Çıkış</a>-->
                 </div>
             </div>

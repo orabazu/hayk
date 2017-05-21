@@ -10,7 +10,7 @@ var userSchema = mongoose.Schema({
     local: {
         email: {
             type: String,
-            required: true,
+            // required: true,
             trim: true,
             unique: true,
         },

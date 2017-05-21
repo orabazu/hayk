@@ -3,17 +3,17 @@
 * @example <div acme-shared-spinner></div>
 */
 angular
-    .module('app.register', ['passwordVerify'])
-    .directive('registerDirective', registerDirective);
+    .module('app.connect', [])
+    .directive('connectComponent', connectComponent);
    
-function registerDirective() {
+function connectComponent() {
     var directive = {
         restrict: 'EA',
-        templateUrl: '../../components/user/register/register.html',
+        templateUrl: '../../components/user/connect/connect.html',
         // scope: {
         //     max: '='
         // },
-        controller: registerController,
+        controller: connectController,
         controllerAs: 'vm',
         bindToController: true
     };
@@ -21,6 +21,6 @@ function registerDirective() {
     return directive;
 }
 
-function registerController() {
+function connectController() {
     var vm = this;
 }

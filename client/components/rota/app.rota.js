@@ -6,7 +6,7 @@
 
             var rotalarState = {
                 name: 'rotalar',
-                url: '/a/{term}?latSW&lngSW&latNE&lngNE',
+                url: '/rotalar/{term}?latSW&lngSW&latNE&lngNE',
                 template: '<navbar-directive></navbar-directive><rotalar></rotalar>',
                 reloadOnSearch: false,
             };
@@ -41,6 +41,20 @@
                 templateUrl: '../../components/rota/rotaekle.meta/rotaekle.meta.html'
             }
             $stateProvider.state(addTrackMetaState);
+
+            var addTrackCampState = {
+                name: 'addtrack.camp',
+                url: '/kamp',
+                templateUrl: '../../components/rota/rotaekle.kamp/rotaekle.kamp.html'
+            }
+            $stateProvider.state(addTrackCampState);
+
+            var addTrackSeasonState = {
+                name: 'addtrack.season',
+                url: '/sezon',
+                templateUrl: '../../components/rota/rotaekle.season/rotaekle.season.html'
+            }
+            $stateProvider.state(addTrackSeasonState);
 
             var addTrackImageState = {
                 name: 'addtrack.image',

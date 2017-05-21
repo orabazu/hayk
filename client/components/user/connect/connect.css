@@ -1,0 +1,8 @@
+.image-connect{
+	background: url('../../img/bg-3.jpg');
+	height: 100vh;
+	width: 100%;
+	display: block;
+	background-size: cover;
+	background-position: center;
+}  

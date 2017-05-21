@@ -1,0 +1,21 @@
+<div class="container layout-padding fit-form-element">
+    <div class="col-md-12">
+        <h3 class="text-center">3- Hangi sezonda gidilir ?</h3>
+        <div class="col-md-1 "></div>
+       
+        <a href="" class="select-panel-link" ng-repeat="season in rotaEkleController.seasons">
+            <div class="panel select-panel  col-md-offset-4  col-md-2 col-sm-4" ng-click="rotaEkleController.addSeason($index)" ng-class="rotaEkleController.checkAvailability(rotaEkleController.selectedSeasons,season.id)? 'panel-selected' : ''">
+                <div class="panel-body text-center">
+                    <img ng-src={{season.img}} class="select-img"></img>
+                    <p class="text-center"> <i class="fa fa-check-square-o" ng-show="rotaEkleController.checkAvailability(rotaEkleController.selectedSeasons,season.id)"></i> {{season.name}} </p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-offset-3 col-md-6 rotaekle-menu">
+        <hr>
+        <a ui-sref="addtrack.camp" class="pull-left btn-lg"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>
+        <a ui-sref="addtrack.meta" class="pull-right btn btn-primary btn-lg"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+
+</div>

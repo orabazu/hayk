@@ -749,3 +749,12 @@ ul.typeahead.dropdown-menu {
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
 	background-color: #fbab29;
 }
+
+.padding-10{
+	padding: 10px;
+}
+.padding-20{
+	padding: 20px;
+}.padding-30{
+	padding: 30px;
+}

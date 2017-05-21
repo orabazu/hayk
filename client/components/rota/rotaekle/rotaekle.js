@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.rotaekle', ['app.map','app.trackService', 'ngFileUpload', 'angular-ladda'])
+        .module('app.rotaekle', ['app.map', 'app.trackService', 'ngFileUpload', 'angular-ladda'])
         .controller('rotaEkleController', rotaEkleController)
 
 
@@ -11,16 +11,19 @@
     function rotaEkleController($scope, $rootScope, mapConfigService, reverseGeocode, trackService, $state, Upload) {
         // $ocLazyLoad.load('../../services/map/map.autocomplete.js');
         var vm = this;
+        console.log($state);
+        // vm.state = $state;
         vm.layers = mapConfigService.getLayer();
         vm.center = mapConfigService.getCenter();
         vm.location;
 
         //Track parameters
-        if(angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)){
-            $state.go('login');
+        if (angular.isUndefinedOrNull($rootScope.user) || angular.isUndefinedOrNull($rootScope.user._id)) {
+            // $state.go('login');
             // break;            
         }
-        vm.ownedBy = $rootScope.user._id;
+        // vm.ownedBy = $rootScope.user._id;
+
         vm.img_src = "src";
         vm.summary;
         vm.altitude;
@@ -29,9 +32,16 @@
         vm.coordinates = [];
         vm.uploadGPX = uploadGPX;
         vm.uploadPic = uploadPic;
-
+        vm.campSelected = campSelected;
+        vm.isCamp = null;
+        vm.seasons = [];
 
         $scope.loginLoading = true;
+        vm.toggleState = true;
+        vm.togglePanel = function () {
+            $('.next-step-panel .panel-body').toggle('hide');
+            // alert(1);
+        }
 
         vm.addTrack = function () {
             trackService.addTrack(vm).then(function (addTrackResponse) {
@@ -93,7 +103,50 @@
             }
         }
 
+        function campSelected(camp) {
+            vm.isCamp = camp;
+        }
 
+        vm.seasons = [{
+                name: 'ilkbahar',
+                img: '../../img/season/forest.svg',
+                id: 10
+            },
+            {
+                name: 'Yaz',
+                img: '../../img/season/beach.svg',
+                id: 20,
+            },
+            {
+                name: 'Sonbahar',
+                img: '../../img/season/fields.svg',
+                id: 30,
+            },
+            {
+                name: 'Kış',
+                img: '../../img/season/mountains.svg',
+                id: 40,
+            }
+        ];
+
+        vm.selectedSeasons = [];
+        vm.addSeason = addSeason;
+
+        function addSeason(index) {
+            var i = vm.selectedSeasons.indexOf(vm.seasons[index].id);
+            if (i > -1)
+                vm.selectedSeasons.splice(i, 1);
+            else
+                vm.selectedSeasons.push(vm.seasons[index].id);
+            console.log(vm.selectedSeasons);
+        };
+
+        vm.checkAvailability = checkAvailability;
+        function checkAvailability(arr, val) {
+            return arr.some(function (arrVal) {
+                return val === arrVal;
+            });
+        };
 
         angular.extend($scope, {
             markers: {
@@ -107,6 +160,10 @@
             }
         });
 
+        $scope.$on('currentStep', function (event, data) {
+            vm.currentStep = data;
+        })
+
         $scope.$on("leafletDirectiveMap.click", function (event, args) {
             var leafEvent = args.leafletEvent;
             reverseGeocode.geocodeLatlng(leafEvent.latlng.lat, leafEvent.latlng.lng).then(function (geocodeSuccess) {
@@ -119,6 +176,38 @@
             $scope.markers.mainMarker.lng = leafEvent.latlng.lng;
             vm.coordinates = [leafEvent.latlng.lng, leafEvent.latlng.lat];
         });
+
+        $scope.$on('$stateChangeSuccess',
+            function (event, toState, toParams, fromState, fromParams) {
+                var state = toState.name.split(".")[1];
+                var step;
+                switch (state) {
+                    case "location":
+                        step = 1;
+                        break;
+                    case "camp":
+                        step = 2;
+                        break;
+                    case "season":
+                        step = 3;
+                        break;
+                    case "meta":
+                        step = 4;
+                        break;
+                    case "image":
+                        step = 5;
+                        break;
+                    case "gpx":
+                        step = 6;
+                        break;
+                    case "finish":
+                        step = 7;
+                }
+                $scope.$emit('currentStep', step);
+                console.log(step);
+            })
+
+
     }
 
 })();

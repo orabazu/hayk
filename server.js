@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
@@ -8,68 +9,12 @@ var session = require('express-session');
 var _ = require('lodash');
 var MongoStore = require('connect-mongo')(session);
 var FacebookStrategy = require('passport-facebook').Strategy;
-var config = require('./server/config/config.js');
 var User = require('./server/models/user.js');
 var os = require("os");
-
-
-function generateOrFindUser(accessToken, refreshToken, profile, done) {
-
-	User.findOne({
-		'userid': profile.id
-	}, function (err, user) {
-		if (err)
-			return done(err);
-		// if the user is found, then log them in
-		if (user) {
-			return done(null, user); // user found, return that user
-		} else {
-			// if there is no user found with that facebook id, create them
-			var newUser = new User();
-
-			// set all of the facebook information in our user model
-			newUser.userid = profile.id;
-			if(profile.emails)
-			{
-		     newUser.email = profile.emails[0].value;
-			}
-			else {
-			 newUser.email = '';
-			}
-			 
-			newUser.name = profile.displayName || profile.username;
-			newUser.photo = profile.photos[0].value;
-
-			// save our user to the database
-			newUser.save(function (err) {
-				if (err)
-					throw err;
-				// if successful, return the new user
-				return done(null, newUser);
-			});
-		}
-	});
-}
-
-urltestString= "http://localhost:8080";
-urlProdString= "https://tabiatizi.herokuapp.com";
-
-
-passport.use(new FacebookStrategy({
-		clientID: process.env.FACEBOOK_APP_ID,
-		clientSecret: process.env.FACEBOOK_APP_SECRET,
-		callbackURL: urltestString + "/facebook/return",
-		profileFields: ['id', 'displayName', 'picture.type(large)', 'email']
-	},
-	generateOrFindUser));
-//passport ops
-passport.serializeUser(function (user, done) {
-	done(null, user._id);
-});
-
-passport.deserializeUser(function (userId, done) {
-	User.findById(userId, done);
-});
+var flash = require('connect-flash');
+require('./server/config/passport')(passport); // pass passport for configuration
+urltestString = "http://localhost:8080";
+urlProdString = "https://tabiatizi.herokuapp.com";
 
 // view engine setup
 app.set('view engine', 'ejs'); // set up ejs for templating
@@ -81,18 +26,17 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(morgan('dev')); //log files
+app.use(cookieParser()); // read cookies (needed for auth)
+
 
 /*
 CONNECT TO LOCAL DB
 mongoose.connect(config.database); // connect to database
 */
-
 mongoose.connect(process.env.MONGODB_URI, function (error) {
-    if (error);
-    else console.log('mongo connected');
+	if (error);
+	else console.log('mongo connected');
 });
-
-
 var db = mongoose.connection;
 
 // Session Configuration for Passport and MongoDB
@@ -106,15 +50,15 @@ var sessionOptions = {
 };
 
 app.use(session(sessionOptions));
-
-//Initialize Passport.js
 app.use(passport.initialize());
-
-//Restore session
-app.use(passport.session());
+app.use(passport.session()); //Restore session
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 var router = require('./server/routes/router');
 app.use('/api', router)
+
+
+
 // PROFILE SECTION =====================
 // =====================================
 // we will want this protected so you have to be logged in to visit
@@ -134,13 +78,31 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-//GET /auth/login/facebook
-app.get('/login/facebook', passport.authenticate('facebook', {
-	scope: ["email"]
-})); 
+//POST /signup
+app.post('/signup', passport.authenticate('local-signup', {
+	successRedirect: '/giris', // redirect to the secure profile section
+	failureRedirect: '/kayit', // redirect back to the signup page if there is an error
+	failureFlash: true // allow flash messages
+}));
 
-//GET /auth/facebook/return
-app.get('/facebook/return',
+// POST /login
+app.post('/login', passport.authenticate('local-login', {
+	successRedirect: '/profil', // redirect to the secure profile section
+	failureRedirect: '/giris', // redirect back to the signup page if there is an error
+	failureFlash: true // allow flash messages
+}));
+
+/*
+/auth/facebook: Send our user to Facebook to authenticate
+/auth/facebook/callback: Facebook sends our user back to our application here with token and profile information.
+*/
+// route for facebook authentication and login
+app.get('/auth/facebook', passport.authenticate('facebook', {
+	scope: 'email'
+}));
+
+// handle the callback after facebook has authenticated the user
+app.get('/auth/facebook/callback',
 	passport.authenticate('facebook', {
 		failureRedirect: '/'
 	}),
@@ -148,6 +110,67 @@ app.get('/facebook/return',
 		// Successful authentication, redirect home.
 		res.redirect('/profil');
 	});
+
+// =============================================================================
+// AUTHORIZE (ALREADY LOGGED IN / CONNECTING OTHER SOCIAL ACCOUNT) =============
+// =============================================================================
+
+// locally --------------------------------
+// app.get('/connect/local', function (req, res) {
+// 	res.render('connect-local.ejs', {
+// 		message: req.flash('loginMessage')
+// 	});
+// });
+app.post('/connect/local', passport.authenticate('local-signup', {
+	successRedirect: '/profil', // redirect to the secure profile section
+	failureRedirect: '/connect/local', // redirect back to the signup page if there is an error
+	failureFlash: true // allow flash messages
+}));
+
+// facebook -------------------------------
+
+// send to facebook to do the authentication
+app.get('/connect/facebook', passport.authorize('facebook', {
+	scope: 'email'
+}));
+
+// handle the callback after facebook has authorized the user
+app.get('/connect/facebook/callback',
+	passport.authorize('facebook', {
+		successRedirect: '/profile',
+		failureRedirect: '/'
+	}));
+
+
+// =============================================================================
+// UNLINK ACCOUNTS =============================================================
+// =============================================================================
+// used to unlink accounts. for social accounts, just remove the token
+// for local account, remove email and password
+// user account will stay active in case they want to reconnect in the future
+
+    // local -----------------------------------
+    app.get('/unlink/local', function(req, res) {
+        var user            = req.user;
+        user.local.email    = undefined;
+        user.local.password = undefined;
+        user.save(function(err) {
+            res.redirect('/profile');
+        });
+    });
+
+    // facebook -------------------------------
+    app.get('/unlink/facebook', function(req, res) {
+        var user            = req.user;
+        user.facebook.token = undefined;
+		user.facebook.name = '';
+		user.facebook.email = '';
+        user.save(function(err) {
+            res.redirect('/profile');
+        });
+    });
+
+
 
 //GET /auth/logout
 app.get('/logout', function (req, res) {
@@ -158,7 +181,6 @@ app.get('/logout', function (req, res) {
 app.get('*', function (req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
-
 
 app.listen(process.env.PORT || 8080, function () {
 	console.log('arazzi.io on port 8080');

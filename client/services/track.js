@@ -44,6 +44,8 @@ function trackService($http) {
 				"coordinates": track.coordinates,
 				"ownedBy": track.ownedBy,
 				"gpx": track.gpx,
+				"isCamp": track.isCamp,
+				"seasons": track.selectedSeasons,
 			})
 		})
 	}

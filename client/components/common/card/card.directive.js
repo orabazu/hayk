@@ -14,7 +14,7 @@ function cardDirective() {
             title: '<',
             summary: '<',
             owner:'<',
-            imgSrc:'<',
+            imgSrc:'<',    
             id: '<',
         },
         controller: CardController,

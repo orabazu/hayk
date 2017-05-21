@@ -9,8 +9,8 @@
 		<div class="col-md-8">
 			<div class="row card-block margin-bottom-15">
 				<div class="owner-detail">
-					<img class="owner-photo-detail" ng-src="{{vm.trackDetail.properties.ownedBy.photo}}">
-					<p class="owner-name text-center">{{vm.trackDetail.properties.ownedBy.name.split(" ")[0]}}</p>
+					<img class="owner-photo-detail" ng-src="{{vm.trackDetail.properties.ownedBy.avatar}}">
+					<p class="owner-name text-center">{{vm.trackDetail.properties.ownedBy.facebook.name}}</p>
 				</div>
 
 
@@ -79,12 +79,12 @@
 											<canvas id="icon{{$index+20}}" width="48" height="48"></canvas>
 										</span>
 										<p>
-											{{::dailyWeather.time | date : 'EEEE' }}
+											{{dailyWeather.time | date : 'EEEE' }}
 										</p>
 										<p>
-											<b>{{::dailyWeather.temperatureMax}} °C/ {{::dailyWeather.temperatureMin }} °C/</b>
+											<b>{{dailyWeather.temperatureMax}} °C/ {{dailyWeather.temperatureMin }} °C/</b>
 										</p>
-										<p>{{::dailyWeather.summary }}</p>
+										<p>{{dailyWeather.summary }}</p>
 
 
 									</div>
@@ -93,8 +93,8 @@
 							</div>
 						</div>
 						<a href="https://darksky.net/poweredby/" target="_blank">
-							<img src="../../img/darksky.svg" class="weather-hide-on-hover darksky-logo"/>
-							<img src="../../img/darksky_white.svg" class="weather-show-on-hover darksky-logo" />			
+							<img src="../../img/darksky.svg" class="weather-hide-on-hover darksky-logo" />
+							<img src="../../img/darksky_white.svg" class="weather-show-on-hover darksky-logo" />
 						</a>
 					</div>
 				</div>

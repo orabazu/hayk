@@ -1,2 +1,23 @@
 <navbar-directive></navbar-directive>
+<ul id="default-wizard-header" class="stepy-header">
+    <li id="default-wizard-head-0" class="" style="cursor: default;" ng-class="rotaEkleController.currentStep == 1 ? 'stepy-active':''">
+        <div>1</div><span>Konum</span>
+    </li>
+    <li id="default-wizard-head-1" class="stepy-active" style="cursor: default;" ng-class="rotaEkleController.currentStep == 2 ? 'stepy-active':''">
+        <div></div><span>Kamp</span>
+    </li>
+    <li id="default-wizard-head-2" style="cursor: default;" ng-class="rotaEkleController.currentStep == 3 ? 'stepy-active':''">
+        <div></div><span>Mevsim</span>
+    </li>
+        <li id="default-wizard-head-2" style="cursor: default;" ng-class="rotaEkleController.currentStep == 4 ? 'stepy-active':''">
+        <div></div><span>Rota Bilgileri</span>
+    </li>
+        <li id="default-wizard-head-2" class="" style="cursor: default;" ng-class=" (rotaEkleController.currentStep == 5) ? 'stepy-active':''">
+        <div></div><span>Foto & Video</span>
+    </li>
+    </li>
+        <li id="default-wizard-head-2" style="cursor: default;"ng-class="rotaEkleController.currentStep == 6 ? 'stepy-active':''">
+        <div></div><span>GPX</span>
+    </li>
+</ul>
 <div ui-view></div>

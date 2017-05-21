@@ -13,6 +13,9 @@ module.exports = mongoose.model('Track', new Schema({
         img_src: { type: String },
         img: {type:Buffer}, 
         gpx: {type:String},
+        isCamp: {type:Boolean},
+        seasons: [],
+
     },
     geometry: { 
         'type': {

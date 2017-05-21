@@ -31,11 +31,15 @@ function RotalarController($scope, $rootScope, $state, $stateParams, trackServic
     vm.openMap = openMap;
     vm.changeImg = changeImg;
     vm.params = {};
+
+
+
     if (angular.isUndefinedOrNull($stateParams.latNE) ||
         angular.isUndefinedOrNull($stateParams.lngNE) ||
         angular.isUndefinedOrNull($stateParams.latSW) ||
         angular.isUndefinedOrNull($stateParams.lngSW)
     ) {
+        // türkiyeye sabitlemek için
         vm.params.latNE = 44.292;
         vm.params.lngNE = 41.264;
         vm.params.latSW = 32.805;

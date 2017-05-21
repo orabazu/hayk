@@ -1,26 +1,61 @@
+<!--<div class="container-fluid container-fullwidth layout-padding padding-top-65">
+	<div class="row">
+		<div class="col-sm-12 app-height margin-top-14">
+			<leaflet lf-center="rotaEkleController.center" layers="rotaEkleController.layers" markers="markers" class="app-height" width="100%"></leaflet>
+
+			<div class="panel next-step-panel bg-orange">
+				<div class="panel-heading">
+					<a ng-click="rotaEkleController.togglePanel(); rotaEkleController.toggleState = !rotaEkleController.toggleState;" class="pull-right white btn action-menu-item" href="javascript:void(0);" ><i ng-class="rotaEkleController.toggleState == true ? 'fa fa-arrow-down':'fa fa-arrow-up'"></i></a>
+					<p class="white">1/4 Rota nereden başlıyor ? </p>
+				</div>
+				<div class="panel-body">
+					<form>
+						<div>
+							<p class="white">{{rotaEkleController.location}}</p>
+							<p class="">
+								<a ui-sref="addtrack.camp" class="pull-right white"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+							</p>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>-->
+
+
+
+
 <div class="container layout-padding">
 	<div class="col-md-offset-3 col-md-6 ">
-		<h3 class="text-center"> Konum </h3>
+		<h3 class="text-center"> 1- Konum </h3>
 		<div class="panel">
 			<div class="panel-heading">
-				<legend>Rotanızın başlangıç konumunu harita üzerinden seçin</legend>
+				
 			</div>
 			<div class="panel-body">
-				<!--<input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"
-					/>-->
-				</form>
 				<form>
 					<div style="height: 200px;">
 						<leaflet lf-center="rotaEkleController.center" layers="rotaEkleController.layers" markers="markers" height="100%" width="100%"></leaflet>
 					</div>
 					<div style="padding-top: 15px;">
 						<p>{{rotaEkleController.location}}</p>
-						<p class="">
-							<a ui-sref="addtrack.meta" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
-						</p>
+						<!--<p class="">
+							<a ui-sref="addtrack.camp" class="pull-right"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+						</p>-->
 					</div>
-					
+				</form>
+
 			</div>
 		</div>
 	</div>
+
+	 <div class="col-md-offset-3 col-md-6 rotaekle-menu">
+        <hr>
+        <!--<a ui-sref="addtrack.image" class="pull-left btn-lg"> <i class="fa fa-arrow-circle-left"></i> Geri dön </a>-->
+        <a ui-sref="addtrack.camp"  class="pull-right btn btn-primary btn-lg"> Devam et <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
 </div>

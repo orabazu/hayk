@@ -83,7 +83,7 @@
 
 @media screen and (min-width: 768px) {
     .panel {
-        margin: 15px;
+        margin: 15px 0px;
     }
 }
 

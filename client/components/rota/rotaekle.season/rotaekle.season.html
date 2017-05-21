@@ -1,44 +1,16 @@
 <div class="container layout-padding fit-form-element">
     <div class="col-md-12">
         <h3 class="text-center">3- Hangi sezonda gidilir ?</h3>
-        <div class="col-md-1"></div>
-        <a href="" class="select-panel-link">
-            <div class="panel select-panel col-md-2">
+        <div class="col-md-1 "></div>
+       
+        <a href="" class="select-panel-link" ng-repeat="season in rotaEkleController.seasons">
+            <div class="panel select-panel  col-md-offset-4  col-md-2 col-sm-4" ng-click="rotaEkleController.addSeason($index)" ng-class="rotaEkleController.checkAvailability(rotaEkleController.selectedSeasons,season.id)? 'panel-selected' : ''">
                 <div class="panel-body text-center">
-                    <img src="../../img/season/forest.svg" style="width:80px;" class="select-img"></img>
-                    <p class="text-center"> İlkbahar </p>
+                    <img ng-src={{season.img}} class="select-img"></img>
+                    <p class="text-center"> <i class="fa fa-check-square-o" ng-show="rotaEkleController.checkAvailability(rotaEkleController.selectedSeasons,season.id)"></i> {{season.name}} </p>
                 </div>
             </div>
         </a>
-
-        <a href="" class="select-panel-link">
-            <div class="panel select-panel col-md-2">
-                <div class="panel-body text-center">
-                    <img src="../../img/season/beach.svg" style="width:80px;" class="select-img"></img>
-                    <p class="text-center"> Yaz </p>
-                </div>
-            </div>
-        </a>
-
-        <a href="" class="select-panel-link">
-            <div class="panel select-panel col-md-2">
-                <div class="panel-body text-center">
-                    <img src="../../img/season/fields.svg" style="width:80px;" class="select-img"></img>
-                    <p class="text-center"> Sonbahar </p>
-                </div>
-            </div>
-        </a>
-        <div class="">
-            <a href="" class="select-panel-link">
-                <div class="panel select-panel col-md-2">
-                    <div class="panel-body text-center">
-                        <img src="../../img/season/mountains.svg" style="width:80px;" class="select-img"></img>
-                        <p class="text-center"> Kış </p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
     </div>
     <div class="col-md-offset-3 col-md-6 rotaekle-menu">
         <hr>

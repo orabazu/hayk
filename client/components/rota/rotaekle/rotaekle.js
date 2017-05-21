@@ -23,6 +23,7 @@
             // break;            
         }
         // vm.ownedBy = $rootScope.user._id;
+
         vm.img_src = "src";
         vm.summary;
         vm.altitude;
@@ -32,7 +33,8 @@
         vm.uploadGPX = uploadGPX;
         vm.uploadPic = uploadPic;
         vm.campSelected = campSelected;
-
+        vm.isCamp = null;
+        vm.seasons = [];
 
         $scope.loginLoading = true;
         vm.toggleState = true;
@@ -102,9 +104,49 @@
         }
 
         function campSelected(camp) {
-            $state.go("addtrack.season");
+            vm.isCamp = camp;
         }
 
+        vm.seasons = [{
+                name: 'ilkbahar',
+                img: '../../img/season/forest.svg',
+                id: 10
+            },
+            {
+                name: 'Yaz',
+                img: '../../img/season/beach.svg',
+                id: 20,
+            },
+            {
+                name: 'Sonbahar',
+                img: '../../img/season/fields.svg',
+                id: 30,
+            },
+            {
+                name: 'Kış',
+                img: '../../img/season/mountains.svg',
+                id: 40,
+            }
+        ];
+
+        vm.selectedSeasons = [];
+        vm.addSeason = addSeason;
+
+        function addSeason(index) {
+            var i = vm.selectedSeasons.indexOf(vm.seasons[index].id);
+            if (i > -1)
+                vm.selectedSeasons.splice(i, 1);
+            else
+                vm.selectedSeasons.push(vm.seasons[index].id);
+            console.log(vm.selectedSeasons);
+        };
+
+        vm.checkAvailability = checkAvailability;
+        function checkAvailability(arr, val) {
+            return arr.some(function (arrVal) {
+                return val === arrVal;
+            });
+        };
 
         angular.extend($scope, {
             markers: {
@@ -118,8 +160,8 @@
             }
         });
 
-        $scope.$on('currentStep', function(event, data) { 
-            vm.currentStep = data; 
+        $scope.$on('currentStep', function (event, data) {
+            vm.currentStep = data;
         })
 
         $scope.$on("leafletDirectiveMap.click", function (event, args) {

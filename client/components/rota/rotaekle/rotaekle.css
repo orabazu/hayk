@@ -66,7 +66,7 @@
     top: 43px;
     width: 50%;
     height: 2px;
-    background-color: #64c5b1;
+    background-color: #fbab29;
     z-index: 9;
 }
 .stepy-header li.stepy-active:after, .stepy-header li.stepy-active ~ li:after, .stepy-header li.stepy-active ~ li:before {
@@ -78,12 +78,12 @@
 
 .stepy-header li.stepy-active div {
     cursor: auto;
-    border-color: #64c5b1;
+    border-color: #fbab29;
     background-color: #ffffff;
-    color: #64c5b1;
+    color: #fbab29;
 }
 .stepy-header li div {
-    background-color: #64c5b1;
+    background-color: #fbab29;
     font-size: 0;
     position: relative;
     color: #ffffff;
@@ -91,14 +91,14 @@
     margin-right: auto;
     width: 48px;
     height: 48px;
-    border: 2px solid #64c5b1;
+    border: 2px solid #fbab29;
     z-index: 10;
     line-height: 44px;
     text-align: center;
     border-radius: 50%;
 }
 .stepy-header li.stepy-active span {
-    color: #64c5b1;
+    color: #fbab29;
 }
 .stepy-header li span {
     display: block;

@@ -64,6 +64,9 @@ router.route('/tracks')
             // track.properties.gpx = fs.readFileSync(req.body.gpx);
             track.properties.gpx = req.body.gpx;
             track.geometry.coordinates = req.body.coordinates;
+            track.properties.isCamp = req.body.isCamp;
+            track.properties.seasons = req.body.seasons;
+            
 
             // save the track and check for errors
             track.save(function (err) {

@@ -59,6 +59,7 @@ var vendorPath = [
   'client/bower_components/typeahead/angular-typeahead.js',
   'client/bower_components/sticky/jquery.jsticky.min.js',
   'client/bower_components/skycons/skycons.js', 
+  'client/bower_components/ng-dialog/js/ngDialog.min.js',   
   // 'client/bower_components/chart.js/Chart.min.js',
   // 'client/bower_components/angular-chart.js/dist/angular-chart.min.js'
 ];
@@ -73,6 +74,8 @@ var vendorCSSPath = [
   'client/bower_components/leaflet/dist/leaflet.css',
   'client/bower_components/ladda/dist/ladda.min.css',
   'client/bower_components/leaflet-fullscreen/dist/leaflet.fullscreen.css',
+  "client/bower_components/ng-dialog/css/ngDialog.min.css",
+  "client/bower_components/ng-dialog/css/ngDialog-theme-default.min.css",
 ];
 
 

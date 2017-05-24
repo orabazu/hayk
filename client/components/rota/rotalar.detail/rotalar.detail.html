@@ -1,3 +1,19 @@
+<script type="text/ng-template" id="templateId">
+	<div class="ngdialog-content">
+		<div class="ngdialog-message">
+			<h4>Bu rotayı silmek istediğine emin misin?</h4>
+			<div>Bu rotayı silerek tarihin tozlu sayfalarına yolluyorsun. </div>
+			<pre>{{vm.deleteTrack}}</pre>
+		</div>
+		<div class="ngdialog-buttons mt"> 
+			<button type="button" class="btn btn-primary" ng-click="closeDialog();">"" Geri </button>			
+			<a class="btn btn-pure" href="" ng-click="vm.deleteTrack()"><i class="fa fa-trash-o"></i> Sil</a>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</script>
+
+
 <div class="cover-photo-container">
 	<div class="cover-photo" style="background-image:url('{{vm.trackDetail.properties.img_src}}') ">
 
@@ -98,16 +114,6 @@
 						</a>
 					</div>
 				</div>
-
-
-
-
-
-
-
-
-
-
 			</div>
 
 			<div class="row card-block margin-bottom-15">
@@ -122,6 +128,10 @@
 					<p>
 						{{vm.trackDetail.properties.summary}}
 					</p>
+
+					<p class="text-right">
+						<a href="" ng-click="vm.deleteTrackOK()"><i class="fa fa-trash-o"></i> Sil</a>
+					</p>
 				</div>
 			</div>
 
@@ -132,9 +142,11 @@
 				<leaflet lf-center="vm.center" layers="vm.layers" controls="vm.controls" height="100%" width="100%"></leaflet>
 			</div>
 		</div>
+
 		<div class="col-md-12" id=stop>
 			<div id="disqus_thread"></div>
 		</div>
+
 
 
 		<script>

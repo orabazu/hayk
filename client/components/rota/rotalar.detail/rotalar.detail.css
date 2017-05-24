@@ -167,3 +167,11 @@
         height: 80vh;
     }
 }
+
+.container .padding-top-50 {
+    -webkit-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -moz-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -ms-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    -o-transition: .6s cubic-bezier(.42, 0, 0, .99);
+    transition: .6s cubic-bezier(.42, 0, 0, .99);
+}

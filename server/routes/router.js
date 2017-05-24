@@ -66,7 +66,7 @@ router.route('/tracks')
             track.geometry.coordinates = req.body.coordinates;
             track.properties.isCamp = req.body.isCamp;
             track.properties.seasons = req.body.seasons;
-            
+
 
             // save the track and check for errors
             track.save(function (err) {
@@ -139,6 +139,87 @@ router.route('/tracks/:id')
                     }
                 });
         })
+    })
+
+    .put(function (req, res) {
+        // use our bear model to find the bear we want
+        Track.findById(new ObjectId(req.params.id), function (err, track) {
+
+            if (err)
+                res.status(400).send({
+                    OperationResult: false,
+                    Data: err
+                });
+            track.properties.name = req.body.name;
+            track.properties.distance = req.body.distance;
+            track.properties.altitude = req.body.altitude;
+            track.properties.summary = req.body.summary;
+            track.properties.img_src = req.body.img_src;
+            track.properties.ownedBy = req.user;
+            track.properties.gpx = req.body.gpx;
+            track.geometry.coordinates = req.body.coordinates;
+            track.properties.isCamp = req.body.isCamp;
+            track.properties.seasons = req.body.seasons;
+
+            // save the bear
+            track.save(function (err, track) {
+                if (err)
+                    res.status(400).send(err);
+
+                res.status(200).json(track);
+            });
+
+        });
+    })
+
+    // delete the bear with this id (accessed at DELETE http://localhost:8080/api/bears/:bear_id)
+    .delete(function (req, res) {
+        if (req.user) {
+            var query;
+            query = Track.findOne({
+                '_id': new ObjectId(req.params.id)
+            }, function (err, response) {
+                query.populate('properties.ownedBy')
+                    .exec(function (err, track) {
+                        if (err) {
+                            res.status(400).send({
+                                OperationResult: false,
+                                Data: err
+                            });
+                        } else {
+                            if (track.properties.ownedBy._id.equals(req.user._id)) {
+                                Track.remove({
+                                    _id: req.params.id
+                                }, function (err, track) {
+                                    if (err)
+                                        res.send(err);
+                                   res.status(200).json({
+                                        OperationResult: true,
+                                    });
+                                });
+                            }
+                            else {
+                                res.status(403).send({
+                                OperationResult: false,
+                                Data: 'Unauthorized'
+                            });
+                            }
+                        }
+                    });
+            })
+
+
+
+
+
+        } else {
+            var err = "Kullanıcı verileri alınamadı."
+            res.status(401).send({
+                OperationResult: false,
+                Data: err
+            });
+        }
+
     });
 // --------------------------------------------------------------
 router.route('/profile')

@@ -33,7 +33,12 @@ var userSchema = mongoose.Schema({
         token: String,
         email: String,
         name: String
-    }
+    },
+    // role: {
+    //     type: String,
+    //     enum: ['Member', 'Client', 'Owner', 'Admin'],
+    //     default: 'Member'
+    // },
 
 });
 

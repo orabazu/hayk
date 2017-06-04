@@ -26,6 +26,8 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
     vm.updateTrack = updateTrack;
     vm.deleteTrack = deleteTrack;
     vm.deleteTrackOK = deleteTrackOK;
+    vm.updateTrack = updateTrack;
+    vm.updateTrackOK = updateTrackOK;
 
     activate();
 
@@ -154,24 +156,7 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             template: 'templateId',
             className: 'ngdialog-theme-default',
             showClose: false,
-            preCloseCallback: function (value) {
-               $('.container').css({
-                    'filter': 'none',
-                    '-webkit-filter': 'none',
-                    '-moz-filter': 'none',
-                    '-o-filter': 'none',
-                    '-ms-filter': 'none'
-                });
-            },
-            onOpenCallback: function (value) {
-                $('.container').css({
-                    'filter': 'blur(5px)',
-                    '-webkit-filter': 'blur(5px)',
-                    '-moz-filter': 'blur(5px)',
-                    '-o-filter': 'blur(5px)',
-                    '-ms-filter': 'blur(5px)'
-                });
-            },
+           
             scope: $scope
         });
     } 
@@ -186,5 +171,16 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             console.log('rej')
         });
     }
+
+    function updateTrackOK() {
+
+        ngDialog.open({
+            template: 'updateTrack',
+            className: 'ngdialog-theme-default',
+            showClose: false,
+            scope: $scope
+        });
+    }
+
 
 }

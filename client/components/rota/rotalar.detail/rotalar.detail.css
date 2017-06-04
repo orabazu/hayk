@@ -1,5 +1,5 @@
 .cover-photo-container {
-    height: 50vh;
+    height: 90vh;
 }
 
 .cover-photo {
@@ -174,4 +174,8 @@
     -ms-transition: .6s cubic-bezier(.42, 0, 0, .99);
     -o-transition: .6s cubic-bezier(.42, 0, 0, .99);
     transition: .6s cubic-bezier(.42, 0, 0, .99);
+}
+
+.detail-container {
+    margin-top: -12em;
 }

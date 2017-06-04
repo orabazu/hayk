@@ -3,16 +3,59 @@
 		<div class="ngdialog-message">
 			<h4>Bu rotayı silmek istediğine emin misin?</h4>
 			<div>Bu rotayı silerek tarihin tozlu sayfalarına yolluyorsun. </div>
-			<pre>{{vm.deleteTrack}}</pre>
+			<!--<pre>{{vm.deleteTrack}}</pre>-->
 		</div>
-		<div class="ngdialog-buttons mt"> 
-			<button type="button" class="btn btn-primary" ng-click="closeDialog();">"" Geri </button>			
+		<div class="ngdialog-buttons mt">
+			<button type="button" class="btn btn-primary" ng-click="closeDialog();">Geri </button>
 			<a class="btn btn-pure" href="" ng-click="vm.deleteTrack()"><i class="fa fa-trash-o"></i> Sil</a>
 		</div>
 		<div class="ngdialog-close"></div>
 	</div>
 </script>
 
+<script type="text/ng-template" id="updateTrack">
+	<div class="ngdialog-content">
+		<div class="ngdialog-message">
+			<h4>ROTAYI GÜNCELLE</h4>
+			<form>
+				<div class="form-group">
+					<label class="col-md-3 control-label" for="ozet"> Ad</label>
+					<div class="col-md-9">
+						<input class="form-control" id="ad" name="ad" ng-model="vm.trackDetail.properties.name"> </input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label" for="ozet">Özet</label>
+					<div class="col-md-9">
+						<textarea class="form-control" id="ozet" name="ozet" ng-model="rotaEkleController.summary">Rota hakkında genel bilgiler</textarea>
+					</div>
+				</div>
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-3 control-label" for="textinput">Rakım (m)</label>
+					<div class="col-md-9">
+						<input id="textinput" name="textinput" type="text" placeholder="Örn: 1365" class="form-control input-md" ng-model="rotaEkleController.altitude">
+						<!--<span class="help-block">help</span>-->
+					</div>
+				</div>
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-3 control-label" for="textinput">Uzunluk (km)</label>
+					<div class="col-md-9">
+						<input id="textinput" name="textinput" type="text" placeholder="Örn: 13" class="form-control input-md" ng-model="rotaEkleController.distance"
+						    required>
+						<span ng-show="!rota.meta.$valid" class="help-block">Zorunlu alan</span>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="ngdialog-buttons mt">
+			<button type="button" class="btn btn-pure" ng-click="closeDialog();"> Geri </button>
+			<a class="btn btn-primary" href="" ng-click="vm.updateTrack()"><i class="fa fa-trash-o"></i> Güncelle</a>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</script>
 
 <div class="cover-photo-container">
 	<div class="cover-photo" style="background-image:url('{{vm.trackDetail.properties.img_src}}') ">
@@ -20,7 +63,7 @@
 	</div>
 </div>
 <!--<img class="detail-cover-photo" ng-src="{{vm.trackDetail.properties.img_src}}">-->
-<div class="container padding-top-50">
+<div class="container detail-container">
 	<div class="row">
 		<div class="col-md-8">
 			<div class="row card-block margin-bottom-15">
@@ -128,9 +171,9 @@
 					<p>
 						{{vm.trackDetail.properties.summary}}
 					</p>
-
 					<p class="text-right">
-						<a href="" ng-click="vm.deleteTrackOK()"><i class="fa fa-trash-o"></i> Sil</a>
+						<a href="" class="btn btn-primary btn-lg" ng-click="vm.updateTrackOK()"><i class="fa fa-trash-o"></i> Güncelle</a>
+						<a href="" class="btn btn-pure btn-lg" ng-click="vm.deleteTrackOK()"><i class="fa fa-trash-o"></i> Sil</a>
 					</p>
 				</div>
 			</div>

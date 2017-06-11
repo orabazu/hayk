@@ -36,7 +36,7 @@
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
     transform: translateZ(0);
-    background: #FFEB3B!important;
+    background: rgb(251, 171, 41)!important;
 }
 
 .panel-selected p {

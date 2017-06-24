@@ -146,10 +146,6 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
         }
     }
 
-    function updateTrack() {
-        return trackService.updateTrack(vm.trackDetail).then(function () {}, function () {});
-    }
-
     function deleteTrackOK() {
 
         ngDialog.open({
@@ -180,6 +176,10 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             showClose: false,
             scope: $scope
         });
+    }
+        
+    function updateTrack() {
+        return trackService.updateTrack(vm.trackDetail).then(function () {}, function () {});
     }
 
 

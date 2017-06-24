@@ -59,18 +59,7 @@ function trackService($http) {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: $.param({
-				"name": track.name,
-				"distance": track.distance,
-				"altitude": track.altitude,
-				"summary": track.summary,
-				"img_src": track.img_src,
-				"coordinates": track.coordinates,
-				"ownedBy": track.ownedBy,
-				"gpx": track.gpx,
-				"isCamp": track.isCamp,
-				"seasons": track.selectedSeasons,
-			})
+			data: $.param(track),
 		})
 	}
 

@@ -179,3 +179,11 @@
 .detail-container {
     margin-top: -12em;
 }
+
+select#seasons {
+    width: 99%;
+}
+
+select#seasons option {
+    padding-bottom: 7px;
+}

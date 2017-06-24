@@ -1,27 +1,27 @@
-  (function () {
-      'use strict';
+//   (function () {
+//       'use strict';
 
-        angular
-            .module('app.rotalarim', [])
-            .directive('rotalarim', rotalarim)
+//         angular
+//             .module('app.rotalarim', [])
+//             .directive('rotalarim', rotalarim)
 
-        function rotalarDetail() {
-            var directive = {
-                restrict: 'A',
-                templateUrl: '../../components/rota/rotalarim/rotalarim.html',
-                scope: {},
-                controller: RotalarimController,
-                controllerAs: 'vm',
-                bindToController: true
-            };
+//         function rotalarDetail() {
+//             var directive = {
+//                 restrict: 'A',
+//                 templateUrl: '../../components/rota/rotalarim/rotalarim.html',
+//                 scope: {},
+//                 controller: RotalarimController,
+//                 controllerAs: 'vm',
+//                 bindToController: true
+//             };
 
-            return directive; 
-        }
+//             return directive; 
+//         }
 
-        RotalarimController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData', 'weatherAPI', 'ngDialog'];
+//         RotalarimController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData', 'weatherAPI', 'ngDialog'];
 
-        function RotalarimController(){
+//         function RotalarimController(){
              
-        }
+//         }
 
-  })();
+//   })();

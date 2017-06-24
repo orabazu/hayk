@@ -127,7 +127,7 @@
                 img: '../../img/season/mountains.svg',
                 id: 40,
             }
-        ];
+        ]; 
 
         vm.selectedSeasons = [];
         vm.addSeason = addSeason;

@@ -17,34 +17,36 @@
 	<div class="ngdialog-content">
 		<div class="ngdialog-message">
 			<h4>ROTAYI GÜNCELLE</h4>
+			<pre> {{ vm.trackDetail.properties | json}}</pre>
 			<form>
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="ozet"> Ad</label>
-					<div class="col-md-9">
+					<label class="control-label" for="ad"> Rota Adı: </label>
+					<div class="">
 						<input class="form-control" id="ad" name="ad" ng-model="vm.trackDetail.properties.name"> </input>
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="ozet">Özet</label>
-					<div class="col-md-9">
-						<textarea class="form-control" id="ozet" name="ozet" ng-model="rotaEkleController.summary">Rota hakkında genel bilgiler</textarea>
+					<label class="control-label" for="ozet">Rota Özet Bilgileri:</label>
+					<div class="">
+						<textarea class="form-control" id="ozet" name="ozet" ng-model="vm.trackDetail.properties.summary">Rota hakkında genel bilgiler</textarea>
 					</div>
 				</div>
-				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Rakım (m)</label>
-					<div class="col-md-9">
-						<input id="textinput" name="textinput" type="text" placeholder="Örn: 1365" class="form-control input-md" ng-model="rotaEkleController.altitude">
-						<!--<span class="help-block">help</span>-->
+					<label class="control-label" for="ozet">Kamp durumu:</label>
+					<div>
+						<label class="radio-inline"><input type="radio" name="kampli">Kamplı </label>
+						<label class="radio-inline"><input type="radio" name="kampsiz">Kampsız </label>
 					</div>
 				</div>
-				<!-- Text input-->
 				<div class="form-group">
-					<label class="col-md-3 control-label" for="textinput">Uzunluk (km)</label>
-					<div class="col-md-9">
-						<input id="textinput" name="textinput" type="text" placeholder="Örn: 13" class="form-control input-md" ng-model="rotaEkleController.distance"
-						    required>
-						<span ng-show="!rota.meta.$valid" class="help-block">Zorunlu alan</span>
+					<label class="control-label" for="ozet">Ne zaman gidilir:</label>
+					<div>
+						<select name="seasons" id="seasons" ng-model="vm.trackDetail.properties.seasons" multiple>
+							<option value=10>İlkbahar</option>
+							<option value=20>Yaz</option>
+							<option value=30>Sonbahar</option>
+							<option value=40>Kış</option>							
+						</select><br>
 					</div>
 				</div>
 			</form>

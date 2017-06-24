@@ -178,8 +178,8 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
         });
     }
         
-    function updateTrack() {
-        return trackService.updateTrack(vm.trackDetail).then(function () {}, function () {});
+    function updateTrack(detail) {
+        return trackService.updateTrack(detail).then(function () {}, function () {});
     }
 
 

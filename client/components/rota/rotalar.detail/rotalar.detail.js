@@ -22,13 +22,17 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
     vm.trackDetail = {};
     vm.center = {};
     vm.layers = mapConfigService.getLayerForDetail();
-    vm.controls = controls;
+    vm.controls = {
+        fullscreen: {
+            position: 'topleft'
+        }
+    };
     vm.updateTrack = updateTrack;
     vm.deleteTrack = deleteTrack;
     vm.deleteTrackOK = deleteTrackOK;
     vm.updateTrack = updateTrack;
     vm.updateTrackOK = updateTrackOK;
-
+ 
     activate();
 
     function activate() {
@@ -139,11 +143,6 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
 
         })
 
-    }
-    var controls = {
-        fullscreen: {
-            position: 'topleft'
-        }
     }
 
     function deleteTrackOK() {

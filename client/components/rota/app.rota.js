@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('app.rota', ['app.rotalar', 'app.rotalarDetail', 'app.rotaekle', 'ui.router'])
+        .module('app.rota', ['app.rotalar', 'app.rotalarDetail', 'app.rotaekle', 'ui.router','ngDialog'])
         .config(function ($stateProvider) { // provider-injector
 
             var rotalarState = {

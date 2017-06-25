@@ -1,10 +1,71 @@
+<script type="text/ng-template" id="templateId">
+	<div class="ngdialog-content">
+		<div class="ngdialog-message">
+			<h4>Bu rotayı silmek istediğine emin misin?</h4>
+			<div>Bu rotayı silerek tarihin tozlu sayfalarına yolluyorsun. </div>
+			<!--<pre>{{vm.deleteTrack}}</pre>-->
+		</div>
+		<div class="ngdialog-buttons mt">
+			<button type="button" class="btn btn-primary" ng-click="closeDialog();">Geri </button>
+			<a class="btn btn-pure" href="" ng-click="vm.deleteTrack()"><i class="fa fa-trash-o"></i> Sil</a>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="updateTrack">
+	<div class="ngdialog-content">
+		<div class="ngdialog-message">
+			<h4>ROTAYI GÜNCELLE</h4>
+			<pre> {{ vm.trackDetail.properties | json}}</pre>
+			<form>
+				<div class="form-group">
+					<label class="control-label" for="ad"> Rota Adı: </label>
+					<div class="">
+						<input class="form-control" id="ad" name="ad" ng-model="vm.trackDetail.properties.name"> </input>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="ozet">Rota Özet Bilgileri:</label>
+					<div class="">
+						<textarea class="form-control" id="ozet" name="ozet" ng-model="vm.trackDetail.properties.summary">Rota hakkında genel bilgiler</textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="ozet">Kamp durumu:</label>
+					<div>
+						<label class="radio-inline"><input type="radio" name="kampli" value=10 ng-model="vm.trackDetail.properties.isCamped">Kamplı </label>
+						<label class="radio-inline"><input type="radio" name="kampsiz" value=20 ng-model="vm.trackDetail.properties.isCamped">Kampsız </label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="ozet">Ne zaman gidilir:</label>
+					<div>
+						<select name="seasons" id="seasons" ng-model="vm.trackDetail.properties.seasons" multiple>
+							<option value=10>İlkbahar</option>
+							<option value=20>Yaz</option>
+							<option value=30>Sonbahar</option>
+							<option value=40>Kış</option>							
+						</select><br>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="ngdialog-buttons mt">
+			<button type="button" class="btn btn-pure" ng-click="closeDialog();"> Geri </button>
+			<a class="btn btn-primary" href="" ng-click="vm.updateTrack(vm.trackDetail)"><i class="fa fa-trash-o"></i> Güncelle</a>
+		</div>
+		<div class="ngdialog-close"></div>
+	</div>
+</script>
+
 <div class="cover-photo-container">
 	<div class="cover-photo" style="background-image:url('{{vm.trackDetail.properties.img_src}}') ">
 
 	</div>
 </div>
 <!--<img class="detail-cover-photo" ng-src="{{vm.trackDetail.properties.img_src}}">-->
-<div class="container padding-top-50">
+<div class="container detail-container">
 	<div class="row">
 		<div class="col-md-8">
 			<div class="row card-block margin-bottom-15">
@@ -98,16 +159,6 @@
 						</a>
 					</div>
 				</div>
-
-
-
-
-
-
-
-
-
-
 			</div>
 
 			<div class="row card-block margin-bottom-15">
@@ -122,6 +173,10 @@
 					<p>
 						{{vm.trackDetail.properties.summary}}
 					</p>
+					<p class="text-right">
+						<a href="" class="btn btn-primary btn-lg" ng-click="vm.updateTrackOK()"><i class="fa fa-trash-o"></i> Güncelle</a>
+						<a href="" class="btn btn-pure btn-lg" ng-click="vm.deleteTrackOK()"><i class="fa fa-trash-o"></i> Sil</a>
+					</p>
 				</div>
 			</div>
 
@@ -132,9 +187,11 @@
 				<leaflet lf-center="vm.center" layers="vm.layers" controls="vm.controls" height="100%" width="100%"></leaflet>
 			</div>
 		</div>
+
 		<div class="col-md-12" id=stop>
 			<div id="disqus_thread"></div>
 		</div>
+
 
 
 		<script>

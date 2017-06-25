@@ -12,16 +12,27 @@ function rotalarDetail() {
         bindToController: true
     };
 
-    return directive;
+    return directive; 
 }
 
-RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData', 'weatherAPI'];
+RotalarDetailController.$inject = ['$scope', '$stateParams', 'trackService', 'mapConfigService', 'leafletData', 'weatherAPI', 'ngDialog'];
 
-function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData, weatherAPI) {
+function RotalarDetailController($scope, $stateParams, trackService, mapConfigService, leafletData, weatherAPI, ngDialog) {
     var vm = this;
     vm.trackDetail = {};
     vm.center = {};
-
+    vm.layers = mapConfigService.getLayerForDetail();
+    vm.controls = {
+        fullscreen: {
+            position: 'topleft'
+        }
+    };
+    vm.updateTrack = updateTrack;
+    vm.deleteTrack = deleteTrack;
+    vm.deleteTrackOK = deleteTrackOK;
+    vm.updateTrack = updateTrack;
+    vm.updateTrackOK = updateTrackOK;
+ 
     activate();
 
     function activate() {
@@ -72,7 +83,7 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
             })
 
             leafletData.getMap().then(function (map) {
-                if(window.mobilecheck())
+                if (window.mobilecheck())
                     map.scrollWheelZoom.disable();
                 // map.dragging.disable();
 
@@ -125,7 +136,7 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                         bounds = L.latLngBounds(southWest, northEast);
 
                     map.setMaxBounds(bounds);
-                    map._layersMinZoom=10
+                    map._layersMinZoom = 10
                 });
                 g.addTo(map);
             });
@@ -134,13 +145,41 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
 
     }
 
+    function deleteTrackOK() {
 
-    vm.layers = mapConfigService.getLayerForDetail();
-    var controls = {
-        fullscreen: {
-            position: 'topleft'
-        }
+        ngDialog.open({
+            template: 'templateId',
+            className: 'ngdialog-theme-default',
+            showClose: false,
+           
+            scope: $scope
+        });
+    } 
+
+    function deleteTrack() {
+        console.log(1);
+        trackService.deleteTrack(vm.trackDetail).then(function (res) {
+            if(res.OperationResult === true) {
+                $state.go("rotalarState"); 
+            }
+        }, function (rej) {
+            console.log('rej')
+        });
     }
-    vm.controls = controls;
+
+    function updateTrackOK() {
+
+        ngDialog.open({
+            template: 'updateTrack',
+            className: 'ngdialog-theme-default',
+            showClose: false,
+            scope: $scope
+        });
+    }
+        
+    function updateTrack(detail) {
+        return trackService.updateTrack(detail).then(function () {}, function () {});
+    }
+
 
 }

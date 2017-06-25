@@ -46,8 +46,7 @@
         vm.addTrack = function () {
             trackService.addTrack(vm).then(function (addTrackResponse) {
                 $state.go('rotalar');
-            }, function (addTrackError) {
-
+            }, function (addTrackError) { 
             })
         }
 
@@ -127,7 +126,7 @@
                 img: '../../img/season/mountains.svg',
                 id: 40,
             }
-        ];
+        ]; 
 
         vm.selectedSeasons = [];
         vm.addSeason = addSeason;

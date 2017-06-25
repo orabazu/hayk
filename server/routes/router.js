@@ -269,15 +269,15 @@ router.route('/photos')
         upload.array('file', 1)(req, res, function (err) {
             // console.log(req.file);
             if (err) {
-                res.json({
+                res.status(400).send({
                     OperationResult: false,
                     Error: err
                 });
                 return;
             }
-            var path = req.files[0].path;
+            var path = req.files[0].destination + '/' + req.files[0].filename;
 
-            cloudinary.uploader.upload(req.files[0].path,
+            cloudinary.uploader.upload(path,
                 function (cloudinaryRes) {
                     fs.unlink(path);
                     res.json({
@@ -303,9 +303,9 @@ router.route('/gpx')
                 return;
             }
 
-            var path = req.files[0].path;
+             var path = req.files[0].destination + '/' + req.files[0].filename;
 
-            cloudinary.uploader.upload(req.files[0].path,
+            cloudinary.uploader.upload(path,
                 function (cloudinaryRes) {
                     fs.unlink(path);
                     res.json({

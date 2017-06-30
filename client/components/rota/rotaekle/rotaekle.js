@@ -46,33 +46,39 @@
         vm.addTrack = function () {
             trackService.addTrack(vm).then(function (addTrackResponse) {
                 $state.go('rotalar');
-            }, function (addTrackError) { 
-            })
+            }, function (addTrackError) {})
         }
 
         function uploadPic(file) {
             if (file) {
                 vm.uploading = true;
-                file.upload = Upload.upload({
-                        url: 'api/photos/',
-                        data: {
-                            file: file
-                        },
-                    })
-                    .then(function (resp) {
-                            if (resp.data.OperationResult === true) {
-                                vm.img_src = resp.data.Data.path
-                                $state.go('addtrack.gpx');
-                            } else {
+                var imageFile;
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = function (e) {
+                    imageFile = e.target.result;
+                    file.upload = Upload.upload({
+                            url: 'api/photos/',
+                            data: {
+                                file: imageFile
+                            },
+                        })
+                        .then(function (resp) {
+                                if (resp.data.OperationResult === true) {
+                                    vm.img_src = resp.data.Data.path
+                                    $state.go('addtrack.gpx');
+                                } else {
 
-                            }
-                        },
-                        function (resp) { //catch error
+                                }
+                            },
+                            function (resp) { //catch error
 
-                        })['finally'](
-                        function () {
-                            vm.uploading = false;
-                        });
+                            })['finally'](
+                            function () {
+                                vm.uploading = false;
+                            });
+                }
+
             }
         }
 
@@ -98,7 +104,8 @@
                         })['finally'](
                         function () {
                             vm.uploading = false;
-                        });
+                        })
+
             }
         }
 
@@ -126,7 +133,7 @@
                 img: '../../img/season/mountains.svg',
                 id: 40,
             }
-        ]; 
+        ];
 
         vm.selectedSeasons = [];
         vm.addSeason = addSeason;
@@ -141,6 +148,7 @@
         };
 
         vm.checkAvailability = checkAvailability;
+
         function checkAvailability(arr, val) {
             return arr.some(function (arrVal) {
                 return val === arrVal;

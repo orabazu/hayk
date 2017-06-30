@@ -275,11 +275,11 @@ router.route('/photos')
                 });
                 return;
             }
-            var path = req.files[0].destination + '/' + req.files[0].filename;
+            // var path = req.files[0].destination + '/' + req.files[0].filename;
 
-            cloudinary.uploader.upload(path,
+            cloudinary.uploader.upload(req.body.file,
                 function (cloudinaryRes) {
-                    fs.unlink(path);
+                    // fs.unlink(path);
                     res.json({
                         OperationResult: true,
                         Error: null,
@@ -303,11 +303,10 @@ router.route('/gpx')
                 return;
             }
 
-             var path = req.files[0].destination + '/' + req.files[0].filename;
+            //  var path = req.files[0].destination + '/' + req.files[0].filename;
 
-            cloudinary.uploader.upload(path,
-                function (cloudinaryRes) {
-                    fs.unlink(path);
+            cloudinary.uploader.upload(req.files[0].path,
+                function (cloudinaryRes) {                   
                     res.json({
                         OperationResult: true,
                         Error: null,

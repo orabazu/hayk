@@ -82,7 +82,7 @@
             }
         }
 
-        function uploadGPX(file) {
+       function uploadGPX(file) {
             if (file) {
                 vm.uploading = true;
                 file.upload = Upload.upload({
@@ -97,7 +97,7 @@
                                 $state.go('addtrack.finish');
                             } else {
 
-                            }
+                            } 
                         },
                         function (resp) { //catch error
 
@@ -108,6 +108,7 @@
 
             }
         }
+
 
         function campSelected(camp) {
             vm.isCamp = camp;

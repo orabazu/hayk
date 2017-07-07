@@ -264,6 +264,7 @@ router.route('/profile')
 
 
 
+
 router.route('/photos')
     .post(function (req, res) {
         upload.array('file', 1)(req, res, function (err) {
@@ -303,10 +304,11 @@ router.route('/gpx')
                 return;
             }
 
-            //  var path = req.files[0].destination + '/' + req.files[0].filename;
+            var path = req.files[0].destination + '/' + req.files[0].filename;
 
             cloudinary.uploader.upload(req.files[0].path,
-                function (cloudinaryRes) {                   
+                function (cloudinaryRes) {
+                    fs.unlink(path);
                     res.json({
                         OperationResult: true,
                         Error: null,
@@ -314,9 +316,11 @@ router.route('/gpx')
                             path: cloudinaryRes.secure_url,
                         }
                     });
-                }, {
+                }, 
+                {
                     resource_type: "raw"
                 });
+        
 
 
 

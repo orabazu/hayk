@@ -7,7 +7,7 @@ module.exports = {
     'facebookAuth' : {
         'clientID'      : process.env.FACEBOOK_APP_ID, 
         'clientSecret'  : process.env.FACEBOOK_APP_SECRET,
-        'callbackURL'   : urltestString + '/auth/facebook/callback',
+        'callbackURL'   : urlProdString + '/auth/facebook/callback',
         'profileFields': ['id', 'displayName', 'picture.type(large)', 'email'],
     },
 

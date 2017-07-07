@@ -1,5 +1,4 @@
 node_modules
 client/bower_components
 data
-client/dist/uploads
 server/uploads

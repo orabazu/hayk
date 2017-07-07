@@ -13,6 +13,8 @@
 		</div>
 		<div ng-repeat="marker in vm.markers track by marker.properties.id" ng-show="!vm.markersEmpty">
 			<div class="col-md-6 margin-bottom-60">
+			<div class="clearfix" ng-if="$index % 2 == 1">{{}}</div>
+				
 				<!-- CARD  -->
 				<card-directive 
 				ng-mouseover="vm.removeIcon(marker)" 
@@ -24,7 +26,6 @@
 				id=marker.properties.id>
 				</card-directive>
 			</div>
-			<div class="clearfix" ng-if="$index % 3 == 1">{{}}</div>
 		</div>
 
 

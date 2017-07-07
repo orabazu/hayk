@@ -11,7 +11,7 @@
                         <!-- Form Name -->
                         <br>GPX: 
                         <input type="file" class="btn btn-primary btn-file" ngf-select ng-model="gpxFile" name="file" accept=".gpx" ngf-max-size="15MB"
-                            required ngf-model-invalid="errorFile">
+                            required ngf-model-invalid="errorFile" style="max-width:100%;">
                         <i ng-show="rota.image.file.$error.maxSize">Dosya çok büyük {{errorFile.size / 1000000|number:1}}MB: En fazla 15MB</i>
                         <button class="btn btn-primary" ng-click="gpxFile = null" ng-show="gpxFile">Sil</button>
                         <br>

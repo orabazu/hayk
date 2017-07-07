@@ -10,8 +10,8 @@
                     <fieldset ng-form="rota.image" enctype="multipart/form-data">
                         <!-- Form Name -->
                         <br>Fotoğraf:
-                        <input type="file" class="btn btn-primary btn-file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB"
-                            required ngf-model-invalid="errorFile">
+                        <input type="file" class="btn btn-primary btn-file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="3MB"
+                            required ngf-model-invalid="errorFile" style="max-width:100%;">
                         <i ng-show="rota.image.file.$error.required">*zorunlu</i><br>
                         <i ng-show="rota.image.file.$error.maxSize">Dosya çok büyük {{errorFile.size / 1000000|number:1}}MB: En fazla 2MB</i>
                         <img ng-show="rota.image.file.$valid" ngf-thumbnail="picFile" class="thumb">

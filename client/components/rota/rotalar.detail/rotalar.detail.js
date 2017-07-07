@@ -30,7 +30,7 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
     vm.updateTrack = updateTrack;
     vm.deleteTrack = deleteTrack;
     vm.deleteTrackOK = deleteTrackOK;
-    vm.updateTrack = updateTrack;
+    vm.updateTrack = updateTrack; 
     vm.updateTrackOK = updateTrackOK;
  
     activate();
@@ -114,9 +114,9 @@ function RotalarDetailController($scope, $stateParams, trackService, mapConfigSe
                     vm.gpxData.distance = e.target.get_distance();
                     vm.gpxData.eleMin = e.target.get_elevation_min();
                     vm.gpxData.eleMax = e.target.get_elevation_max();
-                    vm.data = {
-                        dataset0: e.target.get_elevation_data()
-                    }
+                    // vm.data = {
+                    //     dataset0: e.target.get_elevation_data()
+                    // }
 
                     map.fitBounds(e.target.getBounds());
                     console.log(e.target.getBounds())

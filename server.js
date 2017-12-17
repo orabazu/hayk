@@ -13,6 +13,11 @@ var User = require('./server/models/user.js');
 var os = require("os");
 var flash = require('connect-flash');
 require('./server/config/passport')(passport); // pass passport for configuration
+
+var dotenv = require('dotenv')
+dotenv.config();
+
+
 urltestString = "http://localhost:8080";
 urlProdString = "https://tabiatizi.herokuapp.com";
 

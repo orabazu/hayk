@@ -15,7 +15,8 @@
  /*global L:false */
 (function () {
   "use strict";
-  var accessToken = 'pk.eyJ1Ijoib3JhYmF6b3IiLCJhIjoidG9LRHliNCJ9.SHYbmfen-jwKWCYDiOBUWQ';
+  // var accessToken = 'pk.eyJ1Ijoib3JhYmF6b3IiLCJhIjoidG9LRHliNCJ9.SHYbmfen-jwKWCYDiOBUWQ';
+  var accessToken = 'pk.eyJ1Ijoib3plcm9yaHVuIiwiYSI6ImNqYmF4NHh2dTEwbTAycHAzbnd4azhwcGEifQ.LsST6QrnJ0XEar6wgnnfSg'
   L.MakiMarkers = {
     // Available Maki Icons
     icons: ["airfield","airport","alcohol-shop","america-football","art-gallery","bakery","bank","bar",
